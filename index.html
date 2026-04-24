@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +11,23 @@
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-background:#030712;
+background:#020611;
 color:#d9faff;
 font-family:'Inter',sans-serif;
 overflow-x:hidden;
+cursor:none;
+}
+
+/* CURSOR */
+.cursor{
+position:fixed;
+width:12px;
+height:12px;
+background:#00f0ff;
+border-radius:50%;
+pointer-events:none;
+box-shadow:0 0 20px #00f0ff;
+z-index:999;
 }
 
 /* GRID */
@@ -26,15 +39,25 @@ height:100%;
 background-image:
 linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
 linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
-background-size:35px 35px;
+background-size:40px 40px;
 z-index:-1;
 }
 
-/* TEXT */
-h1,h2{
-font-family:'Orbitron',sans-serif;
-text-transform:uppercase;
-letter-spacing:2px;
+/* LANGUAGE SWITCH */
+.lang{
+position:fixed;
+top:20px;
+right:20px;
+z-index:999;
+}
+
+.lang button{
+background:transparent;
+border:1px solid #00f0ff;
+color:#00f0ff;
+margin:5px;
+padding:5px 10px;
+cursor:pointer;
 }
 
 /* HERO */
@@ -45,49 +68,49 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:20px;
 }
 
-.hero h1{
-font-size:clamp(32px,8vw,70px);
-color:#00f0ff;
-text-shadow:0 0 25px #00f0ff;
-animation:float 3s infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-}
-
-.hero p{
-opacity:0.6;
-margin-top:10px;
-}
-
-.btn{
-margin-top:20px;
-padding:12px 25px;
-border:1px solid #00f0ff;
-color:#00f0ff;
-background:transparent;
-cursor:pointer;
-transition:0.3s;
-}
-
-.btn:hover{
+.logo{
 background:#00f0ff;
-color:#000;
+padding:10px;
+border-radius:10px;
 box-shadow:0 0 20px #00f0ff;
 }
 
-/* CONNECTION */
+.logo img{
+width:100px;
+filter:brightness(0) invert(1);
+}
+
+h1{
+font-family:'Orbitron';
+color:#00f0ff;
+text-shadow:0 0 20px #00f0ff;
+font-size:clamp(30px,7vw,70px);
+}
+
+/* CONNECTION ANIMATION */
 .connection{
 width:2px;
 height:40px;
 background:#00f0ff;
 margin:0 auto;
-opacity:0.4;
+position:relative;
+overflow:hidden;
+}
+
+.connection::after{
+content:"";
+position:absolute;
+width:100%;
+height:10px;
+background:#00f0ff;
+animation:flow 2s linear infinite;
+}
+
+@keyframes flow{
+0%{top:-10px}
+100%{top:100%}
 }
 
 /* LAYER */
@@ -95,21 +118,22 @@ opacity:0.4;
 border:1px solid rgba(0,255,255,0.2);
 margin:40px auto;
 padding:30px;
-max-width:1200px;
-border-radius:12px;
-box-shadow:0 0 20px rgba(0,255,255,0.1);
-animation:fadeUp 1s ease;
+max-width:1100px;
+border-radius:10px;
+opacity:0;
+transform:translateY(40px);
+transition:1s;
 }
 
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(30px)}
-to{opacity:1;transform:translateY(0)}
+.layer.show{
+opacity:1;
+transform:translateY(0);
 }
 
 /* GRID */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:15px;
 }
 
@@ -120,29 +144,25 @@ padding:20px;
 text-align:center;
 cursor:pointer;
 transition:0.3s;
-font-size:14px;
 }
 
 .card:hover{
-transform:translateY(-5px);
-box-shadow:0 0 25px #00f0ff;
+box-shadow:0 0 30px #00f0ff;
 }
 
 .card span{
-display:block;
+display:none;
+font-size:12px;
 margin-top:10px;
-font-size:11px;
-opacity:0;
-transition:0.3s;
 }
 
 .card.active span{
-opacity:1;
+display:block;
 }
 
 /* FORM */
 .form{
-max-width:500px;
+max-width:400px;
 margin:auto;
 display:flex;
 flex-direction:column;
@@ -150,97 +170,72 @@ gap:10px;
 }
 
 input,textarea{
-background:#02050c;
+background:#01040a;
 border:1px solid #00f0ff;
-padding:12px;
 color:#fff;
-}
-
-input:focus,textarea:focus{
-outline:none;
-box-shadow:0 0 15px #00f0ff;
+padding:10px;
 }
 
 /* FOOTER */
 .footer{
 text-align:center;
 padding:20px;
-border-top:1px solid rgba(0,255,255,0.2);
-margin-top:40px;
 cursor:pointer;
-opacity:0.6;
 }
 
 /* MODAL */
 .modal{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.9);
 display:none;
 justify-content:center;
 align-items:center;
-z-index:999;
 }
 
 .modal-content{
-background:#02050c;
+background:#01040a;
 border:1px solid #00f0ff;
 padding:30px;
-max-width:600px;
-color:#fff;
-box-shadow:0 0 30px #00f0ff;
+max-width:500px;
 }
 
 /* MOBILE */
 @media(max-width:600px){
-.layer{padding:20px}
-.connection{height:30px}
+.cursor{display:none}
 }
 </style>
 </head>
 
 <body>
 
+<div class="cursor" id="cursor"></div>
+
+<!-- LANGUAGE -->
+<div class="lang">
+<button onclick="setLang('fr')">FR</button>
+<button onclick="setLang('en')">EN</button>
+<button onclick="setLang('ar')">AR</button>
+</div>
+
 <!-- HERO -->
 <section class="hero">
-<h1>NOUVURA SYSTEM</h1>
-<p>Digital Architecture Interface</p>
-<button class="btn" onclick="scrollToSection()">ENTER SYSTEM</button>
+<div class="logo"><img src="logo.png"></div>
+<h1 data-key="title">NOUVURA</h1>
+<p data-key="slogan">It all started with an idea</p>
 </section>
 
 <div class="connection"></div>
 
-<!-- CLIENT -->
-<div class="layer">
-<h2>1. Client Layer</h2>
-<div class="grid">
-<div class="card" onclick="toggle(this)">Interface<span>User Interaction</span></div>
-<div class="card" onclick="toggle(this)">Request<span>Data Input</span></div>
-</div>
-</div>
-
-<div class="connection"></div>
-
 <!-- SERVICES -->
-<div class="layer">
-<h2>2. Service Layer</h2>
+<div class="layer reveal">
+<h2 data-key="services">Services</h2>
 <div class="grid">
-<div class="card" onclick="toggle(this)">UI/UX<span>Experience</span></div>
-<div class="card" onclick="toggle(this)">Web Design<span>Modern Systems</span></div>
+<div class="card" onclick="toggle(this)">UI/UX<span>Design</span></div>
+<div class="card" onclick="toggle(this)">Web<span>Development</span></div>
 <div class="card" onclick="toggle(this)">Branding<span>Identity</span></div>
-<div class="card" onclick="toggle(this)">Graphics<span>Visual Logic</span></div>
-</div>
-</div>
-
-<div class="connection"></div>
-
-<!-- PRODUCTION -->
-<div class="layer">
-<h2>3. Production Layer</h2>
-<div class="grid">
+<div class="card" onclick="toggle(this)">Graphic<span>Design</span></div>
 <div class="card" onclick="toggle(this)">DTF<span>Printing</span></div>
 <div class="card" onclick="toggle(this)">CNC<span>Cutting</span></div>
 <div class="card" onclick="toggle(this)">Laser<span>Engraving</span></div>
@@ -250,53 +245,92 @@ box-shadow:0 0 30px #00f0ff;
 <div class="connection"></div>
 
 <!-- CONTACT -->
-<div class="layer">
-<h2>4. Communication Node</h2>
+<div class="layer reveal">
+<h2>Contact</h2>
+<p>WhatsApp: 0776532042</p>
+<p>Email: yacineiguenene@gmail.com</p>
+</div>
+
+<div class="connection"></div>
+
+<!-- FORM -->
+<div class="layer reveal">
+<h2 data-key="request">Request</h2>
 <div class="form">
-<input id="name" placeholder="IDENTITY">
-<textarea id="msg" placeholder="REQUEST"></textarea>
-<button class="btn" onclick="sendWhatsApp()">TRANSMIT</button>
+<input id="name" placeholder="Name">
+<textarea id="msg" placeholder="Message"></textarea>
+<button onclick="sendWhatsApp()">Send</button>
 </div>
 </div>
 
 <!-- FOOTER -->
 <div class="footer" onclick="openModal()">
-© NOUVURA SYSTEM 2026 — Intellectual Property
+© NOUVURA — Intellectual Property
 </div>
 
 <!-- MODAL -->
 <div class="modal" id="modal" onclick="closeModal()">
 <div class="modal-content" onclick="event.stopPropagation()">
 <h2>Intellectual Property</h2>
-<p>
-All content, design, and system architecture of NOUVURA are protected.<br><br>
-Unauthorized reproduction, distribution, or modification is strictly prohibited.<br><br>
-This system represents proprietary design methodology and digital engineering concepts.<br><br>
-Contact us for licensing or collaboration.
-</p>
+<p>All rights reserved. Unauthorized use prohibited.</p>
 </div>
 </div>
 
 <script>
-function toggle(el){
-el.classList.toggle("active")
-}
+/* CURSOR */
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px"
+cursor.style.top=e.clientY+"px"
+})
 
-function scrollToSection(){
-window.scrollTo({top:window.innerHeight,behavior:'smooth'})
+/* REVEAL */
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".reveal").forEach(el=>{
+if(el.getBoundingClientRect().top < window.innerHeight-100){
+el.classList.add("show")
 }
+})
+})
 
+/* TOGGLE */
+function toggle(el){el.classList.toggle("active")}
+
+/* WHATSAPP */
 function sendWhatsApp(){
 let msg=document.getElementById('msg').value;
 window.open(`https://wa.me/213776532042?text=${encodeURIComponent(msg)}`);
 }
 
 /* MODAL */
-function openModal(){
-document.getElementById("modal").style.display="flex";
+function openModal(){modal.style.display="flex"}
+function closeModal(){modal.style.display="none"}
+
+/* LANG SYSTEM */
+const translations={
+fr:{
+title:"NOUVURA",
+slogan:"Tout commence par une idée",
+services:"Services",
+request:"Demande"
+},
+en:{
+title:"NOUVURA",
+slogan:"It all started with an idea",
+services:"Services",
+request:"Request"
+},
+ar:{
+title:"نوفورا",
+slogan:"كل شيء بدأ بفكرة",
+services:"الخدمات",
+request:"طلب خدمة"
 }
-function closeModal(){
-document.getElementById("modal").style.display="none";
+}
+
+function setLang(lang){
+document.querySelectorAll("[data-key]").forEach(el=>{
+el.innerText=translations[lang][el.dataset.key]
+})
 }
 </script>
 
