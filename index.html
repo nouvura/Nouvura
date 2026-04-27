@@ -842,4 +842,1296 @@ body.cursor-hover .cursor-ring {
   cursor: none;
 }
 
-.lightbox.open 
+.lightbox.open {
+  display: flex;
+  animation: lightboxIn 0.4s var(--transition);
+}
+
+@keyframes lightboxIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lightbox-inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 88vh;
+  animation: lightboxZoom 0.4s var(--transition);
+}
+
+@keyframes lightboxZoom {
+  from { transform: scale(0.75); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.lightbox-inner img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  border: 1px solid rgba(0,240,255,0.3);
+  border-radius: 6px;
+  box-shadow: 0 0 60px rgba(0,240,255,0.2), 0 40px 80px rgba(0,0,0,0.7);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(0,240,255,0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+  font-size: 16px;
+  cursor: none;
+  transition: all 0.2s;
+  background: rgba(0,240,255,0.06);
+}
+
+.lightbox-close:hover {
+  background: rgba(0,240,255,0.18);
+  box-shadow: 0 0 20px rgba(0,240,255,0.4);
+}
+
+.lightbox-frame {
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(0,240,255,0.12);
+  border-radius: 8px;
+  pointer-events: none;
+  animation: lightboxFrame 2s ease-in-out infinite;
+}
+
+@keyframes lightboxFrame {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,240,255,0.1); }
+  50% { box-shadow: 0 0 40px rgba(0,240,255,0.25); }
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT INFO
+═══════════════════════════════════════════ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(0,240,255,0.02);
+  transition: all 0.3s var(--transition);
+}
+
+.contact-item:hover {
+  border-color: rgba(0,240,255,0.4);
+  background: rgba(0,240,255,0.05);
+  box-shadow: 0 0 20px rgba(0,240,255,0.1);
+  transform: translateX(4px);
+}
+
+.contact-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.contact-text { display: flex; flex-direction: column; gap: 2px; }
+
+.contact-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  color: rgba(0,240,255,0.45);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.contact-value {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════
+   REQUEST FORM
+═══════════════════════════════════════════ */
+.form-wrap {
+  max-width: 480px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field {
+  position: relative;
+}
+
+.form-field label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.5);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+input, textarea {
+  width: 100%;
+  background: rgba(0,240,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px 16px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.25s var(--transition);
+  cursor: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(0,240,255,0.2);
+  font-style: italic;
+}
+
+input:focus, textarea:focus {
+  border-color: rgba(0,240,255,0.55);
+  background: rgba(0,240,255,0.05);
+  box-shadow: 0 0 0 3px rgba(0,240,255,0.08), 0 0 20px rgba(0,240,255,0.1);
+  color: var(--cyan);
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.btn-send {
+  background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.06));
+  border: 1px solid rgba(0,240,255,0.45);
+  color: var(--cyan);
+  padding: 14px 32px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: none;
+  border-radius: 4px;
+  transition: all 0.3s var(--transition);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.btn-send::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0,240,255,0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.btn-send:hover::before { transform: translateX(100%); }
+
+.btn-send:hover {
+  background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.1));
+  box-shadow: 0 0 30px rgba(0,240,255,0.3), 0 8px 20px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════
+   YOUTUBE SECTION
+═══════════════════════════════════════════ */
+.youtube-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+}
+
+.youtube-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 7px;
+  border: 1px solid rgba(0,240,255,0.2);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.youtube-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.youtube-wrap iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+}
+
+.youtube-corner-tl, .youtube-corner-br {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.youtube-corner-tl {
+  top: -1px; left: -1px;
+  width: 24px; height: 24px;
+  border-top: 2px solid var(--cyan);
+  border-left: 2px solid var(--cyan);
+  border-radius: 2px 0 0 0;
+  opacity: 0.6;
+}
+
+.youtube-corner-br {
+  bottom: -1px; right: -1px;
+  width: 24px; height: 24px;
+  border-bottom: 2px solid var(--cyan);
+  border-right: 2px solid var(--cyan);
+  border-radius: 0 0 2px 0;
+  opacity: 0.6;
+}
+
+.youtube-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.youtube-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  animation: livePulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.youtube-label span {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.5);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  cursor: none;
+  position: relative;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+
+.footer-inner {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s var(--transition);
+}
+
+.footer:hover .footer-inner {
+  text-shadow: 0 0 14px rgba(0,240,255,0.5);
+}
+
+.footer-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.3em;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.footer:hover .footer-brand { opacity: 1; }
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.footer-ip {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.4);
+  letter-spacing: 0.15em;
+  border: 1px solid rgba(0,240,255,0.15);
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-top: 4px;
+  transition: all 0.3s;
+}
+
+.footer:hover .footer-ip {
+  border-color: rgba(0,240,255,0.4);
+  color: rgba(0,240,255,0.7);
+  box-shadow: 0 0 10px rgba(0,240,255,0.1);
+}
+
+/* ═══════════════════════════════════════════
+   IP / LEGAL MODAL
+═══════════════════════════════════════════ */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,17,0.92);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  backdrop-filter: blur(16px);
+  cursor: none;
+  padding: 20px;
+}
+
+.modal.open {
+  display: flex;
+  animation: modalBgIn 0.4s ease;
+}
+
+@keyframes modalBgIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: rgba(1,4,15,0.95);
+  border: 1px solid rgba(0,240,255,0.25);
+  border-radius: 10px;
+  padding: 44px 48px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalIn 0.4s var(--transition);
+  box-shadow: 0 0 60px rgba(0,240,255,0.1), 0 40px 80px rgba(0,0,0,0.7);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,240,255,0.2) transparent;
+}
+
+@keyframes modalIn {
+  from { transform: translateY(40px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+
+.modal-corner {
+  position: absolute;
+  width: 20px; height: 20px;
+  border-color: var(--cyan);
+  border-style: solid;
+  opacity: 0.5;
+}
+
+.modal-corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-radius: 2px 0 0 0; }
+.modal-corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; border-radius: 0 2px 0 0; }
+.modal-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; border-radius: 0 0 0 2px; }
+.modal-corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-radius: 0 0 2px 0; }
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(0,240,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--cyan);
+  cursor: none;
+  transition: all 0.2s;
+  background: rgba(0,240,255,0.05);
+}
+
+.modal-close:hover {
+  background: rgba(0,240,255,0.15);
+  box-shadow: 0 0 16px rgba(0,240,255,0.3);
+}
+
+.modal-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(0,240,255,0.4);
+  letter-spacing: 0.3em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.modal h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--cyan);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 16px rgba(0,240,255,0.4);
+  margin-bottom: 28px;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.modal-tab {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  padding: 10px 18px;
+  cursor: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.25s;
+  text-transform: uppercase;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.modal-tab:hover { color: var(--cyan); }
+
+.modal-tab.active {
+  color: var(--cyan);
+  border-bottom-color: var(--cyan);
+  text-shadow: 0 0 10px rgba(0,240,255,0.4);
+}
+
+.modal-panel { display: none; }
+.modal-panel.active { display: block; }
+
+.modal-panel h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
+  margin: 20px 0 10px;
+  opacity: 0.8;
+}
+
+.modal-panel p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.75;
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+}
+
+.modal-panel ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+.modal-panel ul li {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.modal-panel ul li::before {
+  content: '▸';
+  color: var(--cyan);
+  position: absolute;
+  left: 0;
+  opacity: 0.6;
+}
+
+.modal-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 20px 0;
+}
+
+.modal-badge {
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  color: rgba(0,240,255,0.6);
+  border: 1px solid rgba(0,240,255,0.2);
+  padding: 4px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.15em;
+  margin-top: 10px;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .layer, .portfolio {
+    margin: 24px 16px;
+    padding: 28px 20px;
+  }
+
+  .hero-corner { display: none; }
+
+  .orbit-ring:nth-child(3) { display: none; }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+  }
+
+  .modal-content {
+    padding: 30px 24px;
+  }
+
+  .modal-tabs { overflow-x: auto; }
+  .modal-tab { white-space: nowrap; }
+
+  .lang { top: 14px; right: 14px; }
+  .lang button { padding: 4px 10px; }
+
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { letter-spacing: 0.1em; }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: rgba(0,240,255,0.25); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,240,255,0.45); }
+
+/* ═══════════════════════════════════════════
+   FLOATING GLITCH LABELS
+═══════════════════════════════════════════ */
+.sys-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  color: rgba(0,240,255,0.25);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* Animated entrance for hero elements */
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  animation: fadeUp 1.2s var(--transition) 0.9s both;
+}
+
+.hero-meta-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4));
+}
+
+.hero-meta-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.35);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.hero-meta-line.r {
+  background: linear-gradient(90deg, rgba(0,240,255,0.4), transparent);
+}
+
+/* ═══════════════════════════════════════════
+   SECTION REVEAL STAGGER
+═══════════════════════════════════════════ */
+.reveal { }
+.reveal.show { }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-image"></div>
+<div class="bg-gradient-overlay"></div>
+<canvas id="particleCanvas"></canvas>
+
+<!-- SYSTEM BAR -->
+<div class="system-bar"></div>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- LANGUAGE -->
+<div class="lang">
+  <button onclick="setLang('fr')" class="lang-btn active" data-lang="fr">FR</button>
+  <button onclick="setLang('en')" class="lang-btn" data-lang="en">EN</button>
+  <button onclick="setLang('ar')" class="lang-btn" data-lang="ar">AR</button>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-aura"></div>
+  <div class="orbit-ring"></div>
+  <div class="orbit-ring"></div>
+  <div class="orbit-ring"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+
+  <div class="logo-wrap">
+    <div class="logo-glow-ring"></div>
+    <div class="logo-box">
+      <img src="logo.png" alt="NOUVURA">
+    </div>
+  </div>
+
+  <h1 data-key="title">NOUVURA</h1>
+  <p class="hero-slogan" data-key="slogan">It all started with an idea</p>
+
+  <div class="hero-meta">
+    <div class="hero-meta-line"></div>
+    <span class="hero-meta-text" data-key="meta">Creative Studio · Digital System</span>
+    <div class="hero-meta-line r"></div>
+  </div>
+</section>
+
+<!-- CONNECTION -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<div class="layer reveal" id="services-layer">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="services">Services</h2>
+    <span class="section-tag">SYS-01</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid">
+    <div class="card" onclick="toggle(this)">
+      <span class="card-icon">◈</span>
+      <span class="card-title">UI/UX</span>
+      <span class="desc">Interface Design</span>
+    </div>
+    <div class="card" onclick="toggle(this)">
+      <span class="card-icon">⟨/⟩</span>
+      <span class="card-title">Web</span>
+      <span class="desc">Development</span>
+    </div>
+    <div class="card" onclick="toggle(this)">
+      <span class="card-icon">◉</span>
+      <span class="card-title">Branding</span>
+      <span class="desc">Visual Identity</span>
+    </div>
+    <div class="card" onclick="toggle(this)">
+      <span class="card-icon">⬡</span>
+      <span class="card-title">Graphic</span>
+      <span class="desc">Design</span>
+    </div>
+    <div class="card" onclick="toggle(this)">
+      <span class="card-icon">▣</span>
+      <span class="card-title">DTF</span>
+      <span class="desc">Printing</span>
+    </div>
+    <div class="card" onclick="toggle(this)">
+      <span class="card-icon">⌗</span>
+      <span class="card-title">CNC</span>
+      <span class="desc">Cutting</span>
+    </div>
+    <div class="card" onclick="toggle(this)">
+      <span class="card-icon">✦</span>
+      <span class="card-title">Laser</span>
+      <span class="desc">Engraving</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONNECTION -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<section class="portfolio reveal" id="portfolio-section">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="portfolio">Portfolio</h2>
+    <span class="section-tag">SYS-02</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="portfolio-grid">
+
+    <div class="portfolio-item" onclick="openLightbox('portfolio.png', 'BRAND IDENTITY')" data-label="Brand Identity">
+      <div class="scan"></div>
+      <img src="portfolio.png" alt="Portfolio 1" loading="lazy">
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Brand Identity</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item" onclick="openLightbox('portfolio2.png', 'VISUAL SYSTEM')" data-label="Visual System">
+      <div class="scan"></div>
+      <img src="portfolio2.png" alt="Portfolio 2" loading="lazy">
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Visual System</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item" onclick="openLightbox('cart visite -02 copie.jpg', 'BUSINESS CARD')" data-label="Business Card">
+      <div class="scan"></div>
+      <img src="cart visite -02 copie.jpg" alt="Business Card 1" loading="lazy">
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Business Card</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item" onclick="openLightbox('cart visite _Plan de travail 1 copie.jpg', 'CARD DESIGN')" data-label="Card Design">
+      <div class="scan"></div>
+      <img src="cart visite _Plan de travail 1 copie.jpg" alt="Business Card 2" loading="lazy">
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Card Design</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONNECTION -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══ YOUTUBE SECTION ═══ -->
+<div class="layer reveal">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="showcase">Showcase</h2>
+    <span class="section-tag">SYS-03</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="youtube-label">
+    <div class="youtube-dot"></div>
+    <span data-key="video_label">NOUVURA — Studio Reel</span>
+  </div>
+  <div class="youtube-wrap">
+    <div class="youtube-corner-tl"></div>
+    <div class="youtube-corner-br"></div>
+    <iframe
+      src="https://www.youtube.com/embed/5QJu1Mxape8?autoplay=1&mute=1&controls=1&rel=0&showinfo=0&modestbranding=1"
+      title="NOUVURA Showcase"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<!-- CONNECTION -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="layer reveal">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2>Contact</h2>
+    <span class="section-tag">SYS-04</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <span class="contact-icon">📲</span>
+      <div class="contact-text">
+        <span class="contact-label">WhatsApp</span>
+        <span class="contact-value">0776 532 042</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">◎</span>
+      <div class="contact-text">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">yacineiguenene@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONNECTION -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══ REQUEST FORM ═══ -->
+<div class="layer reveal">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="request">Request</h2>
+    <span class="section-tag">SYS-05</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="form-wrap">
+    <div class="form-field">
+      <label data-key="name_label">IDENTIFIER</label>
+      <input id="name" placeholder="Your name" autocomplete="off">
+    </div>
+    <div class="form-field">
+      <label data-key="msg_label">MESSAGE</label>
+      <textarea id="msg" placeholder="Describe your project or request…"></textarea>
+    </div>
+    <button class="btn-send" onclick="sendWhatsApp()">
+      <span data-key="send_btn">↗ TRANSMIT REQUEST</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer" onclick="openModal()">
+  <div class="footer-inner">
+    <div class="footer-brand">NOUVURA</div>
+    <div class="footer-copy">© 2025 NOUVURA — All Rights Reserved</div>
+    <div class="footer-ip">▸ Intellectual Property · Privacy · Terms</div>
+  </div>
+</div>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+    <div class="lightbox-frame"></div>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+</div>
+
+<!-- ═══ IP MODAL ═══ -->
+<div class="modal" id="modal" onclick="handleModalClick(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-corner tl"></div>
+    <div class="modal-corner tr"></div>
+    <div class="modal-corner bl"></div>
+    <div class="modal-corner br"></div>
+    <div class="modal-close" onclick="closeModal()">✕</div>
+
+    <div class="modal-logo">NOUVURA SYSTEM</div>
+    <h2>⬡ Legal & Compliance</h2>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab(0)">Intellectual Property</button>
+      <button class="modal-tab" onclick="switchTab(1)">Privacy Policy</button>
+      <button class="modal-tab" onclick="switchTab(2)">Terms of Use</button>
+    </div>
+
+    <!-- TAB 0: Intellectual Property -->
+    <div class="modal-panel active" id="tab0">
+      <p>All creative works, designs, visual identities, branding assets, digital productions, and intellectual outputs produced or published by <strong style="color:var(--cyan)">NOUVURA</strong> are the exclusive property of NOUVURA and its designated creators.</p>
+
+      <h3>Ownership & Protection</h3>
+      <ul>
+        <li>All logos, graphic designs, illustrations, UI/UX systems, web interfaces, and visual content are protected under applicable copyright and intellectual property laws.</li>
+        <li>NOUVURA retains full ownership of all original works unless a written license agreement explicitly transfers specified rights to a client.</li>
+        <li>Client deliverables become property of the client only upon full settlement of agreed payment, as per the signed project agreement.</li>
+      </ul>
+
+      <h3>Prohibited Actions</h3>
+      <ul>
+        <li>Reproduction, redistribution, or commercial use of any NOUVURA asset without prior written authorization is strictly prohibited.</li>
+        <li>Modification, reverse engineering, or derivative works based on NOUVURA designs are not permitted without explicit consent.</li>
+        <li>Portfolio display of client-commissioned work by third parties without NOUVURA's express permission is forbidden.</li>
+      </ul>
+
+      <div class="modal-divider"></div>
+      <p style="font-size:11px; color:rgba(0,240,255,0.35)">For licensing inquiries, contact: yacineiguenene@gmail.com</p>
+      <span class="modal-badge">NOUVURA © 2025 — ALL RIGHTS RESERVED</span>
+    </div>
+
+    <!-- TAB 1: Privacy Policy -->
+    <div class="modal-panel" id="tab1">
+      <p>NOUVURA is committed to protecting the privacy and personal information of all clients, collaborators, and visitors who interact with our services and digital presence.</p>
+
+      <h3>Data We Collect</h3>
+      <ul>
+        <li>Contact information voluntarily provided through communication channels (name, phone, email).</li>
+        <li>Project briefs, requirements, and communication records necessary for service delivery.</li>
+        <li>Technical data such as browser type or device, collected anonymously for site optimization.</li>
+      </ul>
+
+      <h3>How We Use Your Data</h3>
+      <ul>
+        <li>To respond to inquiries, deliver services, and manage project communication.</li>
+        <li>To improve our digital platforms and understand service usage patterns.</li>
+        <li>We do not sell, rent, or share your personal data with third parties for commercial purposes.</li>
+      </ul>
+
+      <h3>Data Security</h3>
+      <p>All personal data is handled with appropriate security measures. Communication through WhatsApp and email is subject to the respective platform's privacy policies. You may request deletion of your data at any time.</p>
+
+      <div class="modal-divider"></div>
+      <span class="modal-badge">GDPR COMPLIANT · DATA PROTECTED</span>
+    </div>
+
+    <!-- TAB 2: Terms of Use -->
+    <div class="modal-panel" id="tab2">
+      <p>By engaging with NOUVURA's services, website, or any related content, you agree to the following terms and conditions.</p>
+
+      <h3>Service Agreement</h3>
+      <ul>
+        <li>Services are initiated upon written agreement and confirmed deposit payment.</li>
+        <li>Project timelines are estimated and may vary based on complexity, revision rounds, and client feedback response times.</li>
+        <li>NOUVURA reserves the right to decline project requests that conflict with our professional standards or values.</li>
+      </ul>
+
+      <h3>Usage Limitations</h3>
+      <ul>
+        <li>This website and its content are for informational and commercial inquiry purposes only.</li>
+        <li>Unauthorized scraping, data harvesting, or automated access to NOUVURA platforms is prohibited.</li>
+        <li>Client accounts and communications are personal and non-transferable.</li>
+      </ul>
+
+      <h3>Liability</h3>
+      <p>NOUVURA provides services in good faith and is not liable for indirect damages, loss of business, or consequential damages beyond the scope of the signed service agreement. All disputes are subject to resolution under applicable Algerian commercial law.</p>
+
+      <div class="modal-divider"></div>
+      <span class="modal-badge">NOUVURA — PROFESSIONAL STANDARDS</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════════ -->
+<script>
+/* ═══ CURSOR SYSTEM ═══ */
+const dot   = document.getElementById('cursorDot');
+const ring  = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+const trails = [];
+for (let i = 0; i < 8; i++) {
+  const t = document.createElement('div');
+  t.className = 'cursor-trail';
+  document.body.appendChild(t);
+  trails.push({ el: t, x: 0, y: 0 });
+}
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top  = my + 'px';
+});
+
+function lerpCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+
+  trails.forEach((t, i) => {
+    const prev = i === 0 ? { x: mx, y: my } : trails[i - 1];
+    t.x += (prev.x - t.x) * (0.14 - i * 0.012);
+    t.y += (prev.y - t.y) * (0.14 - i * 0.012);
+    t.el.style.left = t.x + 'px';
+    t.el.style.top  = t.y + 'px';
+    t.el.style.opacity = (0.25 - i * 0.025).toString();
+    t.el.style.transform = `translate(-50%,-50%) scale(${1 - i*0.1})`;
+  });
+
+  requestAnimationFrame(lerpCursor);
+}
+lerpCursor();
+
+document.querySelectorAll('button, .card, .portfolio-item, .footer, .lang button, .modal-close, .lightbox-close, .contact-item, input, textarea').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+/* ═══ PARTICLES ═══ */
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resizeCanvas() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function Particle() {
+  this.reset = function() {
+    this.x  = Math.random() * W;
+    this.y  = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = -Math.random() * 0.5 - 0.1;
+    this.r  = Math.random() * 1.5 + 0.3;
+    this.a  = Math.random() * 0.4 + 0.1;
+    this.life = 0;
+    this.maxLife = Math.random() * 200 + 100;
+  };
+  this.reset();
+}
+
+for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+function drawParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => {
+    p.life++;
+    if (p.life > p.maxLife) p.reset();
+    const fade = Math.min(p.life/30, 1) * Math.min((p.maxLife-p.life)/30, 1);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(0,240,255,${p.a * fade})`;
+    ctx.fill();
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > W || p.y < 0) p.reset();
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+/* ═══ SCROLL REVEAL ═══ */
+const revealEls = document.querySelectorAll('.reveal');
+function checkReveal() {
+  revealEls.forEach((el, i) => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+      setTimeout(() => el.classList.add('show'), i * 60);
+    }
+  });
+}
+window.addEventListener('scroll', checkReveal, { passive: true });
+checkReveal();
+
+/* ═══ SERVICE CARD TOGGLE ═══ */
+function toggle(el) { el.classList.toggle('active'); }
+
+/* ═══ PORTFOLIO 3D TILT ═══ */
+document.querySelectorAll('.portfolio-item').forEach(item => {
+  item.addEventListener('mousemove', e => {
+    const r = item.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top  + r.height / 2;
+    const rx = ((e.clientY - cy) / (r.height / 2)) * -5;
+    const ry = ((e.clientX - cx) / (r.width  / 2)) *  5;
+    item.style.setProperty('--rotX', rx + 'deg');
+    item.style.setProperty('--rotY', ry + 'deg');
+    item.classList.add('tilt');
+    item.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px) scale(1.02)`;
+  });
+  item.addEventListener('mouseleave', () => {
+    item.classList.remove('tilt');
+    item.style.transform = '';
+  });
+});
+
+/* ═══ LIGHTBOX ═══ */
+function openLightbox(src, label) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  img.src = src;
+  img.alt = label;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.style.animation = 'lightboxOut 0.3s ease forwards';
+  setTimeout(() => {
+    lb.classList.remove('open');
+    lb.style.animation = '';
+    document.body.style.overflow = '';
+  }, 280);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+/* ═══ IP MODAL ═══ */
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const m = document.getElementById('modal');
+  m.style.animation = 'none';
+  setTimeout(() => {
+    m.classList.remove('open');
+    m.style.animation = '';
+    document.body.style.overflow = '';
+  }, 10);
+}
+
+function handleModalClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+/* ═══ MODAL TABS ═══ */
+function switchTab(idx) {
+  document.querySelectorAll('.modal-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.modal-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+}
+
+/* ═══ WHATSAPP ═══ */
+function sendWhatsApp() {
+  const name = document.getElementById('name').value.trim();
+  const msg  = document.getElementById('msg').value.trim();
+  const text = name ? `[${name}]: ${msg}` : msg;
+  if (!msg) return;
+  window.open(`https://wa.me/213776532042?text=${encodeURIComponent(text)}`);
+}
+
+/* ═══ LANGUAGE SYSTEM ═══ */
+const translations = {
+  fr: {
+    title: "NOUVURA",
+    slogan: "Tout commence par une idée",
+    meta: "Studio Créatif · Système Digital",
+    services: "Services",
+    portfolio: "Portfolio",
+    showcase: "Vitrine",
+    video_label: "NOUVURA — Studio Reel",
+    request: "Demande",
+    name_label: "IDENTIFIANT",
+    msg_label: "MESSAGE",
+    send_btn: "↗ ENVOYER LA DEMANDE"
+  },
+  en: {
+    title: "NOUVURA",
+    slogan: "It all started with an idea",
+    meta: "Creative Studio · Digital System",
+    services: "Services",
+    portfolio: "Portfolio",
+    showcase: "Showcase",
+    video_label: "NOUVURA — Studio Reel",
+    request: "Request",
+    name_label: "IDENTIFIER",
+    msg_label: "MESSAGE",
+    send_btn: "↗ TRANSMIT REQUEST"
+  },
+  ar: {
+    title: "نوفورا",
+    slogan: "كل شيء بدأ بفكرة",
+    meta: "استوديو إبداعي · نظام رقمي",
+    services: "الخدمات",
+    portfolio: "الأعمال",
+    showcase: "عرض",
+    video_label: "نوفورا — استوديو",
+    request: "طلب خدمة",
+    name_label: "الاسم",
+    msg_label: "الرسالة",
+    send_btn: "↗ إرسال الطلب"
+  }
+};
+
+function setLang(lang) {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang;
+  document.dir = lang === 'ar' ? 'rtl' : 'ltr';
+}
+</script>
+
+</body>
+</html>
