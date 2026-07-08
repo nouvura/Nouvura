@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOUVURA SYSTEM — Creative Studio · Digital System</title>
+<meta name="description" content="NOUVURA — Studio créatif spécialisé en UI/UX, Branding, Web Development, Graphic Design, DTF, CNC et Laser Engraving.">
+<meta name="keywords" content="NOUVURA, studio créatif, branding, UI/UX, web, graphic design, DTF, CNC, laser, Algérie">
+<meta name="author" content="NOUVURA SYSTEM">
+<meta property="og:title" content="NOUVURA SYSTEM">
+<meta property="og:description" content="Creative Studio · Digital System — Brand Identity · Web · Print · Production">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nouvura.github.io">
+<meta name="theme-color" content="#0e0105">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   NOUVURA SYSTEM — GITHUB PAGES EDITION
+   Full Cyberpunk Dark Portfolio
+═══════════════════════════════════════════════════════════ */
+
+:root {
+  --cyan: #00f0ff;
+  --cyan-dim: rgba(0,240,255,0.15);
+  --cyan-glow: rgba(0,240,255,0.6);
+  --cyan-ultra: rgba(0,240,255,0.03);
+  --bg-deep: #0e0105;
+  --bg-panel: rgba(20,2,8,0.85);
+  --text: #ffffff;
+  --text-dim: rgba(255,235,240,0.75);
+  --border: rgba(0,240,255,0.18);
+  --border-bright: rgba(0,240,255,0.45);
+  --radius: 8px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: linear-gradient(160deg,#1a0005 0%,#0e0105 40%,#180008 70%,#100003 100%);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+  letter-spacing: 0.03em;
+  min-height: 100vh;
+}
+
+::selection { background: var(--cyan-dim); color: var(--cyan); }
+
+/* ── GRID BG ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,240,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(0,240,255,0.04) 1px,transparent 1px);
+  background-size: 44px 44px;
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(14,1,5,0.7) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ── PARTICLES ── */
+#particleCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ── CURSOR ── */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+}
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--cyan), 0 0 20px rgba(0,240,255,0.5);
+}
+.cursor-ring {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(0,240,255,0.6);
+  border-radius: 50%;
+  transition: transform 0.1s;
+}
+body.cursor-hover .cursor-dot { transform: translate(-50%,-50%) scale(2); background: var(--cyan); }
+body.cursor-hover .cursor-ring { transform: translate(-50%,-50%) scale(1.5); border-color: var(--cyan); }
+
+/* ── SYSTEM BAR ── */
+.system-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), rgba(0,240,255,0.3), var(--cyan), transparent);
+  z-index: 100;
+  animation: barGlow 4s ease-in-out infinite;
+}
+@keyframes barGlow {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; box-shadow: 0 0 20px var(--cyan); }
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  background: linear-gradient(180deg, rgba(14,1,5,0.95) 0%, transparent 100%);
+  backdrop-filter: blur(8px);
+}
+.nav-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--cyan);
+  letter-spacing: 0.25em;
+  text-shadow: 0 0 20px rgba(0,240,255,0.5);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(0,240,255,0.5);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  cursor: none;
+}
+.nav-links a:hover { color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.6); }
+
+.nav-lang {
+  display: flex;
+  gap: 6px;
+}
+.lang-btn {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  border: 1px solid rgba(0,240,255,0.2);
+  border-radius: 3px;
+  color: rgba(0,240,255,0.4);
+  background: transparent;
+  padding: 4px 10px;
+  cursor: none;
+  transition: all 0.2s;
+}
+.lang-btn:hover, .lang-btn.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,240,255,0.06);
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--cyan);
+  transition: all 0.3s;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 20px 80px;
+  position: relative;
+}
+
+.hero-aura {
+  position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(0,240,255,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  animation: auraPulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes auraPulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
+}
+
+.logo-wrap {
+  position: relative;
+  margin-bottom: 36px;
+}
+.logo-glow-ring {
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(0,240,255,0.15);
+  border-radius: 50%;
+  animation: ringRotate 12s linear infinite;
+}
+@keyframes ringRotate { to { transform: rotate(360deg); } }
+.logo-box {
+  width: 100px; height: 100px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,240,255,0.35);
+  background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(0,240,255,0.15), inset 0 0 30px rgba(0,240,255,0.05);
+  overflow: hidden;
+  position: relative;
+}
+.logo-box img { width: 80px; height: 80px; object-fit: contain; }
+.logo-box-fallback {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--cyan);
+  text-shadow: 0 0 20px var(--cyan);
+}
+
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(40px, 10vw, 80px);
+  font-weight: 900;
+  color: var(--cyan);
+  letter-spacing: 0.25em;
+  text-shadow: 0 0 40px rgba(0,240,255,0.4), 0 0 80px rgba(0,240,255,0.15);
+  margin-bottom: 12px;
+  animation: heroReveal 1s var(--ease) both;
+}
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); letter-spacing: 0.5em; }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hero-slogan {
+  font-size: clamp(14px, 2.5vw, 18px);
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+  animation: heroReveal 1s var(--ease) 0.2s both;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  animation: heroReveal 1s var(--ease) 0.4s both;
+}
+.hero-meta-line {
+  width: 50px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4));
+}
+.hero-meta-line.r { background: linear-gradient(90deg, rgba(0,240,255,0.4), transparent); }
+.hero-meta-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.35);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.hero-cta {
+  margin-top: 44px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: heroReveal 1s var(--ease) 0.6s both;
+}
+.btn-primary, .btn-secondary {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 4px;
+  cursor: none;
+  transition: all 0.25s var(--ease);
+}
+.btn-primary {
+  background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08));
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 24px rgba(0,240,255,0.15);
+}
+.btn-primary:hover {
+  background: rgba(0,240,255,0.2);
+  box-shadow: 0 0 40px rgba(0,240,255,0.35);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  border: 1px solid rgba(0,240,255,0.25);
+  color: rgba(0,240,255,0.6);
+  background: transparent;
+}
+.btn-secondary:hover {
+  border-color: rgba(0,240,255,0.6);
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+/* ── SCROLL INDICATOR ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+  animation: fadeInUp 1s 1.2s both;
+}
+@keyframes fadeInUp { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 0.4; } }
+.scroll-hint span {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 7px;
+  letter-spacing: 0.25em;
+  color: var(--cyan);
+}
+.scroll-arrow {
+  width: 1px; height: 40px;
+  background: linear-gradient(180deg, var(--cyan), transparent);
+  animation: scrollArrow 1.5s ease-in-out infinite;
+}
+@keyframes scrollArrow { 0%,100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(0.6); opacity: 1; } }
+
+/* ── CONNECTION LINES ── */
+.energy-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  gap: 0;
+}
+.energy-node {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(0,240,255,0.3);
+  border: 1px solid rgba(0,240,255,0.5);
+  box-shadow: 0 0 8px rgba(0,240,255,0.3);
+}
+.connection {
+  flex: 1;
+  max-width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,240,255,0.15), rgba(0,240,255,0.4), rgba(0,240,255,0.15));
+  animation: connFlow 3s ease-in-out infinite;
+}
+@keyframes connFlow { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+/* ── SECTIONS / LAYERS ── */
+.section-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.layer {
+  margin: 24px auto;
+  max-width: 960px;
+  padding: 40px 36px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.layer.show { opacity: 1; transform: translateY(0); }
+
+.layer-inner-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(0,240,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.section-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.section-tag {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--cyan);
+  border: 1px solid rgba(0,240,255,0.25);
+  padding: 3px 10px;
+  border-radius: 2px;
+  opacity: 0.7;
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,240,255,0.25), transparent);
+}
+
+/* ── SERVICES GRID ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 24px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(0,240,255,0.02);
+  cursor: none;
+  transition: all 0.3s var(--ease);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,240,255,0.06), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover {
+  border-color: var(--border-bright);
+  box-shadow: 0 0 24px rgba(0,240,255,0.12), inset 0 0 20px rgba(0,240,255,0.04);
+  transform: translateY(-4px);
+  color: var(--cyan);
+}
+.card:hover::before { opacity: 1; }
+.card.active {
+  border-color: var(--cyan);
+  background: rgba(0,240,255,0.06);
+  color: var(--cyan);
+}
+.card-icon {
+  font-size: 24px;
+  color: var(--cyan);
+  opacity: 0.7;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.card:hover .card-icon { opacity: 1; transform: scale(1.15); }
+.card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+  transition: color 0.3s;
+}
+.card:hover .card-title { color: var(--cyan); }
+.desc {
+  font-size: 10px;
+  color: rgba(0,240,255,0.35);
+  letter-spacing: 0.05em;
+}
+
+/* ── STATS SECTION ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 8px;
+}
+.stat-item {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid rgba(0,240,255,0.12);
+  border-radius: 8px;
+  background: rgba(0,240,255,0.02);
+}
+.stat-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--cyan);
+  text-shadow: 0 0 24px rgba(0,240,255,0.4);
+  display: block;
+  line-height: 1;
+}
+.stat-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  color: rgba(0,240,255,0.4);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* ── PORTFOLIO ── */
+.portfolio {
+  margin: 24px auto;
+  max-width: 960px;
+  padding: 40px 36px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.portfolio.show { opacity: 1; transform: translateY(0); }
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.portfolio-item {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  cursor: none;
+  aspect-ratio: 16/10;
+  background: rgba(0,240,255,0.03);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.portfolio-item:hover {
+  border-color: rgba(0,240,255,0.45);
+  box-shadow: 0 0 30px rgba(0,240,255,0.12);
+  transform: scale(1.02);
+}
+.portfolio-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s var(--ease);
+}
+.portfolio-item:hover img { transform: scale(1.06); }
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(14,1,5,0.92) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.portfolio-item:hover .portfolio-overlay { opacity: 1; }
+.portfolio-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.portfolio-expand {
+  font-size: 16px;
+  color: rgba(0,240,255,0.5);
+}
+/* Placeholder for missing images */
+.portfolio-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(0,240,255,0.04), rgba(0,240,255,0.01));
+}
+.portfolio-placeholder-icon { font-size: 32px; color: rgba(0,240,255,0.3); }
+.portfolio-placeholder-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  color: rgba(0,240,255,0.3);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── YOUTUBE ── */
+.youtube-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 40px rgba(0,240,255,0.08);
+}
+.youtube-wrap iframe {
+  width: 100%; height: 100%;
+  border: none;
+}
+.youtube-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.youtube-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ff3c3c;
+  box-shadow: 0 0 8px #ff3c3c;
+  animation: ytPulse 1.5s ease-in-out infinite;
+}
+@keyframes ytPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.youtube-label span {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.5);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(0,240,255,0.02);
+  cursor: none;
+  transition: all 0.3s var(--ease);
+  text-decoration: none;
+}
+.contact-item:hover {
+  border-color: rgba(0,240,255,0.4);
+  background: rgba(0,240,255,0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,240,255,0.08);
+}
+.contact-icon { font-size: 24px; flex-shrink: 0; }
+.contact-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  color: rgba(0,240,255,0.4);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.contact-value {
+  font-size: 14px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+/* ── PROCESS SECTION ── */
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.process-step {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0,240,255,0.06);
+}
+.process-step:last-child { border-bottom: none; }
+.step-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: rgba(0,240,255,0.15);
+  line-height: 1;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.step-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ── ABOUT/PHILOSOPHY ── */
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.about-text p {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.about-accent {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cyan);
+  text-shadow: 0 0 20px rgba(0,240,255,0.3);
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+}
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.tag {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: rgba(0,240,255,0.6);
+  border: 1px solid rgba(0,240,255,0.2);
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+.about-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.skill-bar-wrap { }
+.skill-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.5);
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+}
+.skill-bar-track {
+  height: 2px;
+  background: rgba(0,240,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0,240,255,0.4), var(--cyan));
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s var(--ease);
+}
+.layer.show .skill-bar-fill { transform: scaleX(1); }
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(14,1,5,0.96);
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox-inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+.lightbox-inner img {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 60px rgba(0,240,255,0.12);
+}
+.lightbox-close {
+  position: absolute;
+  top: -44px; right: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  color: rgba(0,240,255,0.5);
+  cursor: none;
+  letter-spacing: 0.2em;
+  transition: color 0.2s;
+}
+.lightbox-close:hover { color: var(--cyan); }
+
+/* ── IP MODAL ── */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(14,1,5,0.95);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal.open { display: flex; }
+.modal-content {
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: rgba(20,2,8,0.98);
+  border: 1px solid rgba(0,240,255,0.2);
+  border-radius: 12px;
+  padding: 40px 36px;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,240,255,0.15) transparent;
+}
+.modal-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  color: rgba(0,240,255,0.4);
+  cursor: none;
+  letter-spacing: 0.2em;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--cyan); }
+.modal-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  color: rgba(0,240,255,0.3);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.modal-content h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.modal-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.modal-tab {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid rgba(0,240,255,0.15);
+  border-radius: 3px;
+  color: rgba(0,240,255,0.4);
+  background: transparent;
+  padding: 8px 14px;
+  cursor: none;
+  transition: all 0.2s;
+}
+.modal-tab.active, .modal-tab:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,240,255,0.06);
+}
+.modal-panel { display: none; }
+.modal-panel.active { display: block; }
+.modal-panel p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.modal-panel h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 20px 0 10px;
+}
+.modal-panel ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-panel ul li {
+  padding-left: 16px;
+  position: relative;
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+.modal-panel ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: rgba(0,240,255,0.4);
+}
+.modal-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,240,255,0.15), transparent);
+  margin: 20px 0;
+}
+.modal-badge {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 7px;
+  color: rgba(0,240,255,0.3);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+/* ── CHATBOT ── */
+#chatTrigger {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.nv-trig-btn {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0,240,255,.18), rgba(0,240,255,.06));
+  border: 1px solid rgba(0,240,255,.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none;
+  position: relative;
+  animation: nvFloat 3s ease-in-out infinite;
+  box-shadow: 0 0 24px rgba(0,240,255,.2), 0 0 48px rgba(0,240,255,.08);
+}
+@keyframes nvFloat { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
+.nv-trig-icon { font-size: 24px; color: var(--cyan); }
+.nv-trig-btn:hover { background: rgba(0,240,255,0.15); animation: none; }
+
+#nvOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: none;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 20px;
+}
+#nvOverlay.nv-open { display: flex; }
+#nvWin {
+  width: 420px;
+  max-width: calc(100vw - 40px);
+  height: 600px;
+  max-height: calc(100vh - 40px);
+  background: rgba(4,1,12,.97);
+  border: 1px solid rgba(0,240,255,.28);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0,240,255,.12), 0 40px 80px rgba(0,0,0,.8);
+  animation: winIn .4s var(--ease) both;
+}
+@keyframes winIn { from{transform:scale(.88) translateY(16px);opacity:0;} to{transform:none;opacity:1;} }
+.nv-hdr {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid rgba(0,240,255,.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg,rgba(0,240,255,.04),transparent);
+}
+.nv-logo {
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  background: linear-gradient(135deg,rgba(0,240,255,.18),rgba(0,240,255,.06));
+  border: 1px solid rgba(0,240,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Orbitron',sans-serif;
+  font-size: 10px; font-weight: 900;
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+.nv-hinfo { flex: 1; }
+.nv-hname {
+  font-family: 'Orbitron',sans-serif;
+  font-size: 11px; font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: .18em;
+}
+.nv-hstatus { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+.nv-hdot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
+  animation: dotPulse 1.8s ease-in-out infinite;
+}
+@keyframes dotPulse { 0%,100%{opacity:1;}50%{opacity:.4;} }
+.nv-hstatus span {
+  font-family: 'Orbitron',sans-serif;
+  font-size: 7px;
+  color: rgba(0,240,255,.4);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.nv-hbtn {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(0,240,255,.2);
+  border-radius: 6px;
+  background: rgba(0,240,255,.04);
+  color: rgba(0,240,255,.5);
+  font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none;
+  transition: all .2s;
+}
+.nv-hbtn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+.nv-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,240,255,.15) transparent;
+}
+.nv-msg { display: flex; gap: 10px; animation: msgIn .35s ease both; }
+@keyframes msgIn { from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;} }
+.nv-msg.nv-user { flex-direction: row-reverse; }
+.nv-avatar {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,240,255,.25);
+  background: linear-gradient(135deg,rgba(0,240,255,.12),rgba(0,240,255,.03));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Orbitron',sans-serif; font-size: 8px; font-weight: 900;
+  color: var(--cyan); flex-shrink: 0; margin-top: 2px;
+}
+.nv-bubble {
+  padding: 10px 14px;
+  border-radius: 10px 10px 10px 2px;
+  font-size: 13px; line-height: 1.6;
+  color: var(--text-dim);
+  background: rgba(0,240,255,.04);
+  border: 1px solid rgba(0,240,255,.12);
+  max-width: 82%;
+}
+.nv-msg.nv-user .nv-bubble {
+  border-radius: 10px 10px 2px 10px;
+  background: rgba(0,240,255,.08);
+  border-color: rgba(0,240,255,.2);
+  text-align: right;
+}
+.nv-bubble b, .nv-bubble strong { color: var(--cyan); }
+
+.nv-ui { flex-shrink: 0; }
+.nv-qr-row { display: flex; flex-wrap: wrap; gap: 7px; padding: 8px 14px 10px; }
+.nv-qr-btn {
+  padding: 6px 13px;
+  font-family: 'Orbitron',sans-serif; font-size: 9px; letter-spacing: .1em;
+  border: 1px solid rgba(0,240,255,.25);
+  border-radius: 20px;
+  color: rgba(0,240,255,.7);
+  background: rgba(0,240,255,.04);
+  cursor: none; transition: all .2s;
+}
+.nv-qr-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,.1); }
+.nv-inp-row { display: flex; gap: 8px; padding: 10px 14px 14px; border-top: 1px solid rgba(0,240,255,.08); }
+.nv-step-inp {
+  flex: 1;
+  background: rgba(0,240,255,.04);
+  border: 1px solid rgba(0,240,255,.15);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'Rajdhani',sans-serif; font-size: 13px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+.nv-step-inp:focus { border-color: rgba(0,240,255,.4); }
+.nv-step-inp::placeholder { color: rgba(0,240,255,.25); font-size: 11px; }
+.nv-step-btn {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(0,240,255,.3);
+  border-radius: 8px;
+  background: rgba(0,240,255,.06);
+  color: var(--cyan); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; transition: all .2s; flex-shrink: 0;
+}
+.nv-step-btn:hover { background: rgba(0,240,255,.15); border-color: var(--cyan); }
+.nv-tdots {
+  display: flex; gap: 4px; align-items: center;
+  background: rgba(0,240,255,.04); border: 1px solid rgba(0,240,255,.12);
+  border-radius: 10px; padding: 10px 14px;
+}
+.nv-tdot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); opacity: .4; }
+.nv-tdot:nth-child(1){animation:nb 1.2s ease-in-out infinite;}
+.nv-tdot:nth-child(2){animation:nb 1.2s ease-in-out infinite .2s;}
+.nv-tdot:nth-child(3){animation:nb 1.2s ease-in-out infinite .4s;}
+@keyframes nb{0%,100%{transform:translateY(0);opacity:.4;}50%{transform:translateY(-4px);opacity:1;}}
+
+/* ── FOOTER ── */
+.footer {
+  margin: 48px 0 0;
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(0,240,255,0.08);
+  cursor: none;
+  transition: border-color 0.3s;
+}
+.footer:hover { border-top-color: rgba(0,240,255,0.2); }
+.footer-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--cyan);
+  text-shadow: 0 0 30px rgba(0,240,255,0.25);
+  letter-spacing: 0.3em;
+  margin-bottom: 10px;
+}
+.footer-copy, .footer-ip {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: rgba(0,240,255,0.25);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.footer-ip { color: rgba(0,240,255,0.15); margin-top: 4px; }
+
+/* ── GITHUB BADGE ── */
+.github-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Orbitron',sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: rgba(0,240,255,0.35);
+  border: 1px solid rgba(0,240,255,0.1);
+  border-radius: 3px;
+  padding: 6px 14px;
+  margin-top: 20px;
+  text-decoration: none;
+  cursor: none;
+  transition: all 0.2s;
+}
+.github-badge:hover { border-color: rgba(0,240,255,0.35); color: rgba(0,240,255,0.7); }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: rgba(14,1,5,0.97);
+    border-bottom: 1px solid rgba(0,240,255,0.12);
+    padding: 20px;
+    gap: 20px;
+  }
+  .nav-toggle { display: flex; }
+
+  .layer, .portfolio { padding: 28px 20px; margin: 16px 12px; }
+  .services-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .card { padding: 16px 8px; }
+  .card-icon { font-size: 18px; }
+  .card-title { font-size: 8px; }
+  .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .about-inner { grid-template-columns: 1fr; gap: 24px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  #chatTrigger { bottom: 20px; right: 16px; }
+  #nvWin { width: calc(100vw - 16px); max-width: calc(100vw - 16px); }
+  .hero h1 { letter-spacing: 0.15em; }
+}
+
+@media (max-width: 420px) {
+  .services-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .card { padding: 12px 6px; gap: 4px; }
+  .card-icon { font-size: 16px; }
+  .card-title { font-size: 7px; }
+  .desc { font-size: 8px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .hero-cta { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── CANVAS ── -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- ── CURSOR ── -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── SYSTEM BAR ── -->
+<div class="system-bar"></div>
+
+<!-- ═══════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════ -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">NOUVURA</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services" data-key="nav_services">Services</a></li>
+    <li><a href="#portfolio" data-key="nav_portfolio">Portfolio</a></li>
+    <li><a href="#showcase">Showcase</a></li>
+    <li><a href="#about" data-key="nav_about">About</a></li>
+    <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-lang">
+    <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ar')">AR</button>
+  </div>
+  <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-aura"></div>
+
+  <div class="logo-wrap">
+    <div class="logo-glow-ring"></div>
+    <div class="logo-box">
+      <img src="logo.png" alt="NOUVURA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-box-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">N</div>
+    </div>
+  </div>
+
+  <h1 data-key="title">NOUVURA</h1>
+  <p class="hero-slogan" data-key="slogan">It all started with an idea</p>
+
+  <div class="hero-meta">
+    <div class="hero-meta-line"></div>
+    <span class="hero-meta-text" data-key="meta">Creative Studio · Digital System</span>
+    <div class="hero-meta-line r"></div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#services" class="btn-primary" data-key="cta_services">Nos Services</a>
+    <a href="#contact" class="btn-secondary" data-key="cta_contact">Nous Contacter</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ═══ CONNECTION ═══ -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SERVICES
+═══════════════════════════════════════════ -->
+<div class="layer reveal" id="services">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="services_title">Services</h2>
+    <span class="section-tag">SYS-01</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid">
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">◈</span>
+      <span class="card-title">UI/UX</span>
+      <span class="desc">Interface Design</span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">⟨/⟩</span>
+      <span class="card-title">Web</span>
+      <span class="desc">Development</span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">◉</span>
+      <span class="card-title">Branding</span>
+      <span class="desc">Visual Identity</span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">⬡</span>
+      <span class="card-title">Graphic</span>
+      <span class="desc">Design</span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">▣</span>
+      <span class="card-title">DTF</span>
+      <span class="desc">Printing</span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">⌗</span>
+      <span class="card-title">CNC</span>
+      <span class="desc">Cutting</span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">✦</span>
+      <span class="card-title">Laser</span>
+      <span class="desc">Engraving</span>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <span class="card-icon">⊞</span>
+      <span class="card-title">Motion</span>
+      <span class="desc">Animation</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONNECTION ═══ -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     STATS
+═══════════════════════════════════════════ -->
+<div class="layer reveal">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="stats_title">Impact</h2>
+    <span class="section-tag">SYS-01B</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-num" id="s1">0</span>
+      <span class="stat-label" data-key="stat_projects">Projets Réalisés</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="s2">0</span>
+      <span class="stat-label" data-key="stat_clients">Clients Satisfaits</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="s3">0</span>
+      <span class="stat-label" data-key="stat_years">Années d'Expérience</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONNECTION ═══ -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PORTFOLIO
+═══════════════════════════════════════════ -->
+<section class="portfolio reveal" id="portfolio">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="portfolio_title">Portfolio</h2>
+    <span class="section-tag">SYS-02</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="portfolio-grid">
+
+    <div class="portfolio-item" onclick="openLightbox('portfolio.png','BRAND IDENTITY')">
+      <img src="portfolio.png" alt="Brand Identity" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portfolio-placeholder" style="display:none">
+        <div class="portfolio-placeholder-icon">◈</div>
+        <div class="portfolio-placeholder-text">Brand Identity</div>
+      </div>
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Brand Identity</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item" onclick="openLightbox('portfolio2.png','VISUAL SYSTEM')">
+      <img src="portfolio2.png" alt="Visual System" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portfolio-placeholder" style="display:none">
+        <div class="portfolio-placeholder-icon">⬡</div>
+        <div class="portfolio-placeholder-text">Visual System</div>
+      </div>
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Visual System</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item" onclick="openLightbox('cart visite -02 copie.jpg','BUSINESS CARD')">
+      <img src="cart visite -02 copie.jpg" alt="Business Card" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portfolio-placeholder" style="display:none">
+        <div class="portfolio-placeholder-icon">▣</div>
+        <div class="portfolio-placeholder-text">Business Card</div>
+      </div>
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Business Card</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item" onclick="openLightbox('cart visite _Plan de travail 1 copie.jpg','CARD DESIGN')">
+      <img src="cart visite _Plan de travail 1 copie.jpg" alt="Card Design" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portfolio-placeholder" style="display:none">
+        <div class="portfolio-placeholder-icon">✦</div>
+        <div class="portfolio-placeholder-text">Card Design</div>
+      </div>
+      <div class="portfolio-overlay">
+        <span class="portfolio-label">Card Design</span>
+        <div class="portfolio-expand">⤢</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CONNECTION ═══ -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SHOWCASE / YOUTUBE
+═══════════════════════════════════════════ -->
+<div class="layer reveal" id="showcase">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="showcase_title">Showcase</h2>
+    <span class="section-tag">SYS-03</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="youtube-label">
+    <div class="youtube-dot"></div>
+    <span data-key="video_label">NOUVURA — Studio Reel</span>
+  </div>
+  <div class="youtube-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/5QJu1Mxape8?autoplay=0&mute=0&controls=1&rel=0&showinfo=0&modestbranding=1"
+      title="NOUVURA Showcase"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+</div>
+
+<!-- ═══ CONNECTION ═══ -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT / PROCESS
+═══════════════════════════════════════════ -->
+<div class="layer reveal" id="about">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="about_title">À Propos</h2>
+    <span class="section-tag">SYS-04</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-inner">
+    <div class="about-text">
+      <p class="about-accent" data-key="about_accent">"Chaque projet commence par une idée — nous la transformons en système."</p>
+      <p data-key="about_p1">NOUVURA est un studio créatif spécialisé dans la construction d'identités visuelles puissantes et de systèmes numériques sur mesure. Notre approche fusionne précision technique et sensibilité esthétique.</p>
+      <p data-key="about_p2">Du branding à la production physique (DTF, CNC, Laser), nous couvrons l'ensemble du spectre créatif pour des clients exigeants.</p>
+      <div class="about-tags">
+        <span class="tag">ALGÉRIE</span>
+        <span class="tag">DEPUIS 2022</span>
+        <span class="tag">FULL STACK CREATIVE</span>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Branding & Identity</span><span>95%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.95"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>UI/UX Design</span><span>90%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.90"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Web Development</span><span>85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.85"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>DTF / CNC / Laser</span><span>88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.88"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Graphic Design</span><span>92%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.92"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONNECTION ═══ -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROCESS
+═══════════════════════════════════════════ -->
+<div class="layer reveal">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="process_title">Processus</h2>
+    <span class="section-tag">SYS-05</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title" data-key="step1_title">Brief & Analyse</div>
+        <div class="step-desc" data-key="step1_desc">Nous définissons ensemble vos objectifs, votre cible et les contraintes du projet. Cette phase est la fondation de tout le travail qui suit.</div>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title" data-key="step2_title">Conception & Stratégie</div>
+        <div class="step-desc" data-key="step2_desc">Développement des concepts visuels, moodboards, et architecture de l'identité ou du projet numérique.</div>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title" data-key="step3_title">Production & Itération</div>
+        <div class="step-desc" data-key="step3_desc">Réalisation complète avec cycles de révision. Nous affinons jusqu'à ce que le résultat soit parfait.</div>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title" data-key="step4_title">Livraison & Support</div>
+        <div class="step-desc" data-key="step4_desc">Livraison des fichiers sources et accompagnement post-projet. Votre succès est notre référence.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONNECTION ═══ -->
+<div class="energy-line">
+  <div class="energy-node"></div>
+  <div class="connection"></div>
+  <div class="energy-node"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+═══════════════════════════════════════════ -->
+<div class="layer reveal" id="contact">
+  <div class="layer-inner-glow"></div>
+  <div class="section-header">
+    <h2 data-key="contact_title">Contact</h2>
+    <span class="section-tag">SYS-06</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <a class="contact-item" href="https://wa.me/213776532042" target="_blank" rel="noopener">
+      <span class="contact-icon">📲</span>
+      <div class="contact-text">
+        <span class="contact-label">WhatsApp</span>
+        <span class="contact-value">0776 532 042</span>
+      </div>
+    </a>
+    <a class="contact-item" href="mailto:yacineiguenene@gmail.com">
+      <span class="contact-icon">◎</span>
+      <div class="contact-text">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">yacineiguenene@gmail.com</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<div class="footer" onclick="openModal()">
+  <div class="footer-brand">NOUVURA</div>
+  <div class="footer-copy">© 2025 NOUVURA — All Rights Reserved</div>
+  <div class="footer-ip">▸ Intellectual Property · Privacy · Terms</div>
+  <a class="github-badge" href="https://github.com" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+    ⬡ Hosted on GitHub Pages
+  </a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LIGHTBOX
+═══════════════════════════════════════════ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <div class="lightbox-close" onclick="closeLightbox()">✕ FERMER</div>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     IP MODAL
+═══════════════════════════════════════════ -->
+<div class="modal" id="modal" onclick="handleModalClick(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-close" onclick="closeModal()">✕ FERMER</div>
+    <div class="modal-logo">NOUVURA SYSTEM</div>
+    <h2>⬡ Legal & Compliance</h2>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab(0)">Intellectual Property</button>
+      <button class="modal-tab" onclick="switchTab(1)">Privacy Policy</button>
+      <button class="modal-tab" onclick="switchTab(2)">Terms of Use</button>
+    </div>
+    <div class="modal-panel active" id="tab0">
+      <p>All creative works, designs, visual identities, branding assets and digital productions published by <strong>NOUVURA</strong> are the exclusive property of NOUVURA and its designated creators.</p>
+      <h3>Ownership & Protection</h3>
+      <ul>
+        <li>All logos, graphic designs, illustrations, UI/UX systems, web interfaces, and visual content are protected under applicable copyright and intellectual property laws.</li>
+        <li>NOUVURA retains full ownership of all original works unless a written license agreement explicitly transfers specified rights to a client.</li>
+        <li>Client deliverables become property of the client only upon full settlement of agreed payment.</li>
+      </ul>
+      <h3>Prohibited Actions</h3>
+      <ul>
+        <li>Reproduction, redistribution, or commercial use of any NOUVURA asset without prior written authorization is strictly prohibited.</li>
+        <li>Modification or derivative works based on NOUVURA designs are not permitted without explicit consent.</li>
+      </ul>
+      <div class="modal-divider"></div>
+      <p style="font-size:11px;color:rgba(0,240,255,0.35)">Licensing inquiries: yacineiguenene@gmail.com</p>
+      <span class="modal-badge">NOUVURA © 2025 — ALL RIGHTS RESERVED</span>
+    </div>
+    <div class="modal-panel" id="tab1">
+      <p>NOUVURA is committed to protecting the privacy and personal information of all clients, collaborators, and visitors.</p>
+      <h3>Data We Collect</h3>
+      <ul>
+        <li>Contact information voluntarily provided through communication channels.</li>
+        <li>Project briefs and communication records necessary for service delivery.</li>
+        <li>Technical data collected anonymously for site optimization.</li>
+      </ul>
+      <h3>How We Use Your Data</h3>
+      <ul>
+        <li>To respond to inquiries, deliver services, and manage project communication.</li>
+        <li>We do not sell, rent, or share your personal data with third parties.</li>
+      </ul>
+      <div class="modal-divider"></div>
+      <span class="modal-badge">GDPR COMPLIANT · DATA PROTECTED</span>
+    </div>
+    <div class="modal-panel" id="tab2">
+      <p>By engaging with NOUVURA's services, website, or any related content, you agree to the following terms.</p>
+      <h3>Service Agreement</h3>
+      <ul>
+        <li>Services are initiated upon written agreement and confirmed deposit payment.</li>
+        <li>NOUVURA reserves the right to decline project requests that conflict with our professional standards.</li>
+      </ul>
+      <h3>Liability</h3>
+      <p>NOUVURA provides services in good faith and is not liable for indirect damages beyond the scope of the signed service agreement. All disputes are subject to Algerian commercial law.</p>
+      <div class="modal-divider"></div>
+      <span class="modal-badge">NOUVURA — PROFESSIONAL STANDARDS</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     AI CHATBOT
+═══════════════════════════════════════════ -->
+<div id="chatTrigger">
+  <button class="nv-trig-btn" onclick="openChat()" aria-label="Open NOUVURA AI">
+    <span class="nv-trig-icon">⬡</span>
+  </button>
+</div>
+
+<div id="nvOverlay">
+  <div id="nvWin">
+    <div class="nv-hdr">
+      <div class="nv-logo">NV</div>
+      <div class="nv-hinfo">
+        <div class="nv-hname">NOUVURA AI</div>
+        <div class="nv-hstatus">
+          <div class="nv-hdot"></div>
+          <span>ONLINE · READY</span>
+        </div>
+      </div>
+      <button class="nv-hbtn" onclick="closeChat()">✕</button>
+    </div>
+    <div class="nv-body" id="nvBody"></div>
+    <div class="nv-ui">
+      <div class="nv-qr-row" id="nvQR"></div>
+      <div class="nv-inp-row">
+        <input class="nv-step-inp" id="nvInp" placeholder="Message..." onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="nv-step-btn" onclick="sendMsg()">▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ═══ TRANSLATIONS ═══ */
+const LANG = {
+  fr: {
+    title:'NOUVURA', slogan:'It all started with an idea', meta:'Creative Studio · Digital System',
+    nav_services:'Services', nav_portfolio:'Portfolio', nav_about:'À Propos', nav_contact:'Contact',
+    cta_services:'Nos Services', cta_contact:'Nous Contacter',
+    services_title:'Services', stats_title:'Impact',
+    stat_projects:'Projets Réalisés', stat_clients:'Clients Satisfaits', stat_years:"Années d'Expérience",
+    portfolio_title:'Portfolio', showcase_title:'Showcase', video_label:'NOUVURA — Studio Reel',
+    about_title:'À Propos', about_accent:'"Chaque projet commence par une idée — nous la transformons en système."',
+    about_p1:"NOUVURA est un studio créatif spécialisé dans la construction d'identités visuelles puissantes et de systèmes numériques sur mesure.",
+    about_p2:"Du branding à la production physique (DTF, CNC, Laser), nous couvrons l'ensemble du spectre créatif.",
+    process_title:'Processus', contact_title:'Contact',
+    step1_title:'Brief & Analyse', step1_desc:"Nous définissons ensemble vos objectifs, votre cible et les contraintes du projet.",
+    step2_title:'Conception & Stratégie', step2_desc:"Développement des concepts visuels, moodboards, et architecture de l'identité.",
+    step3_title:'Production & Itération', step3_desc:"Réalisation complète avec cycles de révision jusqu'au résultat parfait.",
+    step4_title:'Livraison & Support', step4_desc:"Livraison des fichiers sources et accompagnement post-projet.",
+  },
+  en: {
+    title:'NOUVURA', slogan:'It all started with an idea', meta:'Creative Studio · Digital System',
+    nav_services:'Services', nav_portfolio:'Portfolio', nav_about:'About', nav_contact:'Contact',
+    cta_services:'Our Services', cta_contact:'Contact Us',
+    services_title:'Services', stats_title:'Impact',
+    stat_projects:'Projects Completed', stat_clients:'Happy Clients', stat_years:'Years Experience',
+    portfolio_title:'Portfolio', showcase_title:'Showcase', video_label:'NOUVURA — Studio Reel',
+    about_title:'About', about_accent:'"Every project starts with an idea — we turn it into a system."',
+    about_p1:"NOUVURA is a creative studio specializing in powerful visual identities and custom digital systems.",
+    about_p2:"From branding to physical production (DTF, CNC, Laser), we cover the full creative spectrum.",
+    process_title:'Process', contact_title:'Contact',
+    step1_title:'Brief & Analysis', step1_desc:"Together we define your goals, target audience, and project constraints.",
+    step2_title:'Design & Strategy', step2_desc:"Visual concept development, moodboards, and identity architecture.",
+    step3_title:'Production & Iteration', step3_desc:"Full production with revision cycles until the result is perfect.",
+    step4_title:'Delivery & Support', step4_desc:"Source file delivery and post-project support.",
+  },
+  ar: {
+    title:'نوفورا', slogan:'بدأ الأمر كله بفكرة', meta:'استوديو إبداعي · نظام رقمي',
+    nav_services:'الخدمات', nav_portfolio:'المشاريع', nav_about:'من نحن', nav_contact:'اتصل',
+    cta_services:'خدماتنا', cta_contact:'تواصل معنا',
+    services_title:'الخدمات', stats_title:'الإنجازات',
+    stat_projects:'مشروع منجز', stat_clients:'عميل راضٍ', stat_years:'سنوات خبرة',
+    portfolio_title:'المشاريع', showcase_title:'عرض', video_label:'نوفورا — ريل الاستوديو',
+    about_title:'من نحن', about_accent:'"كل مشروع يبدأ بفكرة — نحولها إلى نظام."',
+    about_p1:'نوفورا استوديو إبداعي متخصص في بناء هويات بصرية قوية وأنظمة رقمية مخصصة.',
+    about_p2:'من الهوية البصرية إلى الإنتاج الفيزيائي، نغطي الطيف الإبداعي الكامل.',
+    process_title:'المنهجية', contact_title:'تواصل',
+    step1_title:'التحليل والإحاطة', step1_desc:'نحدد معاً أهدافك وجمهورك ومتطلبات المشروع.',
+    step2_title:'التصميم والاستراتيجية', step2_desc:'تطوير المفاهيم البصرية وهيكل الهوية.',
+    step3_title:'الإنتاج والتطوير', step3_desc:'تنفيذ كامل مع دورات مراجعة حتى النتيجة المثالية.',
+    step4_title:'التسليم والدعم', step4_desc:'تسليم الملفات المصدرية ودعم ما بعد المشروع.',
+  }
+};
+let currentLang = 'fr';
+
+function setLang(l) {
+  currentLang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
+  const t = LANG[l];
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.dataset.key;
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+}
+
+/* ═══ NAV ═══ */
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
+
+/* ═══ CURSOR ═══ */
+const dot  = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
+(function lerp(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(lerp); })();
+document.querySelectorAll('button,.card,.portfolio-item,.contact-item,.nv-trig-btn,.modal-close,.lightbox-close,a').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+});
+
+/* ═══ PARTICLES ═══ */
+const cv=document.getElementById('particleCanvas'), cx=cv.getContext('2d');
+let W,H,pts=[];
+function rsz(){ W=cv.width=window.innerWidth; H=cv.height=window.innerHeight; }
+rsz(); window.addEventListener('resize',rsz);
+class P{ constructor(){ this.r(); } r(){ this.x=Math.random()*W; this.y=Math.random()*H; this.vx=(Math.random()-.5)*.4; this.vy=-Math.random()*.5-.1; this.rad=Math.random()*1.5+.3; this.a=Math.random()*.4+.1; this.life=0; this.max=Math.random()*200+100; } }
+for(let i=0;i<60;i++) pts.push(new P());
+(function draw(){ cx.clearRect(0,0,W,H); pts.forEach(p=>{ p.life++; if(p.life>p.max)p.r(); const f=Math.min(p.life/30,1)*Math.min((p.max-p.life)/30,1); cx.beginPath(); cx.arc(p.x,p.y,p.rad,0,Math.PI*2); cx.fillStyle=`rgba(0,240,255,${p.a*f})`; cx.fill(); p.x+=p.vx; p.y+=p.vy; }); requestAnimationFrame(draw); })();
+
+/* ═══ REVEAL ON SCROLL ═══ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+  });
+},{ threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ═══ SKILL BARS ═══ */
+document.querySelectorAll('.skill-bar-fill').forEach(bar=>{
+  const w = bar.style.getPropertyValue('--w') || '0.8';
+  bar.style.width = (parseFloat(w)*100)+'%';
+  bar.style.transform = 'scaleX(0)';
+});
+
+/* ═══ COUNTER ANIMATION ═══ */
+const counters = [{id:'s1',target:80,suffix:'+'},{id:'s2',target:60,suffix:'+'},{id:'s3',target:3,suffix:'+'}];
+let counted = false;
+const statsObserver = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting && !counted){
+    counted = true;
+    counters.forEach(({id,target,suffix})=>{
+      const el = document.getElementById(id);
+      let v = 0;
+      const step = target/60;
+      const t = setInterval(()=>{
+        v = Math.min(v+step, target);
+        el.textContent = Math.floor(v)+suffix;
+        if(v>=target) clearInterval(t);
+      }, 25);
+    });
+  }
+},{ threshold: 0.5 });
+const statsSection = document.querySelector('.stats-grid');
+if(statsSection) statsObserver.observe(statsSection);
+
+/* ═══ LIGHTBOX ═══ */
+function openLightbox(src,label){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeLightbox(); closeModal(); closeChat(); } });
+
+/* ═══ IP MODAL ═══ */
+function openModal(){ document.getElementById('modal').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(){ document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
+function handleModalClick(e){ if(e.target===document.getElementById('modal')) closeModal(); }
+function switchTab(i){
+  document.querySelectorAll('.modal-tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.modal-panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+
+/* ═══ CHATBOT ═══ */
+const BOT_KNOWLEDGE = {
+  fr: {
+    greeting: `Bonjour ! Je suis l'assistant **NOUVURA AI**.\n\nJe peux vous renseigner sur nos services, tarifs, délais et processus. Comment puis-je vous aider ?`,
+    services: `**NOUVURA** propose :\n\n• **UI/UX** — Interface Design\n• **Web** — Développement\n• **Branding** — Identité visuelle\n• **Graphic** — Design\n• **DTF** — Impression\n• **CNC** — Découpe\n• **Laser** — Gravure\n• **Motion** — Animation\n\nQuel service vous intéresse ?`,
+    pricing: `Nos tarifs varient selon la complexité du projet :\n\n• Logo & Identité : à partir de **8 000 DA**\n• Site Web complet : à partir de **25 000 DA**\n• Pack Branding : à partir de **15 000 DA**\n• DTF / CNC / Laser : devis sur mesure\n\nContactez-nous pour un devis précis !`,
+    contact: `📲 **WhatsApp** : 0776 532 042\n✉️ **Email** : yacineiguenene@gmail.com\n\nNous répondons généralement en moins de 2 heures.`,
+    delay: `Les délais typiques :\n\n• Logo seul : **2–4 jours**\n• Pack Branding : **5–10 jours**\n• Site Web : **2–4 semaines**\n• DTF / Impression : **1–3 jours**\n\nTout dépend de la complexité et de la rapidité des retours client.`,
+  },
+  en: {
+    greeting: `Hello! I'm the **NOUVURA AI** assistant.\n\nI can answer questions about our services, pricing, timelines, and process. How can I help you?`,
+    services: `**NOUVURA** offers:\n\n• **UI/UX** — Interface Design\n• **Web** — Development\n• **Branding** — Visual Identity\n• **Graphic** — Design\n• **DTF** — Printing\n• **CNC** — Cutting\n• **Laser** — Engraving\n• **Motion** — Animation\n\nWhich service interests you?`,
+    pricing: `Our pricing varies by project scope:\n\n• Logo & Identity: from **8,000 DA**\n• Full Website: from **25,000 DA**\n• Branding Package: from **15,000 DA**\n• DTF / CNC / Laser: custom quote\n\nContact us for a precise estimate!`,
+    contact: `📲 **WhatsApp**: 0776 532 042\n✉️ **Email**: yacineiguenene@gmail.com\n\nWe typically respond within 2 hours.`,
+    delay: `Typical timelines:\n\n• Logo only: **2–4 days**\n• Branding Pack: **5–10 days**\n• Website: **2–4 weeks**\n• DTF / Print: **1–3 days**\n\nDepends on complexity and client feedback speed.`,
+  },
+  ar: {
+    greeting: `مرحباً! أنا مساعد **نوفورا الذكي**.\n\nيمكنني الإجابة على أسئلتك حول خدماتنا وأسعارنا ومواعيد التسليم. كيف يمكنني مساعدتك؟`,
+    services: `**نوفورا** تقدم:\n\n• تصميم واجهات UI/UX\n• تطوير مواقع الويب\n• الهوية البصرية والعلامة التجارية\n• التصميم الجرافيكي\n• طباعة DTF\n• قطع CNC\n• نقش بالليزر\n• الموشن جرافيك\n\nأي خدمة تهمك؟`,
+    pricing: `أسعارنا تتفاوت حسب المشروع:\n\n• شعار وهوية: من **8,000 دج**\n• موقع كامل: من **25,000 دج**\n• حزمة الهوية: من **15,000 دج**\n• DTF/CNC/ليزر: حسب الطلب\n\nتواصل معنا للحصول على عرض دقيق!`,
+    contact: `📲 **واتساب**: 0776 532 042\n✉️ **البريد**: yacineiguenene@gmail.com\n\nنرد عادةً خلال ساعتين.`,
+    delay: `مواعيد التسليم المعتادة:\n\n• شعار فقط: **2–4 أيام**\n• حزمة الهوية: **5–10 أيام**\n• موقع إلكتروني: **2–4 أسابيع**\n• طباعة DTF: **1–3 أيام**`,
+  }
+};
+
+const QR_BUTTONS = {
+  fr: ['Voir les services','Tarifs & Prix','Délais de livraison','Nous contacter'],
+  en: ['View services','Pricing','Turnaround times','Contact us'],
+  ar: ['الخدمات','الأسعار','مواعيد التسليم','تواصل معنا'],
+};
+
+let chatOpen = false;
+
+function openChat(){
+  if(chatOpen) return;
+  chatOpen = true;
+  document.getElementById('nvOverlay').classList.add('nv-open');
+  const body = document.getElementById('nvBody');
+  if(!body.children.length){
+    addBotMsg(BOT_KNOWLEDGE[currentLang].greeting);
+    setTimeout(()=>showQR(), 800);
+  }
+}
+function closeChat(){
+  chatOpen = false;
+  document.getElementById('nvOverlay').classList.remove('nv-open');
+}
+
+function addBotMsg(text){
+  const body = document.getElementById('nvBody');
+  const div = document.createElement('div');
+  div.className = 'nv-msg';
+  div.innerHTML = `<div class="nv-avatar">NV</div><div class="nv-bubble">${text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+function addUserMsg(text){
+  const body = document.getElementById('nvBody');
+  const div = document.createElement('div');
+  div.className = 'nv-msg nv-user';
+  div.innerHTML = `<div class="nv-avatar">U</div><div class="nv-bubble">${text}</div>`;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+function addTyping(){
+  const body = document.getElementById('nvBody');
+  const div = document.createElement('div');
+  div.className = 'nv-msg'; div.id = 'nvTyping';
+  div.innerHTML = `<div class="nv-avatar">NV</div><div class="nv-tdots"><div class="nv-tdot"></div><div class="nv-tdot"></div><div class="nv-tdot"></div></div>`;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+function removeTyping(){ const t=document.getElementById('nvTyping'); if(t)t.remove(); }
+
+function showQR(){
+  const qr = document.getElementById('nvQR');
+  qr.innerHTML='';
+  (QR_BUTTONS[currentLang]||QR_BUTTONS.fr).forEach(label=>{
+    const btn = document.createElement('button');
+    btn.className = 'nv-qr-btn';
+    btn.textContent = label;
+    btn.onclick = ()=> handleQR(label, btn);
+    qr.appendChild(btn);
+  });
+}
+
+function handleQR(label, btn){
+  document.querySelectorAll('.nv-qr-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  addUserMsg(label);
+  document.getElementById('nvQR').innerHTML='';
+  addTyping();
+
+  const kb = BOT_KNOWLEDGE[currentLang];
+  let reply = '';
+  const l = label.toLowerCase();
+  if(l.includes('service')||l.includes('خدم')) reply = kb.services;
+  else if(l.includes('tarif')||l.includes('prix')||l.includes('pric')||l.includes('سعر')||l.includes('أسعار')) reply = kb.pricing;
+  else if(l.includes('délai')||l.includes('turnaround')||l.includes('موعد')||l.includes('تسليم')) reply = kb.delay;
+  else if(l.includes('contact')||l.includes('تواصل')) reply = kb.contact;
+  else reply = kb.greeting;
+
+  setTimeout(()=>{ removeTyping(); addBotMsg(reply); showQR(); }, 1100);
+}
+
+function sendMsg(){
+  const inp = document.getElementById('nvInp');
+  const txt = inp.value.trim();
+  if(!txt) return;
+  inp.value='';
+  addUserMsg(txt);
+  document.getElementById('nvQR').innerHTML='';
+  addTyping();
+
+  const kb = BOT_KNOWLEDGE[currentLang];
+  const l = txt.toLowerCase();
+  let reply = '';
+  if(l.match(/service|design|web|brand|dtf|cnc|laser|motion|خدم/)) reply = kb.services;
+  else if(l.match(/tarif|prix|cost|pric|dinar|da|سعر|أسعار|تكلف/)) reply = kb.pricing;
+  else if(l.match(/délai|livr|turnaround|week|jour|day|موعد|تسليم/)) reply = kb.delay;
+  else if(l.match(/contact|whatsapp|email|tel|phone|هاتف|تواصل/)) reply = kb.contact;
+  else reply = `Merci pour votre message ! Pour une réponse précise, contactez-nous directement :\n\n📲 **WhatsApp** : 0776 532 042\n✉️ **Email** : yacineiguenene@gmail.com`;
+
+  setTimeout(()=>{ removeTyping(); addBotMsg(reply); showQR(); }, 1000);
+}
+
+/* ═══ SMOOTH SCROLL ═══ */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+</body>
+</html>
