@@ -30,7 +30,7 @@
   --bg-deep: #0e0105;
   --bg-panel: rgba(20,2,8,0.85);
   --text: #ffffff;
-  --text-dim: rgba(255,240,244,0.92);
+  --text-dim: rgba(255,242,246,0.95);
   --border: rgba(0,240,255,0.18);
   --border-bright: rgba(0,240,255,0.45);
   --radius: 8px;
@@ -126,8 +126,8 @@ nav {
 .hero-video-scrim {
   position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(180deg, rgba(14,1,5,0.88) 0%, rgba(14,1,5,0.55) 30%, rgba(14,1,5,0.55) 70%, rgba(14,1,5,0.94) 100%),
-    radial-gradient(ellipse at center, rgba(14,1,5,0.15) 0%, rgba(14,1,5,0.7) 100%);
+    linear-gradient(180deg, rgba(14,1,5,0.9) 0%, rgba(14,1,5,0.62) 32%, rgba(14,1,5,0.62) 68%, rgba(14,1,5,0.96) 100%),
+    radial-gradient(ellipse at center, rgba(14,1,5,0.25) 0%, rgba(14,1,5,0.75) 100%);
 }
 .hero-sound-toggle {
   position: absolute; bottom: 100px; right: 28px; z-index: 3;
@@ -136,6 +136,7 @@ nav {
   padding: 8px 16px; background: rgba(14,1,5,0.5); backdrop-filter: blur(4px); transition: all 0.2s; display: flex; align-items: center; gap: 6px;
 }
 .hero-sound-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+.sound-icon svg { width: 16px; height: 16px; display: block; }
 
 .hero > * { position: relative; z-index: 2; }
 
@@ -143,19 +144,19 @@ nav {
 @keyframes auraPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
 
 .logo-wrap { position: relative; margin-bottom: 36px; }
-.logo-glow-ring { position: absolute; inset: -16px; border: 1px solid rgba(0,240,255,0.15); border-radius: 50%; animation: ringRotate 12s linear infinite; }
+.logo-glow-ring { position: absolute; inset: -24px; border: 1px solid rgba(0,240,255,0.18); border-radius: 50%; animation: ringRotate 12s linear infinite; }
 @keyframes ringRotate { to { transform: rotate(360deg); } }
-.logo-box { width: 100px; height: 100px; border-radius: 16px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(0,240,255,0.15), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; }
-.logo-box img { width: 80px; height: 80px; object-fit: contain; }
-.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
+.logo-box { width: 168px; height: 168px; border-radius: 26px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 60px rgba(0,240,255,0.18), inset 0 0 40px rgba(0,240,255,0.06); overflow: hidden; position: relative; }
+.logo-box img { width: 136px; height: 136px; object-fit: contain; }
+.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 60px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 24px var(--cyan); }
 
 .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(40px, 10vw, 84px); font-weight: 900; color: var(--cyan); letter-spacing: 0.25em; text-shadow: 0 0 40px rgba(0,240,255,0.4), 0 0 80px rgba(0,240,255,0.15); margin-bottom: 12px; animation: heroReveal 1s var(--ease) both; }
 @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.95); letter-spacing: 0.5em; } to { opacity: 1; transform: translateY(0) scale(1); } }
-.hero-slogan { font-size: clamp(14px, 2.5vw, 19px); color: var(--text-dim); letter-spacing: 0.08em; margin-bottom: 24px; animation: heroReveal 1s var(--ease) 0.2s both; }
+.hero-slogan { font-size: clamp(15px, 2.5vw, 20px); color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,0.6); letter-spacing: 0.08em; margin-bottom: 24px; animation: heroReveal 1s var(--ease) 0.2s both; }
 .hero-meta { display: flex; align-items: center; gap: 14px; animation: heroReveal 1s var(--ease) 0.4s both; }
 .hero-meta-line { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4)); }
 .hero-meta-line.r { background: linear-gradient(90deg, rgba(0,240,255,0.4), transparent); }
-.hero-meta-text { font-family: 'Orbitron', sans-serif; font-size: 9px; color: rgba(0,240,255,0.6); letter-spacing: 0.25em; text-transform: uppercase; }
+.hero-meta-text { font-family: 'Orbitron', sans-serif; font-size: 9px; color: rgba(0,240,255,0.85); text-shadow: 0 2px 10px rgba(0,0,0,0.5); letter-spacing: 0.25em; text-transform: uppercase; }
 .hero-cta { margin-top: 44px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: heroReveal 1s var(--ease) 0.6s both; }
 .btn-primary, .btn-secondary { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; padding: 15px 34px; border-radius: 4px; transition: all 0.25s var(--ease); display: inline-block; }
 .btn-primary { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border: 1px solid var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.15); }
@@ -171,14 +172,14 @@ nav {
 @keyframes scrollArrow { 0%,100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(0.6); opacity: 1; } }
 
 /* ── CONNECTION LINES ── */
-.energy-line { display: flex; align-items: center; justify-content: center; padding: 6px 0; gap: 0; }
+.energy-line { display: flex; align-items: center; justify-content: center; padding: 16px 0; gap: 0; }
 .energy-node { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,240,255,0.3); border: 1px solid rgba(0,240,255,0.5); box-shadow: 0 0 8px rgba(0,240,255,0.3); }
 .connection { flex: 1; max-width: 200px; height: 1px; background: linear-gradient(90deg, rgba(0,240,255,0.15), rgba(0,240,255,0.4), rgba(0,240,255,0.15)); animation: connFlow 3s ease-in-out infinite; }
 @keyframes connFlow { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
 
 /* ── SECTIONS / LAYERS ── */
 .layer {
-  margin: 28px auto; max-width: 960px; padding: 56px 40px;
+  margin: 44px auto; max-width: 980px; padding: 72px 48px;
   background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px;
   position: relative; overflow: hidden;
   opacity: 0; transform: translateY(30px);
@@ -187,7 +188,7 @@ nav {
 .layer.show { opacity: 1; transform: translateY(0); }
 .layer-inner-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(0,240,255,0.04) 0%, transparent 60%); pointer-events: none; }
 
-.section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+.section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
 .section-header h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(18px, 3vw, 24px); font-weight: 700; color: var(--text); letter-spacing: 0.15em; text-transform: uppercase; }
 .section-tag { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.2em; color: var(--cyan); border: 1px solid rgba(0,240,255,0.25); padding: 3px 10px; border-radius: 2px; opacity: 0.7; }
 .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,240,255,0.25), transparent); }
@@ -196,7 +197,7 @@ nav {
 /* ══════════════════════════════════════════
    BRAND STATEMENT
 ══════════════════════════════════════════ */
-.brand-statement { text-align: center; padding: 90px 24px; }
+.brand-statement { text-align: center; padding: 110px 24px; }
 .brand-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.35em; color: rgba(0,240,255,0.45); text-transform: uppercase; margin-bottom: 28px; }
 .brand-lines { max-width: 780px; margin: 0 auto; }
 .brand-line { font-family: 'Rajdhani', sans-serif; font-weight: 300; font-size: clamp(22px, 4.4vw, 40px); line-height: 1.35; color: var(--text-dim); }
@@ -204,26 +205,28 @@ nav {
 .brand-sub { max-width: 520px; margin: 32px auto 0; font-size: 14px; line-height: 1.9; color: rgba(255,240,244,0.78); }
 
 /* ── SERVICES GRID ── */
-.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 30px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: rgba(0,240,255,0.02); transition: all 0.3s var(--ease); text-align: center; position: relative; overflow: hidden; }
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 38px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: rgba(0,240,255,0.02); transition: all 0.3s var(--ease); text-align: center; position: relative; overflow: hidden; }
 .card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,240,255,0.06), transparent); opacity: 0; transition: opacity 0.3s; }
 .card:hover { border-color: var(--border-bright); box-shadow: 0 0 24px rgba(0,240,255,0.12), inset 0 0 20px rgba(0,240,255,0.04); transform: translateY(-4px); color: var(--cyan); }
 .card:hover::before { opacity: 1; }
 .card.active { border-color: var(--cyan); background: rgba(0,240,255,0.06); color: var(--cyan); }
-.card-icon { font-size: 24px; color: var(--cyan); opacity: 0.7; transition: opacity 0.3s, transform 0.3s; }
+.card-icon { color: var(--cyan); opacity: 0.75; transition: opacity 0.3s, transform 0.3s; display: flex; align-items: center; justify-content: center; }
+.card-icon svg { width: 28px; height: 28px; }
 .card:hover .card-icon { opacity: 1; transform: scale(1.15); }
 .card-title { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); transition: color 0.3s; }
 .card:hover .card-title { color: var(--cyan); }
 .desc { font-size: 11px; color: rgba(0,240,255,0.6); letter-spacing: 0.05em; }
 
 /* ── PORTFOLIO (BENTO) ── */
-.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 200px; gap: 16px; }
+.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 210px; gap: 20px; }
 .portfolio-item { border-radius: 10px; border: 1px solid var(--border); overflow: hidden; position: relative; background: rgba(0,240,255,0.03); transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
 .portfolio-item.p-hero { grid-column: 1 / 3; grid-row: 1 / 3; }
-.portfolio-item.p-r1 { grid-column: 3; grid-row: 1; }
-.portfolio-item.p-r2 { grid-column: 3; grid-row: 2; }
-.portfolio-item.p-wide { grid-column: 1 / 3; grid-row: 3; }
-.portfolio-item.p-corner { grid-column: 3; grid-row: 3; }
+.portfolio-item.p-1 { grid-column: 3; grid-row: 1; }
+.portfolio-item.p-2 { grid-column: 3; grid-row: 2; }
+.portfolio-item.p-3 { grid-column: 1; grid-row: 3; }
+.portfolio-item.p-4 { grid-column: 2; grid-row: 3; }
+.portfolio-item.p-5 { grid-column: 3; grid-row: 3; }
 .portfolio-item:hover { border-color: rgba(0,240,255,0.45); box-shadow: 0 0 30px rgba(0,240,255,0.12); transform: scale(1.015); }
 .portfolio-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); }
 .portfolio-item:hover img { transform: scale(1.06); }
@@ -236,7 +239,7 @@ nav {
 .portfolio-placeholder-text { font-family: 'Orbitron', sans-serif; font-size: 8px; color: rgba(0,240,255,0.55); letter-spacing: 0.2em; text-transform: uppercase; text-align: center; padding: 0 10px; }
 
 /* ── ABOUT ── */
-.about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .about-text p { font-size: 15px; color: var(--text-dim); line-height: 1.85; margin-bottom: 16px; }
 .about-accent { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 700; color: var(--cyan); text-shadow: 0 0 20px rgba(0,240,255,0.3); line-height: 1.4; letter-spacing: 0.05em; margin-bottom: 20px; display: block; }
 .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
@@ -264,7 +267,7 @@ nav {
 /* ══════════════════════════════════════════
    REQUEST FORM
 ══════════════════════════════════════════ */
-.request-form { display: flex; flex-direction: column; gap: 22px; }
+.request-form { display: flex; flex-direction: column; gap: 28px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .form-field { display: flex; flex-direction: column; gap: 8px; }
 .form-field.full { grid-column: 1 / -1; }
@@ -299,10 +302,11 @@ nav {
 .form-status.ok { color: #25d366; }
 
 /* ── CONTACT ── */
-.contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.contact-item { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 26px 16px; border: 1px solid var(--border); border-radius: 8px; background: rgba(0,240,255,0.02); transition: all 0.3s var(--ease); text-decoration: none; text-align: center; }
+.contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.contact-item { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 32px 18px; border: 1px solid var(--border); border-radius: 8px; background: rgba(0,240,255,0.02); transition: all 0.3s var(--ease); text-decoration: none; text-align: center; }
 .contact-item:hover { border-color: rgba(0,240,255,0.65); background: rgba(0,240,255,0.04); transform: translateY(-3px); box-shadow: 0 0 20px rgba(0,240,255,0.08); }
-.contact-icon { font-size: 24px; }
+.contact-icon { color: var(--cyan); display: flex; align-items: center; justify-content: center; }
+.contact-icon svg { width: 26px; height: 26px; }
 .contact-label { font-family: 'Orbitron', sans-serif; font-size: 8px; color: rgba(0,240,255,0.65); letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 2px; }
 .contact-value { font-size: 13px; color: var(--text-dim); font-weight: 600; word-break: break-word; }
 
@@ -354,12 +358,8 @@ nav {
   .layer { padding: 36px 22px; margin: 18px 12px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .card { padding: 22px 10px; }
-  .portfolio-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
-  .portfolio-item.p-hero { grid-column: 1 / 3; grid-row: 1 / 3; }
-  .portfolio-item.p-r1 { grid-column: 1; grid-row: 3; }
-  .portfolio-item.p-r2 { grid-column: 2; grid-row: 3; }
-  .portfolio-item.p-wide { grid-column: 1 / 3; grid-row: 4; }
-  .portfolio-item.p-corner { grid-column: 1 / 3; grid-row: 5; }
+  .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+  .portfolio-item.p-hero, .portfolio-item.p-1, .portfolio-item.p-2, .portfolio-item.p-3, .portfolio-item.p-4, .portfolio-item.p-5 { grid-column: 1; grid-row: auto; }
   .contact-grid { grid-template-columns: 1fr 1fr; }
   .about-inner { grid-template-columns: 1fr; gap: 30px; }
   .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -402,10 +402,12 @@ nav {
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="home">
+  <!-- Pour changer la vidéo : remplacez YOUTUBE_VIDEO_ID ci-dessous par l'ID de VOTRE vidéo YouTube (visible dans l'URL après watch?v=). La vidéo doit être publique/non-répertoriée et autoriser l'intégration (embedding). -->
   <div class="hero-video-bg" id="heroVideoBg">
     <iframe id="heroIframe"
-      src="https://www.youtube.com/embed/5QJu1Mxape8?autoplay=1&mute=1&loop=1&playlist=5QJu1Mxape8&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1"
-      title="NOUVURA — Studio Reel" allow="autoplay; encrypted-media" loading="eager"></iframe>
+      src="https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&mute=1&loop=1&playlist=aqz-KE-bpKQ&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&disablekb=1"
+      title="NOUVURA — Studio Reel" frameborder="0"
+      allow="autoplay; encrypted-media; picture-in-picture" loading="eager"></iframe>
   </div>
   <div class="hero-video-scrim"></div>
   <div class="hero-aura"></div>
@@ -433,7 +435,10 @@ nav {
   </div>
 
   <button class="hero-sound-toggle" id="soundToggle" onclick="toggleSound()">
-    <span id="soundIcon">🔇</span><span id="soundLabel" data-key="sound_off">Son coupé</span>
+    <span id="soundIcon" class="sound-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9" fill="currentColor" stroke="none"/><line x1="16" y1="9" x2="21" y2="14"/><line x1="21" y1="9" x2="16" y2="14"/></svg>
+    </span>
+    <span id="soundLabel" data-key="sound_off">Son coupé</span>
   </button>
 
   <div class="scroll-hint"><span>SCROLL</span><div class="scroll-arrow"></div></div>
@@ -466,14 +471,14 @@ nav {
     <div class="section-line"></div>
   </div>
   <div class="services-grid">
-    <div class="card"><span class="card-icon">◈</span><span class="card-title">UI/UX</span><span class="desc" data-key="svc_uiux">Interface Design</span></div>
-    <div class="card"><span class="card-icon">⟨/⟩</span><span class="card-title">Web</span><span class="desc" data-key="svc_web">Development</span></div>
-    <div class="card"><span class="card-icon">◉</span><span class="card-title">Branding</span><span class="desc" data-key="svc_brand">Visual Identity</span></div>
-    <div class="card"><span class="card-icon">⬡</span><span class="card-title">Graphic</span><span class="desc" data-key="svc_graphic">Design</span></div>
-    <div class="card"><span class="card-icon">▣</span><span class="card-title">DTF</span><span class="desc" data-key="svc_dtf">Printing</span></div>
-    <div class="card"><span class="card-icon">⌗</span><span class="card-title">CNC</span><span class="desc" data-key="svc_cnc">Cutting</span></div>
-    <div class="card"><span class="card-icon">✦</span><span class="card-title">Laser</span><span class="desc" data-key="svc_laser">Engraving</span></div>
-    <div class="card"><span class="card-icon">⊞</span><span class="card-title">Motion</span><span class="desc" data-key="svc_motion">Animation</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="card-title">UI/UX</span><span class="desc" data-key="svc_uiux">Interface Design</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg></span><span class="card-title">Web</span><span class="desc" data-key="svc_web">Development</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg></span><span class="card-title">Branding</span><span class="desc" data-key="svc_brand">Visual Identity</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 8.5 12 15l10-6.5L12 2Z"/><path d="M2 15.5 12 22l10-6.5"/></svg></span><span class="card-title">Graphic</span><span class="desc" data-key="svc_graphic">Design</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></span><span class="card-title">DTF</span><span class="desc" data-key="svc_dtf">Printing</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span><span class="card-title">CNC</span><span class="desc" data-key="svc_cnc">Cutting</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-14h-7l0-6Z"/></svg></span><span class="card-title">Laser</span><span class="desc" data-key="svc_laser">Engraving</span></div>
+    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M7 5v14M17 5v14M2 10h5M2 15h5M17 10h5M17 15h5"/></svg></span><span class="card-title">Motion</span><span class="desc" data-key="svc_motion">Animation</span></div>
   </div>
 </div>
 
@@ -496,28 +501,34 @@ nav {
       <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_1">Business Card</span><div class="portfolio-expand">⤢</div></div>
     </div>
 
-    <div class="portfolio-item p-r1" onclick="openLightbox('flayer.jpg')">
+    <div class="portfolio-item p-1" onclick="openLightbox('flayer.jpg')">
       <img src="flayer.jpg" alt="Flyer" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">✦</div><div class="portfolio-placeholder-text" data-key="p_label_2">Flyer</div></div>
       <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_2">Flyer</span><div class="portfolio-expand">⤢</div></div>
     </div>
 
-    <div class="portfolio-item p-r2" onclick="openLightbox('cap.png')">
+    <div class="portfolio-item p-2" onclick="openLightbox('cap.png')">
       <img src="cap.png" alt="Merchandise" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">⬡</div><div class="portfolio-placeholder-text" data-key="p_label_3">Merchandise</div></div>
       <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_3">Merchandise</span><div class="portfolio-expand">⤢</div></div>
     </div>
 
-    <div class="portfolio-item p-wide" onclick="openLightbox('habillage .jpg')">
+    <div class="portfolio-item p-3" onclick="openLightbox('habillage .jpg')">
       <img src="habillage .jpg" alt="Vehicle / Space Wrapping" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">◉</div><div class="portfolio-placeholder-text" data-key="p_label_4">Habillage</div></div>
       <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_4">Habillage</span><div class="portfolio-expand">⤢</div></div>
     </div>
 
-    <div class="portfolio-item p-corner" onclick="openLightbox('panoux pub.jpg')">
-      <img src="panoux pub.jpg" alt="Advertising Panel" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">◈</div><div class="portfolio-placeholder-text" data-key="p_label_5">Print Ad</div></div>
-      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_5">Print Ad</span><div class="portfolio-expand">⤢</div></div>
+    <div class="portfolio-item p-4" onclick="openLightbox('cafai 01 .jpg')">
+      <img src="cafai 01 .jpg" alt="Café Branding" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">◈</div><div class="portfolio-placeholder-text" data-key="p_label_5">Café Branding</div></div>
+      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_5">Café Branding</span><div class="portfolio-expand">⤢</div></div>
+    </div>
+
+    <div class="portfolio-item p-5" onclick="openLightbox('captur .png')">
+      <img src="captur .png" alt="Web / UI Design" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">◈</div><div class="portfolio-placeholder-text" data-key="p_label_6">Web / UI</div></div>
+      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_6">Web / UI</span><div class="portfolio-expand">⤢</div></div>
     </div>
   </div>
 </div>
@@ -651,19 +662,19 @@ nav {
   </div>
   <div class="contact-grid">
     <a class="contact-item" href="https://wa.me/213776532042" target="_blank" rel="noopener">
-      <span class="contact-icon">📲</span>
+      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.6L3 20l1-5.5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 10.5c.5 2.5 2.5 4.5 5 5"/></svg></span>
       <div class="contact-text"><span class="contact-label">WhatsApp</span><span class="contact-value">0776 532 042</span></div>
     </a>
     <a class="contact-item" href="mailto:yacineiguenene@gmail.com">
-      <span class="contact-icon">◎</span>
+      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span>
       <div class="contact-text"><span class="contact-label">Email</span><span class="contact-value">yacineiguenene@gmail.com</span></div>
     </a>
     <a class="contact-item" href="tel:+213776532042">
-      <span class="contact-icon">☎</span>
+      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.4 2.1L8 10.3a16 16 0 0 0 6 6l1.5-1.4a2 2 0 0 1 2.1-.4c1 .4 2 .6 3 .7a2 2 0 0 1 1.7 2Z"/></svg></span>
       <div class="contact-text"><span class="contact-label" data-key="contact_phone">Téléphone</span><span class="contact-value">0776 532 042</span></div>
     </a>
     <a class="contact-item" href="https://www.youtube.com/@nouvura" target="_blank" rel="noopener">
-      <span class="contact-icon">▶</span>
+      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor" stroke="none"/></svg></span>
       <div class="contact-text"><span class="contact-label">YouTube</span><span class="contact-value" data-key="contact_youtube_val">Studio Reel</span></div>
     </a>
   </div>
@@ -761,7 +772,7 @@ const LANG = {
     svc_uiux:'Interface Design', svc_web:'Development', svc_brand:'Visual Identity', svc_graphic:'Design', svc_dtf:'Printing', svc_cnc:'Cutting', svc_laser:'Engraving', svc_motion:'Animation',
     svc_uiux_full:'UI/UX — Interface Design', svc_web_full:'Web — Développement', svc_brand_full:'Branding — Identité Visuelle', svc_graphic_full:'Graphic — Design', svc_dtf_full:'DTF — Impression', svc_cnc_full:'CNC — Découpe', svc_laser_full:'Laser — Gravure', svc_motion_full:'Motion — Animation', svc_other:'Autre',
     portfolio_title:'Portfolio', portfolio_sub:'Une sélection engagée. Nous montrons peu, mais nous montrons ce qui compte.',
-    p_label_1:'Business Card', p_label_2:'Flyer', p_label_3:'Merchandise', p_label_4:'Habillage', p_label_5:'Print Ad',
+    p_label_1:'Business Card', p_label_2:'Flyer', p_label_3:'Merchandise', p_label_4:'Habillage', p_label_5:'Café Branding', p_label_6:'Web / UI',
     about_title:'À Propos', about_accent:'"Chaque projet commence par une idée — nous la transformons en système."',
     about_p1:"NOUVURA est un studio créatif spécialisé dans la construction d'identités visuelles puissantes et de systèmes numériques sur mesure.",
     about_p2:"Du branding à la production physique (DTF, CNC, Laser), nous couvrons l'ensemble du spectre créatif.",
@@ -797,7 +808,7 @@ const LANG = {
     svc_uiux:'Interface Design', svc_web:'Development', svc_brand:'Visual Identity', svc_graphic:'Design', svc_dtf:'Printing', svc_cnc:'Cutting', svc_laser:'Engraving', svc_motion:'Animation',
     svc_uiux_full:'UI/UX — Interface Design', svc_web_full:'Web — Development', svc_brand_full:'Branding — Visual Identity', svc_graphic_full:'Graphic — Design', svc_dtf_full:'DTF — Printing', svc_cnc_full:'CNC — Cutting', svc_laser_full:'Laser — Engraving', svc_motion_full:'Motion — Animation', svc_other:'Other',
     portfolio_title:'Portfolio', portfolio_sub:"A deliberate selection. We show little, but we show what matters.",
-    p_label_1:'Business Card', p_label_2:'Flyer', p_label_3:'Merchandise', p_label_4:'Vehicle & Space Wrap', p_label_5:'Print Ad',
+    p_label_1:'Business Card', p_label_2:'Flyer', p_label_3:'Merchandise', p_label_4:'Vehicle & Space Wrap', p_label_5:'Café Branding', p_label_6:'Web / UI',
     about_title:'About', about_accent:'"Every project starts with an idea — we turn it into a system."',
     about_p1:"NOUVURA is a creative studio specializing in powerful visual identities and custom digital systems.",
     about_p2:"From branding to physical production (DTF, CNC, Laser), we cover the full creative spectrum.",
@@ -833,7 +844,7 @@ const LANG = {
     svc_uiux:'تصميم واجهات', svc_web:'تطوير', svc_brand:'هوية بصرية', svc_graphic:'تصميم', svc_dtf:'طباعة', svc_cnc:'قطع', svc_laser:'نقش', svc_motion:'موشن جرافيك',
     svc_uiux_full:'UI/UX — تصميم واجهات', svc_web_full:'ويب — تطوير', svc_brand_full:'هوية بصرية', svc_graphic_full:'تصميم جرافيكي', svc_dtf_full:'DTF — طباعة', svc_cnc_full:'CNC — قطع', svc_laser_full:'ليزر — نقش', svc_motion_full:'موشن جرافيك', svc_other:'أخرى',
     portfolio_title:'المشاريع', portfolio_sub:'اختيار مدروس. نعرض القليل، لكننا نعرض ما يهم.',
-    p_label_1:'بطاقة عمل', p_label_2:'فلاير', p_label_3:'منتجات', p_label_4:'تغليف/تلبيس', p_label_5:'إعلان مطبوع',
+    p_label_1:'بطاقة عمل', p_label_2:'فلاير', p_label_3:'منتجات', p_label_4:'تغليف/تلبيس', p_label_5:'هوية مقهى', p_label_6:'ويب / واجهة',
     about_title:'من نحن', about_accent:'"كل مشروع يبدأ بفكرة — نحولها إلى نظام."',
     about_p1:'نوفورا استوديو إبداعي متخصص في بناء هويات بصرية قوية وأنظمة رقمية مخصصة.',
     about_p2:'من الهوية البصرية إلى الإنتاج الفيزيائي، نغطي الطيف الإبداعي الكامل.',
@@ -949,7 +960,9 @@ function toggleSound(){
   try {
     iframe.contentWindow.postMessage(JSON.stringify({event:'command', func: heroMuted ? 'mute' : 'unMute', args:[]}), '*');
   } catch(e) {}
-  document.getElementById('soundIcon').textContent = heroMuted ? '🔇' : '🔊';
+  document.getElementById('soundIcon').innerHTML = heroMuted
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9" fill="currentColor" stroke="none"/><line x1="16" y1="9" x2="21" y2="14"/><line x1="21" y1="9" x2="16" y2="14"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a9 9 0 0 1 0 12"/></svg>';
   document.getElementById('soundLabel').textContent = LANG[currentLang][heroMuted ? 'sound_off' : 'sound_on'];
 }
 
