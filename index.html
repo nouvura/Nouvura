@@ -3,30 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOUVURA — Creative Studio · We Build Perception</title>
-<meta name="description" content="NOUVURA — Studio créatif premium spécialisé en Branding, UI/UX, Web, DTF, CNC et Gravure Laser. Nous ne faisons pas du design, nous construisons des perceptions.">
-<meta name="keywords" content="NOUVURA, studio créatif, branding, UI/UX, web, graphic design, DTF, CNC, laser, Algérie">
+<title>NOUVURA — We Build Perception</title>
+<meta name="description" content="NOUVURA — Smart creative services platform. Individuals, Companies, and Digital Clients. Branding, Printing, Production, Web & Digital.">
+<meta name="keywords" content="NOUVURA, design, printing, DTF, CNC, laser, branding, web, signage, Algeria">
 <meta name="author" content="NOUVURA">
-<meta property="og:title" content="NOUVURA — Creative Studio">
-<meta property="og:description" content="We don't just design. We build perception.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://nouvura.github.io">
 <meta name="theme-color" content="#0e0105">
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ═══════════════════════════════════════════════════════════
-   NOUVURA — PREMIUM CONVERSION EDITION
-═══════════════════════════════════════════════════════════ */
-
 :root {
   --cyan: #00f0ff;
   --cyan-dim: rgba(0,240,255,0.15);
-  --cyan-glow: rgba(0,240,255,0.6);
   --bg-deep: #0e0105;
   --bg-panel: rgba(20,2,8,0.85);
   --text: #ffffff;
@@ -73,7 +63,6 @@ body::after {
 
 #particleCanvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
 
-/* ── SYSTEM BAR ── */
 .system-bar {
   position: fixed; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, var(--cyan), rgba(0,240,255,0.3), var(--cyan), transparent);
@@ -81,7 +70,6 @@ body::after {
 }
 @keyframes barGlow { 0%,100% { opacity: 0.6; } 50% { opacity: 1; box-shadow: 0 0 20px var(--cyan); } }
 
-/* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   display: flex; align-items: center; justify-content: space-between;
@@ -90,96 +78,120 @@ nav {
   backdrop-filter: blur(8px);
 }
 .nav-logo { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; color: var(--cyan); letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(0,240,255,0.5); text-decoration: none; }
-.nav-links { display: flex; gap: 36px; list-style: none; }
-.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.2em; color: rgba(0,240,255,0.5); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: rgba(0,240,255,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
 .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.6); }
 .nav-lang { display: flex; gap: 6px; }
-.lang-btn { font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; border: 1px solid rgba(0,240,255,0.2); border-radius: 3px; color: rgba(0,240,255,0.65); background: transparent; padding: 4px 10px; transition: all 0.2s; }
+.lang-btn { font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; border: 1px solid rgba(0,240,255,0.2); border-radius: 3px; color: rgba(0,240,255,0.5); background: transparent; padding: 4px 10px; cursor: pointer; transition: all 0.2s; }
 .lang-btn:hover, .lang-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
-.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-.nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--cyan); transition: all 0.3s; }
 
-/* ══════════════════════════════════════════
-   HERO — VIDEO
-══════════════════════════════════════════ */
+/* ════════════════════════════════════════
+   LANGUAGE SELECTOR SCREEN
+════════════════════════════════════════ */
+#langScreen {
+  position: fixed; inset: 0; z-index: 5000;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(160deg,#1a0005 0%,#0e0105 40%,#180008 70%,#100003 100%);
+  backdrop-filter: blur(2px);
+}
+#langScreen.hidden { display: none; }
+.lang-screen-content {
+  text-align: center; max-width: 600px; padding: 60px 40px;
+}
+.lang-screen-logo { font-family: 'Orbitron', sans-serif; font-size: 64px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 40px rgba(0,240,255,0.4); margin-bottom: 48px; letter-spacing: 0.3em; }
+.lang-screen-title { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: 0.1em; }
+.lang-screen-sub { font-size: 14px; color: var(--text-dim); margin-bottom: 52px; line-height: 1.6; }
+.lang-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.lang-btn-large { font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 18px 42px; border-radius: 4px; cursor: pointer; transition: all 0.3s var(--ease); border: 1px solid var(--cyan); background: rgba(0,240,255,0.08); color: var(--cyan); text-decoration: none; display: inline-block; }
+.lang-btn-large:hover { background: rgba(0,240,255,0.18); box-shadow: 0 0 40px rgba(0,240,255,0.35); transform: translateY(-2px); }
+
+/* ════════════════════════════════════════
+   PATH SELECTOR SCREEN
+════════════════════════════════════════ */
+#pathScreen {
+  position: fixed; inset: 0; z-index: 4999;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(160deg,#1a0005 0%,#0e0105 40%,#180008 70%,#100003 100%);
+  opacity: 0; transform: translateY(100px); pointer-events: none;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+#pathScreen.show {
+  opacity: 1; transform: translateY(0); pointer-events: auto;
+}
+#pathScreen.hidden { display: none; }
+.path-screen-content {
+  text-align: center; max-width: 700px; padding: 80px 40px;
+}
+.path-screen-logo { font-family: 'Orbitron', sans-serif; font-size: 48px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,0.3); margin-bottom: 24px; letter-spacing: 0.25em; }
+.path-screen-title { font-family: 'Rajdhani', sans-serif; font-weight: 300; font-size: 28px; color: var(--text-dim); margin-bottom: 40px; line-height: 1.4; }
+.path-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.path-btn { font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 24px 16px; border-radius: 6px; cursor: pointer; transition: all 0.25s var(--ease); border: 1px solid rgba(0,240,255,0.25); background: rgba(0,240,255,0.03); color: rgba(0,240,255,0.6); text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.path-btn-icon { font-size: 28px; }
+.path-btn:hover { border-color: var(--cyan); background: rgba(0,240,255,0.12); color: var(--cyan); box-shadow: 0 0 30px rgba(0,240,255,0.15); transform: translateY(-3px); }
+
+/* ══════════════════════════════��═════════
+   LOADING TRANSITION
+════════════════════════════════════════ */
+#loadingScreen {
+  position: fixed; inset: 0; z-index: 4998;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(14,1,5,0.98);
+  backdrop-filter: blur(4px);
+}
+#loadingScreen.show { display: flex; }
+.loading-content {
+  text-align: center;
+}
+.loading-spinner {
+  width: 60px; height: 60px; margin: 0 auto 24px;
+  border: 2px solid rgba(0,240,255,0.15);
+  border-top: 2px solid var(--cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 0.2em; color: rgba(0,240,255,0.65); text-transform: uppercase; }
+
+/* ════════════════════════════════════════
+   MAIN CONTENT AREA
+════════════════════════════════════════ */
+#mainContent {
+  display: none;
+}
+#mainContent.active { display: block; }
+
 .hero {
   position: relative;
   min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center;
-  padding: 120px 20px 80px;
+  padding: 130px 20px 80px;
   overflow: hidden;
 }
-.hero-video-bg {
-  position: absolute; inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.hero-video-bg iframe {
-  position: absolute; top: 50%; left: 50%;
-  width: 177.8vh; min-width: 100vw;
-  height: 100vh; min-height: 56.3vw;
-  transform: translate(-50%,-50%) scale(1.25);
-  border: none;
-}
-.hero-video-scrim {
-  position: absolute; inset: 0; z-index: 1;
-  background:
-    linear-gradient(180deg, rgba(14,1,5,0.9) 0%, rgba(14,1,5,0.62) 32%, rgba(14,1,5,0.62) 68%, rgba(14,1,5,0.96) 100%),
-    radial-gradient(ellipse at center, rgba(14,1,5,0.25) 0%, rgba(14,1,5,0.75) 100%);
-}
-.hero-sound-toggle {
-  position: absolute; bottom: 100px; right: 28px; z-index: 3;
-  font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(0,240,255,0.6); border: 1px solid rgba(0,240,255,0.25); border-radius: 20px;
-  padding: 8px 16px; background: rgba(14,1,5,0.5); backdrop-filter: blur(4px); transition: all 0.2s; display: flex; align-items: center; gap: 6px;
-}
-.hero-sound-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
-.sound-icon svg { width: 16px; height: 16px; display: block; }
-
-.hero > * { position: relative; z-index: 2; }
-
-.hero-aura { position: absolute; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(0,240,255,0.08) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: auraPulse 6s ease-in-out infinite; pointer-events: none; z-index: 1; }
+.hero-aura { position: absolute; width: 560px; height: 560px; background: radial-gradient(ellipse, rgba(0,240,255,0.09) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: auraPulse 6s ease-in-out infinite; pointer-events: none; z-index: 0; }
 @keyframes auraPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
+.hero > * { position: relative; z-index: 1; }
 
-.logo-wrap { position: relative; margin-bottom: 36px; }
+.logo-wrap { position: relative; margin-bottom: 30px; }
 .logo-glow-ring { position: absolute; inset: -24px; border: 1px solid rgba(0,240,255,0.18); border-radius: 50%; animation: ringRotate 12s linear infinite; }
 @keyframes ringRotate { to { transform: rotate(360deg); } }
-.logo-box { width: 168px; height: 168px; border-radius: 26px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 60px rgba(0,240,255,0.18), inset 0 0 40px rgba(0,240,255,0.06); overflow: hidden; position: relative; }
-.logo-box img { width: 136px; height: 136px; object-fit: contain; }
-.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 60px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 24px var(--cyan); }
+.logo-box { width: 128px; height: 128px; border-radius: 22px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; }
+.logo-box img { width: 100px; height: 100px; object-fit: contain; }
+.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 46px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
 
-.hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(40px, 10vw, 84px); font-weight: 900; color: var(--cyan); letter-spacing: 0.25em; text-shadow: 0 0 40px rgba(0,240,255,0.4), 0 0 80px rgba(0,240,255,0.15); margin-bottom: 12px; animation: heroReveal 1s var(--ease) both; }
-@keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.95); letter-spacing: 0.5em; } to { opacity: 1; transform: translateY(0) scale(1); } }
-.hero-slogan { font-size: clamp(15px, 2.5vw, 20px); color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,0.6); letter-spacing: 0.08em; margin-bottom: 24px; animation: heroReveal 1s var(--ease) 0.2s both; }
-.hero-meta { display: flex; align-items: center; gap: 14px; animation: heroReveal 1s var(--ease) 0.4s both; }
-.hero-meta-line { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4)); }
-.hero-meta-line.r { background: linear-gradient(90deg, rgba(0,240,255,0.4), transparent); }
-.hero-meta-text { font-family: 'Orbitron', sans-serif; font-size: 9px; color: rgba(0,240,255,0.85); text-shadow: 0 2px 10px rgba(0,0,0,0.5); letter-spacing: 0.25em; text-transform: uppercase; }
-.hero-cta { margin-top: 44px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: heroReveal 1s var(--ease) 0.6s both; }
-.btn-primary, .btn-secondary { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; padding: 15px 34px; border-radius: 4px; transition: all 0.25s var(--ease); display: inline-block; }
-.btn-primary { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border: 1px solid var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.15); }
-.btn-primary:hover { background: rgba(0,240,255,0.2); box-shadow: 0 0 40px rgba(0,240,255,0.35); transform: translateY(-2px); }
-.btn-secondary { border: 1px solid rgba(0,240,255,0.25); color: rgba(0,240,255,0.6); background: transparent; }
-.btn-secondary:hover { border-color: rgba(0,240,255,0.6); color: var(--cyan); transform: translateY(-2px); }
-.btn-full { width: 100%; text-align: center; border: none; font-family: 'Orbitron', sans-serif; }
+.hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(30px, 6.4vw, 58px); font-weight: 900; color: #fff; letter-spacing: 0.01em; line-height: 1.2; text-shadow: 0 0 40px rgba(0,240,255,0.3); margin-bottom: 20px; max-width: 900px; animation: heroReveal 1s var(--ease) both; }
+.hero h1 .accent { color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,.5); }
+@keyframes heroReveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-.scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.4; animation: fadeInUp 1s 1.2s both; z-index: 2; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 0.4; } }
-.scroll-hint span { font-family: 'Orbitron', sans-serif; font-size: 7px; letter-spacing: 0.25em; color: var(--cyan); }
-.scroll-arrow { width: 1px; height: 40px; background: linear-gradient(180deg, var(--cyan), transparent); animation: scrollArrow 1.5s ease-in-out infinite; }
-@keyframes scrollArrow { 0%,100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(0.6); opacity: 1; } }
+.hero-slogan { font-size: clamp(14px, 2.2vw, 18px); color: var(--text-dim); letter-spacing: 0.02em; max-width: 640px; line-height: 1.7; margin-bottom: 8px; animation: heroReveal 1s var(--ease) 0.15s both; }
 
-/* ── CONNECTION LINES ── */
 .energy-line { display: flex; align-items: center; justify-content: center; padding: 16px 0; gap: 0; }
 .energy-node { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,240,255,0.3); border: 1px solid rgba(0,240,255,0.5); box-shadow: 0 0 8px rgba(0,240,255,0.3); }
 .connection { flex: 1; max-width: 200px; height: 1px; background: linear-gradient(90deg, rgba(0,240,255,0.15), rgba(0,240,255,0.4), rgba(0,240,255,0.15)); animation: connFlow 3s ease-in-out infinite; }
 @keyframes connFlow { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-/* ── SECTIONS / LAYERS ── */
 .layer {
-  margin: 44px auto; max-width: 980px; padding: 72px 48px;
+  margin: 44px auto; max-width: 980px; padding: 68px 46px;
   background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px;
   position: relative; overflow: hidden;
   opacity: 0; transform: translateY(30px);
@@ -188,192 +200,172 @@ nav {
 .layer.show { opacity: 1; transform: translateY(0); }
 .layer-inner-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(0,240,255,0.04) 0%, transparent 60%); pointer-events: none; }
 
-.section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
-.section-header h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(18px, 3vw, 24px); font-weight: 700; color: var(--text); letter-spacing: 0.15em; text-transform: uppercase; }
-.section-tag { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.2em; color: var(--cyan); border: 1px solid rgba(0,240,255,0.25); padding: 3px 10px; border-radius: 2px; opacity: 0.7; }
+.section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.section-header h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(18px, 3vw, 24px); font-weight: 700; color: var(--text); letter-spacing: 0.12em; text-transform: uppercase; }
+.section-tag { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.2em; color: var(--cyan); border: 1px solid rgba(0,240,255,0.25); padding: 3px 10px; border-radius: 2px; opacity: 0.75; }
 .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,240,255,0.25), transparent); }
-.section-sub { font-size: 14px; color: var(--text-dim); max-width: 560px; margin: -24px 0 36px; line-height: 1.7; }
+.section-sub { font-size: 14.5px; color: var(--text-dim); max-width: 620px; line-height: 1.75; margin: 0 0 40px; }
 
-/* ══════════════════════════════════════════
-   BRAND STATEMENT
-══════════════════════════════════════════ */
-.brand-statement { text-align: center; padding: 110px 24px; }
-.brand-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.35em; color: rgba(0,240,255,0.45); text-transform: uppercase; margin-bottom: 28px; }
-.brand-lines { max-width: 780px; margin: 0 auto; }
-.brand-line { font-family: 'Rajdhani', sans-serif; font-weight: 300; font-size: clamp(22px, 4.4vw, 40px); line-height: 1.35; color: var(--text-dim); }
-.brand-line.accent { font-family: 'Orbitron', sans-serif; font-weight: 700; color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,0.35); font-size: clamp(26px, 5vw, 46px); margin: 10px 0; letter-spacing: 0.02em; }
-.brand-sub { max-width: 520px; margin: 32px auto 0; font-size: 14px; line-height: 1.9; color: rgba(255,240,244,0.78); }
+/* ════════════════════════���═══════════════
+   SERVICE CARDS GRID
+════════════════════════════════════════ */
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.service-card {
+  padding: 32px 28px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(0,240,255,0.03);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s var(--ease);
+}
+.service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,240,255,0.07), transparent); opacity: 0; transition: opacity 0.3s; }
+.service-card:hover { border-color: var(--cyan); box-shadow: 0 0 40px rgba(0,240,255,0.18); transform: translateY(-5px); }
+.service-card:hover::before { opacity: 1; }
+.service-card > * { position: relative; z-index: 1; }
+.service-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.25); color: var(--cyan); margin-bottom: 18px; }
+.service-icon svg { width: 22px; height: 22px; }
+.service-title { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 12px; font-weight: 700; }
+.service-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; margin-bottom: 20px; }
+.service-cta { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); cursor: pointer; transition: all 0.2s; border: none; background: none; padding: 0; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.service-cta:hover { transform: translateX(4px); }
 
-/* ── SERVICES GRID ── */
-.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 38px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: rgba(0,240,255,0.02); transition: all 0.3s var(--ease); text-align: center; position: relative; overflow: hidden; }
-.card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,240,255,0.06), transparent); opacity: 0; transition: opacity 0.3s; }
-.card:hover { border-color: var(--border-bright); box-shadow: 0 0 24px rgba(0,240,255,0.12), inset 0 0 20px rgba(0,240,255,0.04); transform: translateY(-4px); color: var(--cyan); }
-.card:hover::before { opacity: 1; }
-.card.active { border-color: var(--cyan); background: rgba(0,240,255,0.06); color: var(--cyan); }
-.card-icon { color: var(--cyan); opacity: 0.75; transition: opacity 0.3s, transform 0.3s; display: flex; align-items: center; justify-content: center; }
-.card-icon svg { width: 28px; height: 28px; }
-.card:hover .card-icon { opacity: 1; transform: scale(1.15); }
-.card-title { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); transition: color 0.3s; }
-.card:hover .card-title { color: var(--cyan); }
-.desc { font-size: 11px; color: rgba(0,240,255,0.6); letter-spacing: 0.05em; }
-
-/* ── PORTFOLIO (BENTO) ── */
-.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 210px; gap: 20px; }
-.portfolio-item { border-radius: 10px; border: 1px solid var(--border); overflow: hidden; position: relative; background: rgba(0,240,255,0.03); transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
-.portfolio-item.p-hero { grid-column: 1 / 3; grid-row: 1 / 3; }
-.portfolio-item.p-1 { grid-column: 3; grid-row: 1; }
-.portfolio-item.p-2 { grid-column: 3; grid-row: 2; }
-.portfolio-item.p-3 { grid-column: 1; grid-row: 3; }
-.portfolio-item.p-4 { grid-column: 2; grid-row: 3; }
-.portfolio-item.p-5 { grid-column: 3; grid-row: 3; }
-.portfolio-item:hover { border-color: rgba(0,240,255,0.45); box-shadow: 0 0 30px rgba(0,240,255,0.12); transform: scale(1.015); }
-.portfolio-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); }
-.portfolio-item:hover img { transform: scale(1.06); }
-.portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(14,1,5,0.92) 100%); display: flex; align-items: flex-end; justify-content: space-between; padding: 18px; opacity: 0; transition: opacity 0.3s; }
-.portfolio-item:hover .portfolio-overlay { opacity: 1; }
-.portfolio-label { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; }
-.portfolio-expand { font-size: 16px; color: rgba(0,240,255,0.5); }
-.portfolio-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, rgba(0,240,255,0.04), rgba(0,240,255,0.01)); }
-.portfolio-placeholder-icon { font-size: 32px; color: rgba(0,240,255,0.55); }
-.portfolio-placeholder-text { font-family: 'Orbitron', sans-serif; font-size: 8px; color: rgba(0,240,255,0.55); letter-spacing: 0.2em; text-transform: uppercase; text-align: center; padding: 0 10px; }
-
-/* ── ABOUT ── */
-.about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.about-text p { font-size: 15px; color: var(--text-dim); line-height: 1.85; margin-bottom: 16px; }
-.about-accent { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 700; color: var(--cyan); text-shadow: 0 0 20px rgba(0,240,255,0.3); line-height: 1.4; letter-spacing: 0.05em; margin-bottom: 20px; display: block; }
-.about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.tag { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.18em; color: rgba(0,240,255,0.6); border: 1px solid rgba(0,240,255,0.2); padding: 5px 12px; border-radius: 3px; }
-.about-visual { display: flex; flex-direction: column; gap: 14px; }
-.skill-bar-label { display: flex; justify-content: space-between; font-family: 'Orbitron', sans-serif; font-size: 9px; color: rgba(0,240,255,0.5); letter-spacing: 0.15em; margin-bottom: 6px; }
-.skill-bar-track { height: 2px; background: rgba(0,240,255,0.08); border-radius: 2px; overflow: hidden; }
-.skill-bar-fill { height: 100%; background: linear-gradient(90deg, rgba(0,240,255,0.4), var(--cyan)); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform 1s var(--ease); }
-.layer.show .skill-bar-fill { transform: scaleX(1); }
-
-.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; padding-top: 40px; border-top: 1px solid rgba(0,240,255,0.08); }
-.stat-item { text-align: center; }
-.stat-num { font-family: 'Orbitron', sans-serif; font-size: 34px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 24px rgba(0,240,255,0.4); display: block; line-height: 1; }
-.stat-label { font-family: 'Orbitron', sans-serif; font-size: 8px; color: rgba(0,240,255,0.65); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 8px; }
-
-/* ── PROCESS ── */
-.process-steps { display: flex; flex-direction: column; gap: 0; }
-.process-step { display: flex; gap: 24px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid rgba(0,240,255,0.06); }
-.process-step:last-child { border-bottom: none; }
-.step-num { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; color: rgba(0,240,255,0.4); line-height: 1; min-width: 44px; flex-shrink: 0; }
-.step-content { flex: 1; }
-.step-title { font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
-.step-desc { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
-
-/* ══════════════════════════════════════════
-   REQUEST FORM
-══════════════════════════════════════════ */
-.request-form { display: flex; flex-direction: column; gap: 28px; }
+/* ════════════════════════════════════════
+   MINI FORMS
+════════════════════════════════════════ */
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .form-field { display: flex; flex-direction: column; gap: 8px; }
 .form-field.full { grid-column: 1 / -1; }
-.form-label { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(0,240,255,0.55); }
-.form-label .req { color: rgba(255,120,140,0.7); margin-left: 3px; }
+.form-label { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,240,255,0.75); }
+.form-label .req { color: rgba(255,120,140,0.8); margin-left: 3px; }
 .form-input, .form-select, .form-textarea {
-  background: rgba(0,240,255,0.03); border: 1px solid rgba(0,240,255,0.16); border-radius: 6px;
-  color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 500;
-  padding: 13px 16px; outline: none; transition: border-color 0.2s, background 0.2s; cursor: text; width: 100%;
+  background: rgba(0,240,255,0.03);
+  border: 1px solid rgba(0,240,255,0.18);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
 }
-.form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300f0ff' fill-opacity='0.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 36px; }
+.form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300f0ff' fill-opacity='0.6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 36px; }
 .form-select option { background: #12030a; color: var(--text); }
-.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(0,240,255,0.5); background: rgba(0,240,255,0.05); }
-.form-input::placeholder, .form-textarea::placeholder { color: rgba(255,240,244,0.4); }
-.form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
-.form-field.error .form-input, .form-field.error .form-select, .form-field.error .form-textarea { border-color: rgba(255,90,110,0.7); }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(0,240,255,0.55); background: rgba(0,240,255,0.05); }
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(255,242,246,0.4); }
+.form-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
 
-.file-drop { border: 1px dashed rgba(0,240,255,0.25); border-radius: 6px; padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
-.file-drop:hover { border-color: rgba(0,240,255,0.5); background: rgba(0,240,255,0.03); }
-.file-drop input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-.file-drop-text { font-size: 12px; color: rgba(0,240,255,0.5); letter-spacing: 0.04em; }
-.file-drop-names { font-size: 11px; color: var(--cyan); margin-top: 6px; word-break: break-word; }
-.form-hint { font-size: 11px; color: rgba(255,240,244,0.6); line-height: 1.6; margin-top: 4px; }
+.btn-primary, .btn-secondary {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08));
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 24px rgba(0,240,255,0.15);
+}
+.btn-primary:hover {
+  background: rgba(0,240,255,0.2);
+  box-shadow: 0 0 40px rgba(0,240,255,0.35);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  border: 1px solid rgba(0,240,255,0.25);
+  color: rgba(0,240,255,0.6);
+  background: transparent;
+}
+.btn-secondary:hover {
+  border-color: rgba(0,240,255,0.6);
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
 
-.form-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
-.btn-submit { flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; transition: all 0.25s var(--ease); border: 1px solid; }
+.form-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+.btn-submit { flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.25s var(--ease); border: 1px solid; }
 .btn-submit.email { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.12); }
 .btn-submit.email:hover { background: rgba(0,240,255,0.22); box-shadow: 0 0 36px rgba(0,240,255,0.3); transform: translateY(-2px); }
 .btn-submit.whatsapp { background: linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05)); border-color: rgba(37,211,102,0.6); color: #25d366; box-shadow: 0 0 24px rgba(37,211,102,0.1); }
 .btn-submit.whatsapp:hover { background: rgba(37,211,102,0.22); box-shadow: 0 0 36px rgba(37,211,102,0.25); transform: translateY(-2px); }
-.form-status { font-size: 12px; letter-spacing: 0.04em; color: rgba(255,90,110,0.85); min-height: 16px; }
+.form-status { font-size: 12px; letter-spacing: 0.04em; color: rgba(255,90,110,0.9); min-height: 16px; margin-top: 8px; }
 .form-status.ok { color: #25d366; }
 
-/* ── CONTACT ── */
+/* ════════════════════════════════════════
+   CONTACT SECTION
+════════════════════════════════════════ */
 .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.contact-item { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 32px 18px; border: 1px solid var(--border); border-radius: 8px; background: rgba(0,240,255,0.02); transition: all 0.3s var(--ease); text-decoration: none; text-align: center; }
-.contact-item:hover { border-color: rgba(0,240,255,0.65); background: rgba(0,240,255,0.04); transform: translateY(-3px); box-shadow: 0 0 20px rgba(0,240,255,0.08); }
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(0,240,255,0.02);
+  transition: all 0.3s var(--ease);
+  text-decoration: none;
+  text-align: center;
+}
+.contact-item:hover {
+  border-color: rgba(0,240,255,0.4);
+  background: rgba(0,240,255,0.04);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0,240,255,0.08);
+}
 .contact-icon { color: var(--cyan); display: flex; align-items: center; justify-content: center; }
 .contact-icon svg { width: 26px; height: 26px; }
-.contact-label { font-family: 'Orbitron', sans-serif; font-size: 8px; color: rgba(0,240,255,0.65); letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.contact-label { font-family: 'Orbitron', sans-serif; font-size: 8px; color: rgba(0,240,255,0.55); letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 2px; }
 .contact-value { font-size: 13px; color: var(--text-dim); font-weight: 600; word-break: break-word; }
 
-/* ── FOOTER ── */
-.footer { margin: 48px 0 0; padding: 40px 20px; text-align: center; border-top: 1px solid rgba(0,240,255,0.08); transition: border-color 0.3s; }
-.footer:hover { border-top-color: rgba(0,240,255,0.2); }
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+.footer {
+  margin: 48px 0 0;
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(0,240,255,0.08);
+}
 .footer-brand { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,0.25); letter-spacing: 0.3em; margin-bottom: 10px; }
-.footer-copy, .footer-ip { font-family: 'Orbitron', sans-serif; font-size: 9px; color: rgba(0,240,255,0.5); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 6px; }
-.footer-ip { color: rgba(0,240,255,0.4); margin-top: 4px; }
+.footer-copy, .footer-ip { font-family: 'Orbitron', sans-serif; font-size: 9px; color: rgba(0,240,255,0.45); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 6px; }
+.footer-ip { color: rgba(0,240,255,0.3); margin-top: 4px; }
 
-/* ── LIGHTBOX ── */
-.lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(14,1,5,0.96); align-items: center; justify-content: center; }
-.lightbox.open { display: flex; }
-.lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; }
-.lightbox-inner img { max-width: 100%; max-height: 85vh; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 0 60px rgba(0,240,255,0.12); }
-.lightbox-close { position: absolute; top: -44px; right: 0; font-family: 'Orbitron', sans-serif; font-size: 11px; color: rgba(0,240,255,0.5); letter-spacing: 0.2em; transition: color 0.2s; }
-.lightbox-close:hover { color: var(--cyan); }
-
-/* ── IP MODAL ── */
-.modal { display: none; position: fixed; inset: 0; z-index: 3000; background: rgba(14,1,5,0.95); align-items: center; justify-content: center; padding: 20px; }
-.modal.open { display: flex; }
-.modal-content { width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; background: rgba(20,2,8,0.98); border: 1px solid rgba(0,240,255,0.2); border-radius: 12px; padding: 40px 36px; position: relative; scrollbar-width: thin; scrollbar-color: rgba(0,240,255,0.15) transparent; }
-.modal-close { position: absolute; top: 20px; right: 24px; font-family: 'Orbitron', sans-serif; font-size: 10px; color: rgba(0,240,255,0.65); letter-spacing: 0.2em; transition: color 0.2s; }
-.modal-close:hover { color: var(--cyan); }
-.modal-logo { font-family: 'Orbitron', sans-serif; font-size: 10px; color: rgba(0,240,255,0.55); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 12px; }
-.modal-content h2 { font-family: 'Orbitron', sans-serif; font-size: 20px; color: var(--cyan); font-weight: 700; margin-bottom: 24px; }
-.modal-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-.modal-tab { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid rgba(0,240,255,0.15); border-radius: 3px; color: rgba(0,240,255,0.65); background: transparent; padding: 8px 14px; transition: all 0.2s; }
-.modal-tab.active, .modal-tab:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
-.modal-panel { display: none; }
-.modal-panel.active { display: block; }
-.modal-panel p { font-size: 13px; color: var(--text-dim); line-height: 1.8; margin-bottom: 16px; }
-.modal-panel h3 { font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin: 20px 0 10px; }
-.modal-panel ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.modal-panel ul li { padding-left: 16px; position: relative; font-size: 12px; color: var(--text-dim); line-height: 1.7; }
-.modal-panel ul li::before { content: '▸'; position: absolute; left: 0; color: rgba(0,240,255,0.65); }
-.modal-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.15), transparent); margin: 20px 0; }
-.modal-badge { font-family: 'Orbitron', sans-serif; font-size: 7px; color: rgba(0,240,255,0.55); letter-spacing: 0.25em; text-transform: uppercase; }
-
-/* ══════════════════════════════════════════
+/* ════════════════════════════════════════
    RESPONSIVE
-══════════════════════════════════════════ */
+════════���═══════════════════════════════ */
 @media (max-width: 768px) {
   nav { padding: 14px 20px; }
-  .nav-links { display: none; }
-  .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(14,1,5,0.97); border-bottom: 1px solid rgba(0,240,255,0.12); padding: 20px; gap: 20px; }
-  .nav-toggle { display: flex; }
-
-  .layer { padding: 36px 22px; margin: 18px 12px; }
-  .services-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .card { padding: 22px 10px; }
-  .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
-  .portfolio-item.p-hero, .portfolio-item.p-1, .portfolio-item.p-2, .portfolio-item.p-3, .portfolio-item.p-4, .portfolio-item.p-5 { grid-column: 1; grid-row: auto; }
-  .contact-grid { grid-template-columns: 1fr 1fr; }
-  .about-inner { grid-template-columns: 1fr; gap: 30px; }
-  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .lang-buttons { flex-direction: column; }
+  .lang-btn-large { width: 100%; }
+  .path-buttons { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; gap: 14px; }
+  .service-card { padding: 24px 18px; }
+  .contact-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
   .form-row { grid-template-columns: 1fr; }
   .form-actions { flex-direction: column; }
-  .hero h1 { letter-spacing: 0.15em; }
-  .hero-sound-toggle { bottom: 90px; right: 14px; }
-  .brand-statement { padding: 64px 18px; }
+  .btn-submit { width: 100%; }
+  .layer { padding: 40px 22px; margin: 18px 12px; }
 }
 @media (max-width: 420px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .card-icon { font-size: 20px; }
-  .desc { font-size: 9px; }
-  .hero-cta { flex-direction: column; align-items: center; }
+  .services-grid { gap: 10px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .lang-screen-logo { font-size: 44px; }
+  .path-screen-logo { font-size: 36px; }
 }
 </style>
 </head>
@@ -382,518 +374,630 @@ nav {
 <canvas id="particleCanvas"></canvas>
 <div class="system-bar"></div>
 
-<!-- ═══ NAVIGATION ═══ -->
-<nav id="mainNav">
+<!-- ═══════════════════════════════════════
+     LANGUAGE SELECTOR SCREEN
+════════════════════════════════════════ -->
+<div id="langScreen">
+  <div class="lang-screen-content">
+    <div class="lang-screen-logo">NOUVURA</div>
+    <h1 class="lang-screen-title" id="lang-title">Choose Your Language</h1>
+    <p class="lang-screen-sub" id="lang-sub">Sélectionnez votre langue • اختر لغتك</p>
+    <div class="lang-buttons">
+      <button class="lang-btn-large" onclick="initPath('en')">English</button>
+      <button class="lang-btn-large" onclick="initPath('fr')">Français</button>
+      <button class="lang-btn-large" onclick="initPath('ar')">العربية</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PATH SELECTOR SCREEN
+════════════════════════════════════════ -->
+<div id="pathScreen">
+  <div class="path-screen-content">
+    <div class="path-screen-logo">NOUVURA</div>
+    <h1 class="path-screen-title" id="path-question">Who are you?</h1>
+    <div class="path-buttons">
+      <button class="path-btn" onclick="selectPath('individual')">
+        <div class="path-btn-icon">👤</div>
+        <div id="path-ind">I am an Individual</div>
+      </button>
+      <button class="path-btn" onclick="selectPath('company')">
+        <div class="path-btn-icon">🏢</div>
+        <div id="path-co">I am a Company</div>
+      </button>
+      <button class="path-btn" onclick="selectPath('digital')">
+        <div class="path-btn-icon">💻</div>
+        <div id="path-dig">I am a Client</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     LOADING SCREEN
+════════════════════════════════════════ -->
+<div id="loadingScreen">
+  <div class="loading-content">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text">Preparing your experience...</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MAIN NAVIGATION
+════════════════════════════════════════ -->
+<nav id="mainNav" style="display:none;">
   <a href="#home" class="nav-logo">NOUVURA</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#services" data-key="nav_services">Services</a></li>
-    <li><a href="#portfolio" data-key="nav_portfolio">Portfolio</a></li>
-    <li><a href="#about" data-key="nav_about">About</a></li>
-    <li><a href="#request" data-key="nav_request">Devis</a></li>
-    <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+    <li><a href="#services" id="nav-services">Services</a></li>
+    <li><a href="#contact" id="nav-contact">Contact</a></li>
   </ul>
   <div class="nav-lang">
-    <button class="lang-btn active" onclick="setLang('fr')">FR</button>
-    <button class="lang-btn" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('ar')">AR</button>
+    <button class="lang-btn active" onclick="switchLang('fr')">FR</button>
+    <button class="lang-btn" onclick="switchLang('en')">EN</button>
+    <button class="lang-btn" onclick="switchLang('ar')">AR</button>
   </div>
-  <div class="nav-toggle" id="navToggle" onclick="toggleNav()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="home">
-  <!-- Pour changer la vidéo : remplacez YOUTUBE_VIDEO_ID ci-dessous par l'ID de VOTRE vidéo YouTube (visible dans l'URL après watch?v=). La vidéo doit être publique/non-répertoriée et autoriser l'intégration (embedding). -->
-  <div class="hero-video-bg" id="heroVideoBg">
-    <iframe id="heroIframe"
-      src="https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&mute=1&loop=1&playlist=aqz-KE-bpKQ&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&disablekb=1"
-      title="NOUVURA — Studio Reel" frameborder="0"
-      allow="autoplay; encrypted-media; picture-in-picture" loading="eager"></iframe>
-  </div>
-  <div class="hero-video-scrim"></div>
-  <div class="hero-aura"></div>
+<!-- ═══════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════ -->
+<div id="mainContent">
 
-  <div class="logo-wrap">
-    <div class="logo-glow-ring"></div>
-    <div class="logo-box">
-      <img src="logo.png" alt="NOUVURA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="logo-box-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">N</div>
-    </div>
-  </div>
-
-  <h1 data-key="title">NOUVURA</h1>
-  <p class="hero-slogan" data-key="slogan">It all started with an idea</p>
-
-  <div class="hero-meta">
-    <div class="hero-meta-line"></div>
-    <span class="hero-meta-text" data-key="meta">Creative Studio · Digital System</span>
-    <div class="hero-meta-line r"></div>
-  </div>
-
-  <div class="hero-cta">
-    <a href="#request" class="btn-primary" data-key="cta_request">Demander un Devis</a>
-    <a href="#portfolio" class="btn-secondary" data-key="cta_portfolio">Voir le Travail</a>
-  </div>
-
-  <button class="hero-sound-toggle" id="soundToggle" onclick="toggleSound()">
-    <span id="soundIcon" class="sound-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9" fill="currentColor" stroke="none"/><line x1="16" y1="9" x2="21" y2="14"/><line x1="21" y1="9" x2="16" y2="14"/></svg>
-    </span>
-    <span id="soundLabel" data-key="sound_off">Son coupé</span>
-  </button>
-
-  <div class="scroll-hint"><span>SCROLL</span><div class="scroll-arrow"></div></div>
-</section>
-
-<div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-<!-- ═══ BRAND STATEMENT ═══ -->
-<div class="layer reveal">
-  <div class="layer-inner-glow"></div>
-  <div class="brand-statement">
-    <div class="brand-eyebrow" data-key="brand_eyebrow">Philosophie</div>
-    <div class="brand-lines">
-      <div class="brand-line" data-key="brand_line1">Pas juste du design…</div>
-      <div class="brand-line accent" data-key="brand_line2">Nous construisons des perceptions.</div>
-      <div class="brand-line" data-key="brand_line3">Nous façonnons la manière dont le monde vous voit.</div>
-    </div>
-    <p class="brand-sub" data-key="brand_sub">Chaque marque possède une vérité silencieuse. Notre métier est de la révéler — avec précision, intention, et sans compromis.</p>
-  </div>
-</div>
-
-<div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-<!-- ═══ SERVICES ═══ -->
-<div class="layer reveal" id="services">
-  <div class="layer-inner-glow"></div>
-  <div class="section-header">
-    <h2 data-key="services_title">Services</h2>
-    <span class="section-tag">SYS-01</span>
-    <div class="section-line"></div>
-  </div>
-  <div class="services-grid">
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="card-title">UI/UX</span><span class="desc" data-key="svc_uiux">Interface Design</span></div>
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg></span><span class="card-title">Web</span><span class="desc" data-key="svc_web">Development</span></div>
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg></span><span class="card-title">Branding</span><span class="desc" data-key="svc_brand">Visual Identity</span></div>
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 8.5 12 15l10-6.5L12 2Z"/><path d="M2 15.5 12 22l10-6.5"/></svg></span><span class="card-title">Graphic</span><span class="desc" data-key="svc_graphic">Design</span></div>
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></span><span class="card-title">DTF</span><span class="desc" data-key="svc_dtf">Printing</span></div>
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span><span class="card-title">CNC</span><span class="desc" data-key="svc_cnc">Cutting</span></div>
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-14h-7l0-6Z"/></svg></span><span class="card-title">Laser</span><span class="desc" data-key="svc_laser">Engraving</span></div>
-    <div class="card"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M7 5v14M17 5v14M2 10h5M2 15h5M17 10h5M17 15h5"/></svg></span><span class="card-title">Motion</span><span class="desc" data-key="svc_motion">Animation</span></div>
-  </div>
-</div>
-
-<div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-<!-- ═══ PORTFOLIO ═══ -->
-<div class="layer reveal" id="portfolio">
-  <div class="layer-inner-glow"></div>
-  <div class="section-header">
-    <h2 data-key="portfolio_title">Portfolio</h2>
-    <span class="section-tag">SYS-02</span>
-    <div class="section-line"></div>
-  </div>
-  <p class="section-sub" data-key="portfolio_sub">Une sélection engagée. Nous montrons peu, mais nous montrons ce qui compte.</p>
-
-  <div class="portfolio-grid">
-    <div class="portfolio-item p-hero" onclick="openLightbox('carte visit 1.jpg')">
-      <img src="carte visit 1.jpg" alt="Business Card" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">▣</div><div class="portfolio-placeholder-text" data-key="p_label_1">Business Card</div></div>
-      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_1">Business Card</span><div class="portfolio-expand">⤢</div></div>
-    </div>
-
-    <div class="portfolio-item p-1" onclick="openLightbox('flayer.jpg')">
-      <img src="flayer.jpg" alt="Flyer" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">✦</div><div class="portfolio-placeholder-text" data-key="p_label_2">Flyer</div></div>
-      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_2">Flyer</span><div class="portfolio-expand">⤢</div></div>
-    </div>
-
-    <div class="portfolio-item p-2" onclick="openLightbox('cap.png')">
-      <img src="cap.png" alt="Merchandise" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">⬡</div><div class="portfolio-placeholder-text" data-key="p_label_3">Merchandise</div></div>
-      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_3">Merchandise</span><div class="portfolio-expand">⤢</div></div>
-    </div>
-
-    <div class="portfolio-item p-3" onclick="openLightbox('habillage .jpg')">
-      <img src="habillage .jpg" alt="Vehicle / Space Wrapping" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">◉</div><div class="portfolio-placeholder-text" data-key="p_label_4">Habillage</div></div>
-      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_4">Habillage</span><div class="portfolio-expand">⤢</div></div>
-    </div>
-
-    <div class="portfolio-item p-4" onclick="openLightbox('cafai 01 .jpg')">
-      <img src="cafai 01 .jpg" alt="Café Branding" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">◈</div><div class="portfolio-placeholder-text" data-key="p_label_5">Café Branding</div></div>
-      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_5">Café Branding</span><div class="portfolio-expand">⤢</div></div>
-    </div>
-
-    <div class="portfolio-item p-5" onclick="openLightbox('captur .png')">
-      <img src="captur .png" alt="Web / UI Design" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="portfolio-placeholder" style="display:none"><div class="portfolio-placeholder-icon">◈</div><div class="portfolio-placeholder-text" data-key="p_label_6">Web / UI</div></div>
-      <div class="portfolio-overlay"><span class="portfolio-label" data-key="p_label_6">Web / UI</span><div class="portfolio-expand">⤢</div></div>
-    </div>
-  </div>
-</div>
-
-<div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-<!-- ═══ ABOUT ═══ -->
-<div class="layer reveal" id="about">
-  <div class="layer-inner-glow"></div>
-  <div class="section-header">
-    <h2 data-key="about_title">À Propos</h2>
-    <span class="section-tag">SYS-03</span>
-    <div class="section-line"></div>
-  </div>
-  <div class="about-inner">
-    <div class="about-text">
-      <span class="about-accent" data-key="about_accent">"Chaque projet commence par une idée — nous la transformons en système."</span>
-      <p data-key="about_p1">NOUVURA est un studio créatif spécialisé dans la construction d'identités visuelles puissantes et de systèmes numériques sur mesure.</p>
-      <p data-key="about_p2">Du branding à la production physique (DTF, CNC, Laser), nous couvrons l'ensemble du spectre créatif pour des clients exigeants.</p>
-      <div class="about-tags">
-        <span class="tag">ALGÉRIE</span>
-        <span class="tag">DEPUIS 2022</span>
-        <span class="tag" data-key="tag_fullstack">FULL STACK CREATIVE</span>
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-aura"></div>
+    <div class="logo-wrap">
+      <div class="logo-glow-ring"></div>
+      <div class="logo-box">
+        <img src="logo.png" alt="NOUVURA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="logo-box-fallback" style="display:none;">N</div>
       </div>
     </div>
-    <div class="about-visual">
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span data-key="skill_brand">Branding & Identity</span><span>95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.95"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span data-key="skill_uiux">UI/UX Design</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.90"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span data-key="skill_web">Web Development</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.85"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span data-key="skill_prod">DTF / CNC / Laser</span><span>88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.88"></div></div></div>
-      <div class="skill-bar-wrap"><div class="skill-bar-label"><span data-key="skill_graphic">Graphic Design</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="--w:0.92"></div></div></div>
+    <h1 id="hero-title">NOUVURA</h1>
+    <p class="hero-slogan" id="hero-slogan">We don't just design. We build perception.</p>
+  </section>
+
+  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
+
+  <!-- SERVICES SECTION -->
+  <div class="layer reveal" id="services">
+    <div class="layer-inner-glow"></div>
+    <div class="section-header">
+      <h2 id="services-title">Services</h2>
+      <span class="section-tag" id="services-tag">SYS-01</span>
+      <div class="section-line"></div>
+    </div>
+    <p class="section-sub" id="services-sub">Fast, simple, high-quality solutions</p>
+    <div id="servicesContainer" class="services-grid"></div>
+  </div>
+
+  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
+
+  <!-- CONTACT SECTION -->
+  <div class="layer reveal" id="contact">
+    <div class="layer-inner-glow"></div>
+    <div class="section-header">
+      <h2 id="contact-title">Contact</h2>
+      <span class="section-tag" id="contact-tag">SYS-02</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-item" href="https://wa.me/213776532042" target="_blank" rel="noopener">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.6L3 20l1-5.5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 10.5c.5 2.5 2.5 4.5 5 5"/></svg></span>
+        <div class="contact-text"><span class="contact-label">WhatsApp</span><span class="contact-value">0776 532 042</span></div>
+      </a>
+      <a class="contact-item" href="mailto:yacineiguenene@gmail.com">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span>
+        <div class="contact-text"><span class="contact-label">Email</span><span class="contact-value">yacineiguenene@gmail.com</span></div>
+      </a>
+      <a class="contact-item" href="tel:+213776532042">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.4 2.1L8 10.3a16 16 0 0 0 6 6l1.5-1.4a2 2 0 0 1 2.1-.4c1 .4 2 .6 3 .7a2 2 0 0 1 1.7 2Z"/></svg></span>
+        <div class="contact-text"><span class="contact-label" id="contact-phone">Phone</span><span class="contact-value">0776 532 042</span></div>
+      </a>
+      <a class="contact-item" href="https://www.youtube.com/@nouvura" target="_blank" rel="noopener">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor" stroke="none"/></svg></span>
+        <div class="contact-text"><span class="contact-label">YouTube</span><span class="contact-value" id="contact-youtube">Studio Reel</span></div>
+      </a>
     </div>
   </div>
 
-  <div class="stats-row">
-    <div class="stat-item"><span class="stat-num" id="s1">0</span><span class="stat-label" data-key="stat_projects">Projets Réalisés</span></div>
-    <div class="stat-item"><span class="stat-num" id="s2">0</span><span class="stat-label" data-key="stat_clients">Clients Satisfaits</span></div>
-    <div class="stat-item"><span class="stat-num" id="s3">0</span><span class="stat-label" data-key="stat_years">Années d'Expérience</span></div>
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">NOUVURA</div>
+    <div class="footer-copy" id="footer-copy">© 2025 NOUVURA — All Rights Reserved</div>
+    <div class="footer-ip">▸ Intellectual Property · Privacy · Terms</div>
   </div>
+
 </div>
 
-<div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-<!-- ═══ PROCESS ═══ -->
-<div class="layer reveal">
-  <div class="layer-inner-glow"></div>
-  <div class="section-header">
-    <h2 data-key="process_title">Processus</h2>
-    <span class="section-tag">SYS-04</span>
-    <div class="section-line"></div>
-  </div>
-  <div class="process-steps">
-    <div class="process-step"><div class="step-num">01</div><div class="step-content"><div class="step-title" data-key="step1_title">Brief & Analyse</div><div class="step-desc" data-key="step1_desc">Nous définissons ensemble vos objectifs, votre cible et les contraintes du projet.</div></div></div>
-    <div class="process-step"><div class="step-num">02</div><div class="step-content"><div class="step-title" data-key="step2_title">Conception & Stratégie</div><div class="step-desc" data-key="step2_desc">Développement des concepts visuels, moodboards, et architecture de l'identité.</div></div></div>
-    <div class="process-step"><div class="step-num">03</div><div class="step-content"><div class="step-title" data-key="step3_title">Production & Itération</div><div class="step-desc" data-key="step3_desc">Réalisation complète avec cycles de révision jusqu'au résultat parfait.</div></div></div>
-    <div class="process-step"><div class="step-num">04</div><div class="step-content"><div class="step-title" data-key="step4_title">Livraison & Support</div><div class="step-desc" data-key="step4_desc">Livraison des fichiers sources et accompagnement post-projet.</div></div></div>
-  </div>
-</div>
-
-<div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-<!-- ═══ REQUEST FORM ═══ -->
-<div class="layer reveal" id="request">
-  <div class="layer-inner-glow"></div>
-  <div class="section-header">
-    <h2 data-key="form_title">Demander un Devis</h2>
-    <span class="section-tag">SYS-05</span>
-    <div class="section-line"></div>
-  </div>
-  <p class="section-sub" data-key="form_sub">Décrivez votre projet. Nous revenons vers vous rapidement, par le canal de votre choix.</p>
-
-  <form class="request-form" id="requestForm" onsubmit="return false;">
-    <div class="form-row">
-      <div class="form-field" id="fieldName">
-        <label class="form-label" data-key="form_name">Nom<span class="req">*</span></label>
-        <input type="text" class="form-input" id="rf_name" data-key-ph="form_name_ph" placeholder="Votre nom complet">
-      </div>
-      <div class="form-field">
-        <label class="form-label" data-key="form_service">Type de service</label>
-        <select class="form-select" id="rf_service">
-          <option value="UI/UX" data-key="svc_uiux_full">UI/UX — Interface Design</option>
-          <option value="Web" data-key="svc_web_full">Web — Développement</option>
-          <option value="Branding" data-key="svc_brand_full">Branding — Identité Visuelle</option>
-          <option value="Graphic" data-key="svc_graphic_full">Graphic — Design</option>
-          <option value="DTF" data-key="svc_dtf_full">DTF — Impression</option>
-          <option value="CNC" data-key="svc_cnc_full">CNC — Découpe</option>
-          <option value="Laser" data-key="svc_laser_full">Laser — Gravure</option>
-          <option value="Motion" data-key="svc_motion_full">Motion — Animation</option>
-          <option value="Autre" data-key="svc_other">Autre</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-field" id="fieldContact">
-      <label class="form-label" data-key="form_contact">Contact (téléphone ou email)<span class="req">*</span></label>
-      <input type="text" class="form-input" id="rf_contact" data-key-ph="form_contact_ph" placeholder="0776 532 042 ou votre@email.com">
-    </div>
-
-    <div class="form-field" id="fieldMessage">
-      <label class="form-label" data-key="form_message">Détails du projet<span class="req">*</span></label>
-      <textarea class="form-textarea" id="rf_message" data-key-ph="form_message_ph" placeholder="Parlez-nous de votre projet, vos délais, votre budget..."></textarea>
-    </div>
-
-    <div class="form-field">
-      <label class="form-label" data-key="form_file">Fichiers de référence</label>
-      <div class="file-drop">
-        <input type="file" id="rf_file" multiple accept="image/*,.pdf">
-        <div class="file-drop-text" data-key="form_file_hint">Cliquez pour joindre des images ou références (optionnel)</div>
-        <div class="file-drop-names" id="fileNames"></div>
-      </div>
-      <p class="form-hint" data-key="form_file_note">Les pièces jointes ne peuvent pas être transmises automatiquement par Email/WhatsApp. Leur nom sera inclus dans votre message — merci de les envoyer manuellement après redirection.</p>
-    </div>
-
-    <div class="form-actions">
-      <button type="button" class="btn-submit email" onclick="submitRequest('email')">✉️ <span data-key="form_send_email">Envoyer par Email</span></button>
-      <button type="button" class="btn-submit whatsapp" onclick="submitRequest('whatsapp')">📲 <span data-key="form_send_whatsapp">Envoyer via WhatsApp</span></button>
-    </div>
-    <div class="form-status" id="formStatus"></div>
-  </form>
-</div>
-
-<div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-<!-- ═══ CONTACT ═══ -->
-<div class="layer reveal" id="contact">
-  <div class="layer-inner-glow"></div>
-  <div class="section-header">
-    <h2 data-key="contact_title">Contact</h2>
-    <span class="section-tag">SYS-06</span>
-    <div class="section-line"></div>
-  </div>
-  <div class="contact-grid">
-    <a class="contact-item" href="https://wa.me/213776532042" target="_blank" rel="noopener">
-      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.6L3 20l1-5.5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 10.5c.5 2.5 2.5 4.5 5 5"/></svg></span>
-      <div class="contact-text"><span class="contact-label">WhatsApp</span><span class="contact-value">0776 532 042</span></div>
-    </a>
-    <a class="contact-item" href="mailto:yacineiguenene@gmail.com">
-      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span>
-      <div class="contact-text"><span class="contact-label">Email</span><span class="contact-value">yacineiguenene@gmail.com</span></div>
-    </a>
-    <a class="contact-item" href="tel:+213776532042">
-      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.4 2.1L8 10.3a16 16 0 0 0 6 6l1.5-1.4a2 2 0 0 1 2.1-.4c1 .4 2 .6 3 .7a2 2 0 0 1 1.7 2Z"/></svg></span>
-      <div class="contact-text"><span class="contact-label" data-key="contact_phone">Téléphone</span><span class="contact-value">0776 532 042</span></div>
-    </a>
-    <a class="contact-item" href="https://www.youtube.com/@nouvura" target="_blank" rel="noopener">
-      <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor" stroke="none"/></svg></span>
-      <div class="contact-text"><span class="contact-label">YouTube</span><span class="contact-value" data-key="contact_youtube_val">Studio Reel</span></div>
-    </a>
-  </div>
-</div>
-
-<!-- ═══ FOOTER ═══ -->
-<div class="footer" onclick="openModal()">
-  <div class="footer-brand">NOUVURA</div>
-  <div class="footer-copy">© 2025 NOUVURA — All Rights Reserved</div>
-  <div class="footer-ip">▸ Intellectual Property · Privacy · Terms</div>
-</div>
-
-<!-- ═══ LIGHTBOX ═══ -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <div class="lightbox-inner" onclick="event.stopPropagation()">
-    <div class="lightbox-close" onclick="closeLightbox()">✕ FERMER</div>
-    <img id="lightboxImg" src="" alt="">
-  </div>
-</div>
-
-<!-- ═══ IP MODAL ═══ -->
-<div class="modal" id="modal" onclick="handleModalClick(event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <div class="modal-close" onclick="closeModal()">✕ FERMER</div>
-    <div class="modal-logo">NOUVURA</div>
-    <h2>⬡ Legal & Compliance</h2>
-    <div class="modal-tabs">
-      <button class="modal-tab active" onclick="switchTab(0)">Intellectual Property</button>
-      <button class="modal-tab" onclick="switchTab(1)">Privacy Policy</button>
-      <button class="modal-tab" onclick="switchTab(2)">Terms of Use</button>
-    </div>
-    <div class="modal-panel active" id="tab0">
-      <p>All creative works, designs, visual identities, branding assets and digital productions published by <strong>NOUVURA</strong> are the exclusive property of NOUVURA and its designated creators.</p>
-      <h3>Ownership & Protection</h3>
-      <ul>
-        <li>All logos, graphic designs, illustrations, UI/UX systems, web interfaces, and visual content are protected under applicable copyright and intellectual property laws.</li>
-        <li>NOUVURA retains full ownership of all original works unless a written license agreement explicitly transfers specified rights to a client.</li>
-        <li>Client deliverables become property of the client only upon full settlement of agreed payment.</li>
-      </ul>
-      <h3>Prohibited Actions</h3>
-      <ul>
-        <li>Reproduction, redistribution, or commercial use of any NOUVURA asset without prior written authorization is strictly prohibited.</li>
-        <li>Modification or derivative works based on NOUVURA designs are not permitted without explicit consent.</li>
-      </ul>
-      <div class="modal-divider"></div>
-      <p style="font-size:11px;color:rgba(0,240,255,0.35)">Licensing inquiries: yacineiguenene@gmail.com</p>
-      <span class="modal-badge">NOUVURA © 2025 — ALL RIGHTS RESERVED</span>
-    </div>
-    <div class="modal-panel" id="tab1">
-      <p>NOUVURA is committed to protecting the privacy and personal information of all clients, collaborators, and visitors.</p>
-      <h3>Data We Collect</h3>
-      <ul>
-        <li>Contact information voluntarily provided through communication channels.</li>
-        <li>Project briefs and communication records necessary for service delivery.</li>
-        <li>Technical data collected anonymously for site optimization.</li>
-      </ul>
-      <h3>How We Use Your Data</h3>
-      <ul>
-        <li>To respond to inquiries, deliver services, and manage project communication.</li>
-        <li>We do not sell, rent, or share your personal data with third parties.</li>
-      </ul>
-      <div class="modal-divider"></div>
-      <span class="modal-badge">GDPR COMPLIANT · DATA PROTECTED</span>
-    </div>
-    <div class="modal-panel" id="tab2">
-      <p>By engaging with NOUVURA's services, website, or any related content, you agree to the following terms.</p>
-      <h3>Service Agreement</h3>
-      <ul>
-        <li>Services are initiated upon written agreement and confirmed deposit payment.</li>
-        <li>NOUVURA reserves the right to decline project requests that conflict with our professional standards.</li>
-      </ul>
-      <h3>Liability</h3>
-      <p>NOUVURA provides services in good faith and is not liable for indirect damages beyond the scope of the signed service agreement. All disputes are subject to Algerian commercial law.</p>
-      <div class="modal-divider"></div>
-      <span class="modal-badge">NOUVURA — PROFESSIONAL STANDARDS</span>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SCRIPTS ═══ -->
+<!-- ═══════════════════════════════════════
+     SCRIPTS
+═══════════���════════════════════════════ -->
 <script>
 'use strict';
 
-/* ═══ TRANSLATIONS ═══ */
-const LANG = {
-  fr: {
-    title:'NOUVURA', slogan:'It all started with an idea', meta:'Creative Studio · Digital System',
-    nav_services:'Services', nav_portfolio:'Portfolio', nav_about:'À Propos', nav_request:'Devis', nav_contact:'Contact',
-    cta_request:'Demander un Devis', cta_portfolio:'Voir le Travail',
-    sound_off:'Son coupé', sound_on:'Son activé',
-    brand_eyebrow:'Philosophie',
-    brand_line1:'Pas juste du design…', brand_line2:'Nous construisons des perceptions.', brand_line3:'Nous façonnons la manière dont le monde vous voit.',
-    brand_sub:'Chaque marque possède une vérité silencieuse. Notre métier est de la révéler — avec précision, intention, et sans compromis.',
-    services_title:'Services',
-    svc_uiux:'Interface Design', svc_web:'Development', svc_brand:'Visual Identity', svc_graphic:'Design', svc_dtf:'Printing', svc_cnc:'Cutting', svc_laser:'Engraving', svc_motion:'Animation',
-    svc_uiux_full:'UI/UX — Interface Design', svc_web_full:'Web — Développement', svc_brand_full:'Branding — Identité Visuelle', svc_graphic_full:'Graphic — Design', svc_dtf_full:'DTF — Impression', svc_cnc_full:'CNC — Découpe', svc_laser_full:'Laser — Gravure', svc_motion_full:'Motion — Animation', svc_other:'Autre',
-    portfolio_title:'Portfolio', portfolio_sub:'Une sélection engagée. Nous montrons peu, mais nous montrons ce qui compte.',
-    p_label_1:'Business Card', p_label_2:'Flyer', p_label_3:'Merchandise', p_label_4:'Habillage', p_label_5:'Café Branding', p_label_6:'Web / UI',
-    about_title:'À Propos', about_accent:'"Chaque projet commence par une idée — nous la transformons en système."',
-    about_p1:"NOUVURA est un studio créatif spécialisé dans la construction d'identités visuelles puissantes et de systèmes numériques sur mesure.",
-    about_p2:"Du branding à la production physique (DTF, CNC, Laser), nous couvrons l'ensemble du spectre créatif.",
-    tag_fullstack:'FULL STACK CREATIVE',
-    skill_brand:'Branding & Identity', skill_uiux:'UI/UX Design', skill_web:'Web Development', skill_prod:'DTF / CNC / Laser', skill_graphic:'Graphic Design',
-    stat_projects:'Projets Réalisés', stat_clients:'Clients Satisfaits', stat_years:"Années d'Expérience",
-    process_title:'Processus',
-    step1_title:'Brief & Analyse', step1_desc:"Nous définissons ensemble vos objectifs, votre cible et les contraintes du projet.",
-    step2_title:'Conception & Stratégie', step2_desc:"Développement des concepts visuels, moodboards, et architecture de l'identité.",
-    step3_title:'Production & Itération', step3_desc:"Réalisation complète avec cycles de révision jusqu'au résultat parfait.",
-    step4_title:'Livraison & Support', step4_desc:"Livraison des fichiers sources et accompagnement post-projet.",
-    form_title:'Demander un Devis', form_sub:'Décrivez votre projet. Nous revenons vers vous rapidement, par le canal de votre choix.',
-    form_name:'Nom', form_name_ph:'Votre nom complet',
-    form_service:'Type de service',
-    form_contact:'Contact (téléphone ou email)', form_contact_ph:'0776 532 042 ou votre@email.com',
-    form_message:'Détails du projet', form_message_ph:"Parlez-nous de votre projet, vos délais, votre budget...",
-    form_file:'Fichiers de référence', form_file_hint:'Cliquez pour joindre des images ou références (optionnel)',
-    form_file_note:'Les pièces jointes ne peuvent pas être transmises automatiquement par Email/WhatsApp. Leur nom sera inclus dans votre message — merci de les envoyer manuellement après redirection.',
-    form_send_email:'Envoyer par Email', form_send_whatsapp:'Envoyer via WhatsApp',
-    form_error:'Merci de remplir les champs obligatoires (*).', form_ready:'Prêt — redirection en cours...',
-    contact_title:'Contact', contact_phone:'Téléphone', contact_youtube_val:'Studio Reel',
-    msg_label_project:'Nouvelle demande NOUVURA', msg_name:'Nom', msg_service:'Service', msg_contact:'Contact', msg_message:'Message', msg_files:'Fichiers joints (à envoyer séparément)',
-  },
+const TRANSLATIONS = {
   en: {
-    title:'NOUVURA', slogan:'It all started with an idea', meta:'Creative Studio · Digital System',
-    nav_services:'Services', nav_portfolio:'Portfolio', nav_about:'About', nav_request:'Get a Quote', nav_contact:'Contact',
-    cta_request:'Get a Quote', cta_portfolio:'View the Work',
-    sound_off:'Sound off', sound_on:'Sound on',
-    brand_eyebrow:'Philosophy',
-    brand_line1:'Not just design…', brand_line2:'We build perception.', brand_line3:'We shape how the world sees you.',
-    brand_sub:'Every brand holds a quiet truth. Our craft is to reveal it — with precision, intention, and no compromise.',
-    services_title:'Services',
-    svc_uiux:'Interface Design', svc_web:'Development', svc_brand:'Visual Identity', svc_graphic:'Design', svc_dtf:'Printing', svc_cnc:'Cutting', svc_laser:'Engraving', svc_motion:'Animation',
-    svc_uiux_full:'UI/UX — Interface Design', svc_web_full:'Web — Development', svc_brand_full:'Branding — Visual Identity', svc_graphic_full:'Graphic — Design', svc_dtf_full:'DTF — Printing', svc_cnc_full:'CNC — Cutting', svc_laser_full:'Laser — Engraving', svc_motion_full:'Motion — Animation', svc_other:'Other',
-    portfolio_title:'Portfolio', portfolio_sub:"A deliberate selection. We show little, but we show what matters.",
-    p_label_1:'Business Card', p_label_2:'Flyer', p_label_3:'Merchandise', p_label_4:'Vehicle & Space Wrap', p_label_5:'Café Branding', p_label_6:'Web / UI',
-    about_title:'About', about_accent:'"Every project starts with an idea — we turn it into a system."',
-    about_p1:"NOUVURA is a creative studio specializing in powerful visual identities and custom digital systems.",
-    about_p2:"From branding to physical production (DTF, CNC, Laser), we cover the full creative spectrum.",
-    tag_fullstack:'FULL STACK CREATIVE',
-    skill_brand:'Branding & Identity', skill_uiux:'UI/UX Design', skill_web:'Web Development', skill_prod:'DTF / CNC / Laser', skill_graphic:'Graphic Design',
-    stat_projects:'Projects Completed', stat_clients:'Happy Clients', stat_years:'Years Experience',
-    process_title:'Process',
-    step1_title:'Brief & Analysis', step1_desc:"Together we define your goals, target audience, and project constraints.",
-    step2_title:'Design & Strategy', step2_desc:"Visual concept development, moodboards, and identity architecture.",
-    step3_title:'Production & Iteration', step3_desc:"Full production with revision cycles until the result is perfect.",
-    step4_title:'Delivery & Support', step4_desc:"Source file delivery and post-project support.",
-    form_title:'Get a Quote', form_sub:"Describe your project. We'll get back to you quickly, on the channel you prefer.",
-    form_name:'Name', form_name_ph:'Your full name',
-    form_service:'Service type',
-    form_contact:'Contact (phone or email)', form_contact_ph:'0776 532 042 or you@email.com',
-    form_message:'Project details', form_message_ph:"Tell us about your project, timeline, budget...",
-    form_file:'Reference files', form_file_hint:'Click to attach images or references (optional)',
-    form_file_note:"Attachments can't be sent automatically via Email/WhatsApp. Their names will be included in your message — please send the files manually after redirect.",
-    form_send_email:'Send via Email', form_send_whatsapp:'Send via WhatsApp',
-    form_error:'Please fill in the required fields (*).', form_ready:'Ready — redirecting...',
-    contact_title:'Contact', contact_phone:'Phone', contact_youtube_val:'Studio Reel',
-    msg_label_project:'New NOUVURA request', msg_name:'Name', msg_service:'Service', msg_contact:'Contact', msg_message:'Message', msg_files:'Attached files (send separately)',
+    'lang-title': 'Choose Your Language',
+    'lang-sub': 'Select your language • Choisissez votre langue',
+    'path-question': 'Who are you?',
+    'path-ind': 'I am an Individual',
+    'path-co': 'I am a Company',
+    'path-dig': 'I am a Client',
+    'loading-text': 'Preparing your experience...',
+    'nav-services': 'Services',
+    'nav-contact': 'Contact',
+    'hero-title': 'NOUVURA',
+    'hero-slogan': "We don't just design. We build perception.",
+    'services-title': 'Services',
+    'services-tag': 'SYS-01',
+    'services-sub': 'Fast, simple, high-quality solutions',
+    'contact-title': 'Contact',
+    'contact-tag': 'SYS-02',
+    'contact-phone': 'Phone',
+    'contact-youtube': 'Studio Reel',
+    'footer-copy': '© 2025 NOUVURA — All Rights Reserved',
+
+    // INDIVIDUAL PATH
+    'individual-hero': 'Services for You',
+    'individual-sub': 'Premium solutions tailored for your personal needs',
+    'svc1-title': 'DTF Printing',
+    'svc1-desc': 'Print your designs on premium garments with high precision and durability.',
+    'svc1-cta': 'Order Now',
+    'svc2-title': 'Business Cards & Flyers',
+    'svc2-desc': '300g paper • Premium matte & glossy • Aluminum cards • NFC smart cards',
+    'svc2-cta': 'Request Now',
+    'svc3-title': 'Posters',
+    'svc3-desc': 'High-quality large format prints. Autocollant (adhesive) • Standard paper • Premium finish',
+    'svc3-cta': 'Order Poster',
+    'svc4-title': 'Stickers',
+    'svc4-desc': 'Custom stickers for phones, laptops, packaging, and more.',
+    'svc4-cta': 'Order Stickers',
+    'form-name': 'Name',
+    'form-name-ph': 'Your full name',
+    'form-phone': 'Phone',
+    'form-phone-ph': '0776 532 042',
+    'form-service': 'Service Type',
+    'form-qty': 'Quantity',
+    'form-qty-ph': 'e.g. 1, 10, 50...',
+    'form-budget': 'Budget',
+    'form-budget-ph': 'Optional estimate',
+    'form-send': 'Submit',
+    'form-error': 'Please fill in required fields (*)',
+    'form-ready': 'Redirecting...',
+
+    // COMPANY PATH
+    'company-hero': 'Build Your Brand With Precision',
+    'company-sub': 'From concept to execution — we handle everything',
+    'svc1-title-co': 'CNC & Laser Cutting',
+    'svc1-desc-co': 'Precision cutting on Forex • Alucobond • Acrylic and more',
+    'svc1-cta-co': 'Inquire Now',
+    'svc2-title-co': 'Signage & Advertising Boards',
+    'svc2-desc-co': 'Illuminated signs • 3D lettering • Autocollant signage',
+    'svc2-cta-co': 'Get Quote',
+    'svc3-title-co': 'Vehicle Wrapping',
+    'svc3-desc-co': 'Transform cars and trucks into moving advertisements.',
+    'svc3-cta-co': 'Start Project',
+    'svc4-title-co': 'Branding & Printing',
+    'svc4-desc-co': 'Business cards, clothing, large prints, and complete brand identity.',
+    'svc4-cta-co': 'Request Project',
+    'form-company': 'Company Name',
+    'form-company-ph': 'Your company',
+    'form-project': 'Project Description',
+    'form-project-ph': 'Tell us about your project...',
+    'form-deadline': 'Deadline',
+    'form-deadline-ph': 'When do you need this?',
+
+    // DIGITAL/CLIENT PATH
+    'digital-hero': 'Digital Growth & Presence',
+    'digital-sub': 'Transform your online presence',
+    'svc1-title-dig': 'Website Design',
+    'svc1-desc-dig': 'Custom, high-converting websites optimized for your brand.',
+    'svc1-cta-dig': 'Start Project',
+    'svc2-title-dig': 'Social Media Management',
+    'svc2-desc-dig': 'Content strategy, design, and posting for consistent growth.',
+    'svc2-cta-dig': 'Inquire',
+    'svc3-title-dig': 'UI/UX Design',
+    'svc3-desc-dig': 'Intuitive, beautiful interfaces that users love.',
+    'svc3-cta-dig': 'Discuss',
+    'svc4-title-dig': 'Website Optimization',
+    'svc4-desc-dig': 'SEO, performance, and conversion rate optimization.',
+    'svc4-cta-dig': 'Analyze',
+    'form-email': 'Email',
+    'form-email-ph': 'you@email.com',
+  },
+  fr: {
+    'lang-title': 'Choisissez votre langue',
+    'lang-sub': 'Select your language • اختر لغتك',
+    'path-question': 'Qui êtes-vous ?',
+    'path-ind': 'Je suis un Particulier',
+    'path-co': 'Je suis une Entreprise',
+    'path-dig': 'Je suis un Client',
+    'loading-text': 'Préparation de votre expérience...',
+    'nav-services': 'Services',
+    'nav-contact': 'Contact',
+    'hero-title': 'NOUVURA',
+    'hero-slogan': 'Nous ne faisons pas que du design. Nous construisons des perceptions.',
+    'services-title': 'Services',
+    'services-tag': 'SYS-01',
+    'services-sub': 'Des solutions rapides, simples et de haute qualité',
+    'contact-title': 'Contact',
+    'contact-tag': 'SYS-02',
+    'contact-phone': 'Téléphone',
+    'contact-youtube': 'Reel Studio',
+    'footer-copy': '© 2025 NOUVURA — Tous droits réservés',
+
+    // INDIVIDUAL PATH
+    'individual-hero': 'Services Pour Vous',
+    'individual-sub': 'Solutions premium adaptées à vos besoins personnels',
+    'svc1-title': 'Impression DTF',
+    'svc1-desc': 'Imprimez vos designs sur des vêtements premium avec haute précision et durabilité.',
+    'svc1-cta': 'Commander',
+    'svc2-title': 'Cartes de Visite & Flyers',
+    'svc2-desc': 'Papier 300g • Mat et brillant premium • Cartes aluminium • Cartes NFC intelligentes',
+    'svc2-cta': 'Demander',
+    'svc3-title': 'Affiches',
+    'svc3-desc': 'Impressions grand format haute qualité. Autocollant • Papier standard • Finition premium',
+    'svc3-cta': 'Commander Affiche',
+    'svc4-title': 'Stickers',
+    'svc4-desc': 'Stickers personnalisés pour téléphones, ordinateurs portables, emballages, etc.',
+    'svc4-cta': 'Commander Stickers',
+    'form-name': 'Nom',
+    'form-name-ph': 'Votre nom complet',
+    'form-phone': 'Téléphone',
+    'form-phone-ph': '0776 532 042',
+    'form-service': 'Type de Service',
+    'form-qty': 'Quantité',
+    'form-qty-ph': 'ex : 1, 10, 50...',
+    'form-budget': 'Budget',
+    'form-budget-ph': 'Estimation optionnelle',
+    'form-send': 'Soumettre',
+    'form-error': 'Veuillez remplir les champs obligatoires (*)',
+    'form-ready': 'Redirection...',
+
+    // COMPANY PATH
+    'company-hero': 'Construisez Votre Marque Avec Précision',
+    'company-sub': 'Du concept à l\'exécution — nous gérons tout',
+    'svc1-title-co': 'Découpe CNC & Laser',
+    'svc1-desc-co': 'Découpe de précision sur Forex • Alucobond • Acrylique et plus',
+    'svc1-cta-co': 'S\'informer',
+    'svc2-title-co': 'Panneaux Signalétiques & Publicités',
+    'svc2-desc-co': 'Panneaux lumineux • Lettres 3D • Signalétique autocollante',
+    'svc2-cta-co': 'Devis',
+    'svc3-title-co': 'Habillage Véhicule',
+    'svc3-desc-co': 'Transformez voitures et camions en publicités roulantes.',
+    'svc3-cta-co': 'Démarrer',
+    'svc4-title-co': 'Branding & Impression',
+    'svc4-desc-co': 'Cartes de visite, vêtements, grandes impressions et identité complète.',
+    'svc4-cta-co': 'Demander Projet',
+    'form-company': 'Nom Entreprise',
+    'form-company-ph': 'Votre entreprise',
+    'form-project': 'Description du Projet',
+    'form-project-ph': 'Parlez-nous de votre projet...',
+    'form-deadline': 'Délai',
+    'form-deadline-ph': 'Quand en avez-vous besoin ?',
+
+    // DIGITAL/CLIENT PATH
+    'digital-hero': 'Croissance & Présence Numérique',
+    'digital-sub': 'Transformez votre présence en ligne',
+    'svc1-title-dig': 'Création de Site Web',
+    'svc1-desc-dig': 'Sites web personnalisés, haute conversion, optimisés pour votre marque.',
+    'svc1-cta-dig': 'Démarrer',
+    'svc2-title-dig': 'Gestion Réseaux Sociaux',
+    'svc2-desc-dig': 'Stratégie contenu, design et publication pour une croissance cohérente.',
+    'svc2-cta-dig': 'S\'informer',
+    'svc3-title-dig': 'Design UI/UX',
+    'svc3-desc-dig': 'Interfaces intuitives et belles que les utilisateurs adorent.',
+    'svc3-cta-dig': 'Discuter',
+    'svc4-title-dig': 'Optimisation Web',
+    'svc4-desc-dig': 'SEO, performance et optimisation du taux de conversion.',
+    'svc4-cta-dig': 'Analyser',
+    'form-email': 'Email',
+    'form-email-ph': 'vous@email.com',
   },
   ar: {
-    title:'نوفورا', slogan:'بدأ الأمر كله بفكرة', meta:'استوديو إبداعي · نظام رقمي',
-    nav_services:'الخدمات', nav_portfolio:'المشاريع', nav_about:'من نحن', nav_request:'اطلب عرض سعر', nav_contact:'اتصل',
-    cta_request:'اطلب عرض سعر', cta_portfolio:'شاهد أعمالنا',
-    sound_off:'الصوت مغلق', sound_on:'الصوت مفعّل',
-    brand_eyebrow:'فلسفتنا',
-    brand_line1:'ليس مجرد تصميم…', brand_line2:'نحن نبني التصورات.', brand_line3:'نحن نشكّل الطريقة التي يراك بها العالم.',
-    brand_sub:'كل علامة تجارية تحمل حقيقة صامتة. مهمتنا هي كشفها — بدقة، بقصد، ودون أي تنازل.',
-    services_title:'الخدمات',
-    svc_uiux:'تصميم واجهات', svc_web:'تطوير', svc_brand:'هوية بصرية', svc_graphic:'تصميم', svc_dtf:'طباعة', svc_cnc:'قطع', svc_laser:'نقش', svc_motion:'موشن جرافيك',
-    svc_uiux_full:'UI/UX — تصميم واجهات', svc_web_full:'ويب — تطوير', svc_brand_full:'هوية بصرية', svc_graphic_full:'تصميم جرافيكي', svc_dtf_full:'DTF — طباعة', svc_cnc_full:'CNC — قطع', svc_laser_full:'ليزر — نقش', svc_motion_full:'موشن جرافيك', svc_other:'أخرى',
-    portfolio_title:'المشاريع', portfolio_sub:'اختيار مدروس. نعرض القليل، لكننا نعرض ما يهم.',
-    p_label_1:'بطاقة عمل', p_label_2:'فلاير', p_label_3:'منتجات', p_label_4:'تغليف/تلبيس', p_label_5:'هوية مقهى', p_label_6:'ويب / واجهة',
-    about_title:'من نحن', about_accent:'"كل مشروع يبدأ بفكرة — نحولها إلى نظام."',
-    about_p1:'نوفورا استوديو إبداعي متخصص في بناء هويات بصرية قوية وأنظمة رقمية مخصصة.',
-    about_p2:'من الهوية البصرية إلى الإنتاج الفيزيائي، نغطي الطيف الإبداعي الكامل.',
-    tag_fullstack:'إبداع متكامل',
-    skill_brand:'الهوية البصرية', skill_uiux:'تصميم واجهات', skill_web:'تطوير الويب', skill_prod:'DTF / CNC / ليزر', skill_graphic:'تصميم جرافيكي',
-    stat_projects:'مشروع منجز', stat_clients:'عميل راضٍ', stat_years:'سنوات خبرة',
-    process_title:'المنهجية',
-    step1_title:'التحليل والإحاطة', step1_desc:'نحدد معاً أهدافك وجمهورك ومتطلبات المشروع.',
-    step2_title:'التصميم والاستراتيجية', step2_desc:'تطوير المفاهيم البصرية وهيكل الهوية.',
-    step3_title:'الإنتاج والتطوير', step3_desc:'تنفيذ كامل مع دورات مراجعة حتى النتيجة المثالية.',
-    step4_title:'التسليم والدعم', step4_desc:'تسليم الملفات المصدرية ودعم ما بعد المشروع.',
-    form_title:'اطلب عرض سعر', form_sub:'صف مشروعك. سنعاود الاتصال بك بسرعة عبر القناة التي تفضلها.',
-    form_name:'الاسم', form_name_ph:'اسمك الكامل',
-    form_service:'نوع الخدمة',
-    form_contact:'التواصل (هاتف أو بريد إلكتروني)', form_contact_ph:'0776 532 042 أو you@email.com',
-    form_message:'تفاصيل المشروع', form_message_ph:'أخبرنا عن مشروعك، المواعيد، الميزانية...',
-    form_file:'ملفات مرجعية', form_file_hint:'انقر لإرفاق صور أو مراجع (اختياري)',
-    form_file_note:'لا يمكن إرسال المرفقات تلقائياً عبر البريد/واتساب. سيتم تضمين اسمها في رسالتك — يرجى إرسالها يدوياً بعد إعادة التوجيه.',
-    form_send_email:'إرسال عبر البريد', form_send_whatsapp:'إرسال عبر واتساب',
-    form_error:'يرجى تعبئة الحقول الإلزامية (*).', form_ready:'جاهز — جارِ التحويل...',
-    contact_title:'تواصل', contact_phone:'الهاتف', contact_youtube_val:'ريل الاستوديو',
-    msg_label_project:'طلب جديد من نوفورا', msg_name:'الاسم', msg_service:'الخدمة', msg_contact:'التواصل', msg_message:'الرسالة', msg_files:'ملفات مرفقة (أرسلها بشكل منفصل)',
+    'lang-title': 'اختر لغتك',
+    'lang-sub': 'Choose your language • Choisissez votre langue',
+    'path-question': 'من أنت؟',
+    'path-ind': 'أنا فرد',
+    'path-co': 'أنا شركة',
+    'path-dig': 'أنا عميل',
+    'loading-text': 'جاري إعداد تجربتك...',
+    'nav-services': 'الخدمات',
+    'nav-contact': 'اتصل',
+    'hero-title': 'نوفورا',
+    'hero-slogan': 'نحن لا نصمم فقط. نحن نبني التصورات.',
+    'services-title': 'الخدمات',
+    'services-tag': 'SYS-01',
+    'services-sub': 'حلول سريعة وبسيطة وعالية الجودة',
+    'contact-title': 'اتصل',
+    'contact-tag': 'SYS-02',
+    'contact-phone': 'الهاتف',
+    'contact-youtube': 'استوديو ريل',
+    'footer-copy': '© 2025 نوفورا — جميع الحقوق محفوظة',
+
+    // INDIVIDUAL PATH
+    'individual-hero': 'خدمات من أجلك',
+    'individual-sub': 'حلول مميزة مصممة لاحتياجاتك الشخصية',
+    'svc1-title': 'طباعة DTF',
+    'svc1-desc': 'اطبع تصميماتك على ملابس مميزة بدقة عالية وتحمل طويل.',
+    'svc1-cta': 'اطلب الآن',
+    'svc2-title': 'بطاقات عمل وفلايرات',
+    'svc2-desc': 'ورق 300 جرام • لمات ولامع مميز • بطاقات ألومنيوم • بطاقات ذكية NFC',
+    'svc2-cta': 'اطلب الآن',
+    'svc3-title': 'ملصقات كبيرة',
+    'svc3-desc': 'طباعة ملصقات عالية الجودة بصيغ كبيرة. ملصقات لاصقة • ورق عادي • تشطيب مميز',
+    'svc3-cta': 'اطلب ملصقة',
+    'svc4-title': 'ملصقات صغيرة',
+    'svc4-desc': 'ملصقات مخصصة للهواتف والحواسيب المحمولة والتغليف وغير ذلك.',
+    'svc4-cta': 'اطلب ملصقات',
+    'form-name': 'الاسم',
+    'form-name-ph': 'اسمك الكامل',
+    'form-phone': 'الهاتف',
+    'form-phone-ph': '0776 532 042',
+    'form-service': 'نوع الخدمة',
+    'form-qty': 'الكمية',
+    'form-qty-ph': 'مثلاً: 1، 10، 50...',
+    'form-budget': 'الميزانية',
+    'form-budget-ph': 'تقدير اختياري',
+    'form-send': 'إرسال',
+    'form-error': 'يرجى ملء الحقول الإلزامية (*)',
+    'form-ready': 'جاري التحويل...',
+
+    // COMPANY PATH
+    'company-hero': 'ابنِ علامتك التجارية بدقة',
+    'company-sub': 'من المفهوم إلى التنفيذ — نتولى كل شيء',
+    'svc1-title-co': 'قطع CNC وليزر',
+    'svc1-desc-co': 'قطع دقيق على فورِكس • ألوكوبوند • أكريليك والمزيد',
+    'svc1-cta-co': 'تواصل معنا',
+    'svc2-title-co': 'لافتات إعلانية',
+    'svc2-desc-co': 'لافتات مضاءة • حروف ثلاثية الأبعاد • لافتات لاصقة',
+    'svc2-cta-co': 'احصل على عرض سعر',
+    'svc3-title-co': 'تغليف المركبات',
+    'svc3-desc-co': 'حول السيارات والشاحنات إلى إعلانات متحركة.',
+    'svc3-cta-co': 'ابدأ',
+    'svc4-title-co': 'الهوية والطباعة',
+    'svc4-desc-co': 'بطاقات عمل وملابس وطباعات كبيرة وهوية كاملة.',
+    'svc4-cta-co': 'اطلب مشروع',
+    'form-company': 'اسم الشركة',
+    'form-company-ph': 'شركتك',
+    'form-project': 'وصف المشروع',
+    'form-project-ph': 'أخبرنا عن مشروعك...',
+    'form-deadline': 'الموعد النهائي',
+    'form-deadline-ph': 'متى تحتاجه؟',
+
+    // DIGITAL/CLIENT PATH
+    'digital-hero': 'النمو والحضور الرقمي',
+    'digital-sub': 'حول حضورك على الإنترنت',
+    'svc1-title-dig': 'تصميم الويب',
+    'svc1-desc-dig': 'مواقع ويب مخصصة وعالية التحويل مُحسّنة لعلامتك التجارية.',
+    'svc1-cta-dig': 'ابدأ',
+    'svc2-title-dig': 'إدارة وسائل التواصل',
+    'svc2-desc-dig': 'استراتيجية محتوى وتصميم ونشر للنمو المستمر.',
+    'svc2-cta-dig': 'تواصل معنا',
+    'svc3-title-dig': 'تصميم UI/UX',
+    'svc3-desc-dig': 'واجهات حدسية وجميلة يحبها المستخدمون.',
+    'svc3-cta-dig': 'تحدث معنا',
+    'svc4-title-dig': 'تحسين الويب',
+    'svc4-desc-dig': 'تحسين محرك البحث والأداء ومعدل التحويل.',
+    'svc4-cta-dig': 'حلل',
+    'form-email': 'البريد الإلكتروني',
+    'form-email-ph': 'you@email.com',
   }
 };
-let currentLang = 'fr';
 
-function setLang(l) {
-  currentLang = l;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
-  const t = LANG[l];
-  document.querySelectorAll('[data-key]').forEach(el => {
-    const k = el.dataset.key;
-    if (t[k] !== undefined) el.textContent = t[k];
-  });
-  document.querySelectorAll('[data-key-ph]').forEach(el => {
-    const k = el.dataset.keyPh;
-    if (t[k] !== undefined) el.placeholder = t[k];
-  });
-  document.documentElement.lang = l;
-  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+let currentLang = 'fr';
+let currentPath = null;
+
+function t(key) {
+  return TRANSLATIONS[currentLang][key] || key;
 }
 
-/* ═══ NAV ═══ */
-function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
-});
+function updateUI() {
+  document.querySelectorAll('[id^="lang-"], [id^="path-"], [id^="hero-"], [id^="services-"], [id^="contact-"], [id^="svc"], [id^="form-"], [id^="nav-"], [id^="loading-"], [id^="footer-"]').forEach(el => {
+    if (TRANSLATIONS[currentLang][el.id]) {
+      el.textContent = TRANSLATIONS[currentLang][el.id];
+    }
+  });
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+}
 
-/* ═══ PARTICLES ═══ */
+function initPath(lang) {
+  currentLang = lang;
+  updateUI();
+  document.getElementById('langScreen').classList.add('hidden');
+  document.getElementById('pathScreen').classList.add('show');
+}
+
+function selectPath(path) {
+  currentPath = path;
+  document.getElementById('pathScreen').classList.remove('show');
+  document.getElementById('pathScreen').classList.add('hidden');
+  document.getElementById('loadingScreen').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.remove('show');
+    document.getElementById('mainNav').style.display = 'flex';
+    document.getElementById('mainContent').classList.add('active');
+    renderPath(path);
+    document.querySelectorAll('.layer').forEach(el => setTimeout(() => el.classList.add('show'), 100));
+  }, 1500);
+}
+
+function renderPath(path) {
+  const container = document.getElementById('servicesContainer');
+  container.innerHTML = '';
+  
+  if (path === 'individual') {
+    document.getElementById('hero-title').textContent = t('individual-hero');
+    document.querySelector('.hero-slogan').textContent = t('individual-sub');
+    const services = [
+      { title: t('svc1-title'), desc: t('svc1-desc'), cta: t('svc1-cta'), type: 'dtf' },
+      { title: t('svc2-title'), desc: t('svc2-desc'), cta: t('svc2-cta'), type: 'cards' },
+      { title: t('svc3-title'), desc: t('svc3-desc'), cta: t('svc3-cta'), type: 'posters' },
+      { title: t('svc4-title'), desc: t('svc4-desc'), cta: t('svc4-cta'), type: 'stickers' }
+    ];
+    services.forEach(svc => {
+      container.innerHTML += `
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+          <div class="service-title">${svc.title}</div>
+          <div class="service-desc">${svc.desc}</div>
+          <button class="service-cta" onclick="openForm('individual', '${svc.type}')">${svc.cta} →</button>
+        </div>
+      `;
+    });
+  } else if (path === 'company') {
+    document.getElementById('hero-title').textContent = t('company-hero');
+    document.querySelector('.hero-slogan').textContent = t('company-sub');
+    const services = [
+      { title: t('svc1-title-co'), desc: t('svc1-desc-co'), cta: t('svc1-cta-co'), type: 'cnc' },
+      { title: t('svc2-title-co'), desc: t('svc2-desc-co'), cta: t('svc2-cta-co'), type: 'signage' },
+      { title: t('svc3-title-co'), desc: t('svc3-desc-co'), cta: t('svc3-cta-co'), type: 'wrapping' },
+      { title: t('svc4-title-co'), desc: t('svc4-desc-co'), cta: t('svc4-cta-co'), type: 'branding' }
+    ];
+    services.forEach(svc => {
+      container.innerHTML += `
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+          <div class="service-title">${svc.title}</div>
+          <div class="service-desc">${svc.desc}</div>
+          <button class="service-cta" onclick="openForm('company', '${svc.type}')">${svc.cta} →</button>
+        </div>
+      `;
+    });
+  } else if (path === 'digital') {
+    document.getElementById('hero-title').textContent = t('digital-hero');
+    document.querySelector('.hero-slogan').textContent = t('digital-sub');
+    const services = [
+      { title: t('svc1-title-dig'), desc: t('svc1-desc-dig'), cta: t('svc1-cta-dig'), type: 'web' },
+      { title: t('svc2-title-dig'), desc: t('svc2-desc-dig'), cta: t('svc2-cta-dig'), type: 'social' },
+      { title: t('svc3-title-dig'), desc: t('svc3-desc-dig'), cta: t('svc3-cta-dig'), type: 'uiux' },
+      { title: t('svc4-title-dig'), desc: t('svc4-desc-dig'), cta: t('svc4-cta-dig'), type: 'optimization' }
+    ];
+    services.forEach(svc => {
+      container.innerHTML += `
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+          <div class="service-title">${svc.title}</div>
+          <div class="service-desc">${svc.desc}</div>
+          <button class="service-cta" onclick="openForm('digital', '${svc.type}')">${svc.cta} →</button>
+        </div>
+      `;
+    });
+  }
+}
+
+function openForm(path, type) {
+  const modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed;inset:0;z-index:6000;background:rgba(14,1,5,0.96);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)';
+  
+  let formHTML = `<div style="width:100%;max-width:500px;background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;padding:40px;max-height:90vh;overflow-y:auto;">
+    <div style="font-family:Orbitron;font-size:10px;color:rgba(0,240,255,0.5);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:12px;">FORM</div>
+    <h2 style="font-family:Orbitron;font-size:20px;color:var(--cyan);font-weight:700;margin-bottom:24px;">${type.toUpperCase()}</h2>
+    <form onsubmit="return false;" style="display:flex;flex-direction:column;gap:20px;">
+  `;
+  
+  if (path === 'individual') {
+    formHTML += `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-name')}<span style="color:rgba(255,120,140,0.8);">*</span></label>
+          <input type="text" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-name-ph')}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-phone')}<span style="color:rgba(255,120,140,0.8);">*</span></label>
+          <input type="text" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-phone-ph')}">
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-qty')}</label>
+          <input type="text" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-qty-ph')}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-budget')}</label>
+          <input type="text" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-budget-ph')}">
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <button type="button" style="flex:1;padding:14px 20px;border-radius:6px;font-family:Orbitron;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08));border:1px solid var(--cyan);color:var(--cyan);cursor:pointer;" onclick="submitForm('email',this.parentElement.parentElement); modal.remove();">✉️ Email</button>
+        <button type="button" style="flex:1;padding:14px 20px;border-radius:6px;font-family:Orbitron;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05));border:1px solid rgba(37,211,102,0.6);color:#25d366;cursor:pointer;" onclick="submitForm('whatsapp',this.parentElement.parentElement); modal.remove();">📲 WhatsApp</button>
+      </div>
+      <button type="button" onclick="modal.remove()" style="margin-top:10px;padding:10px;border:1px solid rgba(0,240,255,0.25);background:transparent;color:rgba(0,240,255,0.6);font-family:Orbitron;font-size:9px;cursor:pointer;border-radius:4px;">Close</button>
+    `;
+  } else if (path === 'company') {
+    formHTML += `
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-company')}<span style="color:rgba(255,120,140,0.8);">*</span></label>
+        <input type="text" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-company-ph')}">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-phone')}<span style="color:rgba(255,120,140,0.8);">*</span></label>
+        <input type="text" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-phone-ph')}">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-project')}</label>
+        <textarea style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;resize:vertical;min-height:100px;line-height:1.6;" placeholder="${t('form-project-ph')}"></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <button type="button" style="flex:1;padding:14px 20px;border-radius:6px;font-family:Orbitron;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08));border:1px solid var(--cyan);color:var(--cyan);cursor:pointer;" onclick="submitForm('email',this.parentElement.parentElement); modal.remove();">✉️ Email</button>
+        <button type="button" style="flex:1;padding:14px 20px;border-radius:6px;font-family:Orbitron;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05));border:1px solid rgba(37,211,102,0.6);color:#25d366;cursor:pointer;" onclick="submitForm('whatsapp',this.parentElement.parentElement); modal.remove();">📲 WhatsApp</button>
+      </div>
+      <button type="button" onclick="modal.remove()" style="margin-top:10px;padding:10px;border:1px solid rgba(0,240,255,0.25);background:transparent;color:rgba(0,240,255,0.6);font-family:Orbitron;font-size:9px;cursor:pointer;border-radius:4px;">Close</button>
+    `;
+  } else if (path === 'digital') {
+    formHTML += `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-name')}<span style="color:rgba(255,120,140,0.8);">*</span></label>
+          <input type="text" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-name-ph')}">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-email')}<span style="color:rgba(255,120,140,0.8);">*</span></label>
+          <input type="email" style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;" placeholder="${t('form-email-ph')}">
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <label style="font-family:Orbitron;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(0,240,255,0.75);">${t('form-project')}</label>
+        <textarea style="background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.18);border-radius:6px;color:var(--text);font-family:Rajdhani;font-size:14px;padding:13px 16px;width:100%;resize:vertical;min-height:100px;line-height:1.6;" placeholder="${t('form-project-ph')}"></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <button type="button" style="flex:1;padding:14px 20px;border-radius:6px;font-family:Orbitron;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08));border:1px solid var(--cyan);color:var(--cyan);cursor:pointer;" onclick="submitForm('email',this.parentElement.parentElement); modal.remove();">✉️ Email</button>
+        <button type="button" style="flex:1;padding:14px 20px;border-radius:6px;font-family:Orbitron;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05));border:1px solid rgba(37,211,102,0.6);color:#25d366;cursor:pointer;" onclick="submitForm('whatsapp',this.parentElement.parentElement); modal.remove();">📲 WhatsApp</button>
+      </div>
+      <button type="button" onclick="modal.remove()" style="margin-top:10px;padding:10px;border:1px solid rgba(0,240,255,0.25);background:transparent;color:rgba(0,240,255,0.6);font-family:Orbitron;font-size:9px;cursor:pointer;border-radius:4px;">Close</button>
+    `;
+  }
+  
+  formHTML += '</form></div>';
+  modal.innerHTML = formHTML;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+}
+
+function submitForm(method, form) {
+  const inputs = form.querySelectorAll('input, textarea');
+  let body = `New ${currentPath} request (${method})\n\n`;
+  inputs.forEach(input => {
+    if (input.value) body += `${input.previousElementSibling?.textContent || 'Field'}: ${input.value}\n`;
+  });
+  if (method === 'email') {
+    window.location.href = `mailto:yacineiguenene@gmail.com?subject=NOUVURA Request&body=${encodeURIComponent(body)}`;
+  } else {
+    window.open(`https://wa.me/213776532042?text=${encodeURIComponent(body)}`, '_blank');
+  }
+}
+
+function switchLang(lang) {
+  currentLang = lang;
+  updateUI();
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === lang));
+}
+
+/* PARTICLES */
 const cv=document.getElementById('particleCanvas'), cx=cv.getContext('2d');
 let W,H,pts=[];
 function rsz(){ W=cv.width=window.innerWidth; H=cv.height=window.innerHeight; }
@@ -902,123 +1006,18 @@ class P{ constructor(){ this.r(); } r(){ this.x=Math.random()*W; this.y=Math.ran
 for(let i=0;i<60;i++) pts.push(new P());
 (function draw(){ cx.clearRect(0,0,W,H); pts.forEach(p=>{ p.life++; if(p.life>p.max)p.r(); const f=Math.min(p.life/30,1)*Math.min((p.max-p.life)/30,1); cx.beginPath(); cx.arc(p.x,p.y,p.rad,0,Math.PI*2); cx.fillStyle=`rgba(0,240,255,${p.a*f})`; cx.fill(); p.x+=p.vx; p.y+=p.vy; }); requestAnimationFrame(draw); })();
 
-/* ═══ REVEAL ON SCROLL ═══ */
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
-},{ threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* REVEAL */
+const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } }); },{ threshold: 0.1 });
 
-/* ═══ SKILL BARS ═══ */
-document.querySelectorAll('.skill-bar-fill').forEach(bar=>{
-  const w = bar.style.getPropertyValue('--w') || '0.8';
-  bar.style.width = (parseFloat(w)*100)+'%';
-  bar.style.transform = 'scaleX(0)';
+/* SMOOTH SCROLL */
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.hash) {
+    const target = document.querySelector(e.target.hash);
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  }
 });
 
-/* ═══ COUNTER ANIMATION ═══ */
-const counters = [{id:'s1',target:80,suffix:'+'},{id:'s2',target:60,suffix:'+'},{id:'s3',target:3,suffix:'+'}];
-let counted = false;
-const statsObserver = new IntersectionObserver(entries=>{
-  if(entries[0].isIntersecting && !counted){
-    counted = true;
-    counters.forEach(({id,target,suffix})=>{
-      const el = document.getElementById(id);
-      let v = 0; const step = target/60;
-      const t = setInterval(()=>{ v = Math.min(v+step, target); el.textContent = Math.floor(v)+suffix; if(v>=target) clearInterval(t); }, 25);
-    });
-  }
-},{ threshold: 0.5 });
-const statsSection = document.querySelector('.stats-row');
-if(statsSection) statsObserver.observe(statsSection);
-
-/* ═══ LIGHTBOX ═══ */
-function openLightbox(src){
-  document.getElementById('lightboxImg').src = src;
-  document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeLightbox(){
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeLightbox(); closeModal(); } });
-
-/* ═══ IP MODAL ═══ */
-function openModal(){ document.getElementById('modal').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(){ document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
-function handleModalClick(e){ if(e.target===document.getElementById('modal')) closeModal(); }
-function switchTab(i){
-  document.querySelectorAll('.modal-tab').forEach((t,j)=>t.classList.toggle('active',i===j));
-  document.querySelectorAll('.modal-panel').forEach((p,j)=>p.classList.toggle('active',i===j));
-}
-
-/* ═══ HERO SOUND TOGGLE ═══ */
-let heroMuted = true;
-function toggleSound(){
-  const iframe = document.getElementById('heroIframe');
-  heroMuted = !heroMuted;
-  try {
-    iframe.contentWindow.postMessage(JSON.stringify({event:'command', func: heroMuted ? 'mute' : 'unMute', args:[]}), '*');
-  } catch(e) {}
-  document.getElementById('soundIcon').innerHTML = heroMuted
-    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9" fill="currentColor" stroke="none"/><line x1="16" y1="9" x2="21" y2="14"/><line x1="21" y1="9" x2="16" y2="14"/></svg>'
-    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a9 9 0 0 1 0 12"/></svg>';
-  document.getElementById('soundLabel').textContent = LANG[currentLang][heroMuted ? 'sound_off' : 'sound_on'];
-}
-
-/* ═══ FILE INPUT PREVIEW ═══ */
-const fileInput = document.getElementById('rf_file');
-fileInput.addEventListener('change', ()=>{
-  const names = Array.from(fileInput.files).map(f=>f.name);
-  document.getElementById('fileNames').textContent = names.join(', ');
-});
-
-/* ═══ REQUEST FORM SUBMISSION ═══ */
-function submitRequest(method){
-  const t = LANG[currentLang];
-  const name = document.getElementById('rf_name').value.trim();
-  const service = document.getElementById('rf_service');
-  const serviceLabel = service.options[service.selectedIndex].text;
-  const contact = document.getElementById('rf_contact').value.trim();
-  const message = document.getElementById('rf_message').value.trim();
-  const files = Array.from(fileInput.files).map(f=>f.name);
-  const status = document.getElementById('formStatus');
-
-  const fName = document.getElementById('fieldName');
-  const fContact = document.getElementById('fieldContact');
-  const fMessage = document.getElementById('fieldMessage');
-  fName.classList.toggle('error', !name);
-  fContact.classList.toggle('error', !contact);
-  fMessage.classList.toggle('error', !message);
-
-  if(!name || !contact || !message){
-    status.textContent = t.form_error;
-    status.classList.remove('ok');
-    return;
-  }
-
-  let body = `${t.msg_label_project}\n\n${t.msg_name}: ${name}\n${t.msg_service}: ${serviceLabel}\n${t.msg_contact}: ${contact}\n\n${t.msg_message}:\n${message}`;
-  if(files.length){ body += `\n\n${t.msg_files}: ${files.join(', ')}`; }
-
-  status.textContent = t.form_ready;
-  status.classList.add('ok');
-
-  if(method === 'email'){
-    const subject = encodeURIComponent(t.msg_label_project + ' — ' + name);
-    window.location.href = `mailto:yacineiguenene@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
-  } else {
-    window.open(`https://wa.me/213776532042?text=${encodeURIComponent(body)}`, '_blank');
-  }
-}
-
-/* ═══ SMOOTH SCROLL ═══ */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if(target) target.scrollIntoView({ behavior:'smooth', block:'start' });
-  });
-});
+updateUI();
 </script>
 </body>
 </html>
