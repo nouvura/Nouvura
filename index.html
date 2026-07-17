@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,54 +47,71 @@ body::after { content:""; position:fixed; inset:0; background: radial-gradient(e
 @keyframes barGlow { 0%,100% { opacity: 0.6; } 50% { opacity: 1; box-shadow: 0 0 20px var(--cyan); } }
 
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 18px 44px; background: linear-gradient(180deg, rgba(14,1,5,0.95) 0%, transparent 100%); backdrop-filter: blur(8px); }
-.nav-logo { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; color: var(--cyan); letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(0,240,255,0.5); text-decoration: none; cursor: pointer; }
+.nav-logo { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; color: var(--cyan); letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(0,240,255,0.5); text-decoration: none; }
 .nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: rgba(0,240,255,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
+.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: rgba(0,240,255,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
 .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.6); }
 .nav-lang { display: flex; gap: 6px; }
 .lang-btn { font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; border: 1px solid rgba(0,240,255,0.2); border-radius: 3px; color: rgba(0,240,255,0.5); background: transparent; padding: 4px 10px; cursor: pointer; transition: all 0.2s; }
 .lang-btn:hover, .lang-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
+.lang-btn.initial-active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
 .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
 .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--cyan); transition: all 0.3s; }
 
 /* ══ SCREENS ══ */
-.screen { display: none; }
-.screen.active { display: block; }
+.screen { position: fixed; inset: 0; z-index: 300; opacity: 0; visibility: hidden; transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease); }
+.screen.active { opacity: 1; visibility: visible; }
+.screen-overlay { position: absolute; inset: 0; background: var(--bg-deep); display: flex; align-items: center; justify-content: center; }
 
-/* ══ LANGUAGE SELECTOR ══ */
-.lang-selector { position: fixed; inset: 0; z-index: 9999; background: linear-gradient(160deg,#1a0005 0%,#0e0105 40%,#180008 70%,#100003 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 40px; }
-.lang-selector.hidden { display: none; }
-.lang-selector-logo { font-family: 'Orbitron', sans-serif; font-size: 48px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,0.5); margin-bottom: 20px; }
-.lang-selector-text { font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 0.15em; color: rgba(0,240,255,0.7); text-transform: uppercase; margin-bottom: 30px; }
-.lang-buttons { display: flex; gap: 20px; }
-.lang-choice { font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid rgba(0,240,255,0.4); padding: 18px 32px; border-radius: 6px; color: var(--cyan); background: rgba(0,240,255,0.05); cursor: pointer; transition: all 0.3s; }
-.lang-choice:hover { border-color: var(--cyan); background: rgba(0,240,255,0.15); box-shadow: 0 0 30px rgba(0,240,255,0.3); transform: translateY(-3px); }
+/* Language Selection Screen */
+#languageScreen .screen-overlay { flex-direction: column; gap: 40px; }
+.lang-selector-header { text-align: center; }
+.lang-selector-header h1 { font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900; color: var(--cyan); letter-spacing: 0.08em; margin-bottom: 10px; text-shadow: 0 0 30px rgba(0,240,255,0.4); }
+.lang-selector-header p { font-size: 14px; color: var(--text-dim); letter-spacing: 0.04em; }
+.lang-options { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.lang-option { width: 220px; padding: 30px; border: 1px solid rgba(0,240,255,0.25); border-radius: 12px; background: rgba(0,240,255,0.03); cursor: pointer; text-align: center; transition: all 0.3s var(--ease); }
+.lang-option:hover { border-color: var(--cyan); background: rgba(0,240,255,0.08); box-shadow: 0 0 40px rgba(0,240,255,0.15); transform: translateY(-3px); }
+.lang-option span { display: block; font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: var(--cyan); }
+.lang-option p { margin-top: 8px; font-size: 12px; color: var(--text-dim); }
 
-/* ══ ENTRY SCREEN ══ */
-.entry-screen { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 20px; overflow: hidden; }
-.entry-aura { position: absolute; width: 560px; height: 560px; background: radial-gradient(ellipse, rgba(0,240,255,0.09) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: auraPulse 6s ease-in-out infinite; pointer-events: none; z-index: 0; }
-@keyframes auraPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
-.entry-content { position: relative; z-index: 1; }
-.entry-logo-box { width: 128px; height: 128px; border-radius: 22px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; margin: 0 auto 30px; }
-.entry-logo { font-family: 'Orbitron', sans-serif; font-size: 46px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
-.entry-brand { font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900; color: var(--cyan); letter-spacing: 0.15em; text-shadow: 0 0 30px rgba(0,240,255,0.4); margin-bottom: 16px; }
-.entry-tagline { font-size: 18px; color: var(--text-dim); letter-spacing: 0.02em; margin-bottom: 50px; max-width: 600px; }
-.entry-question { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.18em; color: rgba(0,240,255,0.7); text-transform: uppercase; margin-bottom: 40px; }
-.path-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.path-btn { font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--cyan); padding: 18px 30px; border-radius: 6px; color: var(--cyan); background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(0,240,255,0.03)); cursor: pointer; transition: all 0.3s var(--ease); }
-.path-btn:hover { border-color: var(--cyan); background: rgba(0,240,255,0.2); box-shadow: 0 0 40px rgba(0,240,255,0.3); transform: translateY(-3px); }
+/* Path Selection Screen */
+#pathScreen .screen-overlay { flex-direction: column; gap: 50px; padding: 40px; }
+.path-selector-header { text-align: center; max-width: 700px; }
+.path-selector-header h1 { font-family: 'Orbitron', sans-serif; font-size: 42px; font-weight: 900; color: var(--text); letter-spacing: 0.02em; margin-bottom: 15px; line-height: 1.2; text-shadow: 0 0 40px rgba(0,240,255,0.3); }
+.path-selector-header .accent { color: var(--cyan); }
+.path-selector-question { font-size: 18px; color: var(--text-dim); letter-spacing: 0.02em; margin-bottom: 8px; }
+.path-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 900px; }
+.path-option-card { padding: 32px 26px; border: 1px solid rgba(0,240,255,0.25); border-radius: 14px; background: rgba(0,240,255,0.03); text-decoration: none; text-align: center; cursor: pointer; transition: all 0.3s var(--ease); position: relative; overflow: hidden; }
+.path-option-card::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg, rgba(0,240,255,0.07), transparent); opacity:0; transition:opacity .3s; }
+.path-option-card:hover { border-color: var(--cyan); box-shadow: 0 0 50px rgba(0,240,255,0.25); transform: translateY(-6px); }
+.path-option-card:hover::before { opacity: 1; }
+.path-option-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); color: var(--cyan); margin: 0 auto 18px; font-size: 24px; }
+.path-option-card h3 { font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin-bottom: 10px; font-weight: 700; }
+.path-option-card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.65; }
 
-/* ══ LOADING SCREEN ══ */
-.loading-screen { position: fixed; inset: 0; z-index: 9998; background: rgba(14,1,5,0.95); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
-.loading-screen.hidden { display: none; }
-.spinner { width: 50px; height: 50px; border: 2px solid rgba(0,240,255,0.2); border-top: 2px solid var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; }
+/* Loading Transition Screen */
+#loadingScreen .screen-overlay { flex-direction: column; gap: 30px; }
+.loading-content { text-align: center; }
+.loading-spinner { width: 60px; height: 60px; border: 2px solid rgba(0,240,255,0.2); border-top: 2px solid var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-text { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 0.15em; color: rgba(0,240,255,0.7); text-transform: uppercase; }
+.loading-content h2 { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: 0.1em; text-transform: uppercase; }
+.loading-content p { font-size: 13px; color: var(--text-dim); margin-top: 8px; }
 
-/* ══ HERO ══ */
+/* ══ MAIN CONTENT ══ */
+#mainContent { opacity: 0; transition: opacity 0.8s var(--ease); visibility: hidden; }
+#mainContent.show { opacity: 1; visibility: visible; }
+
+/* Hero Section */
 .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 20px 80px; overflow: hidden; }
 .hero-aura { position: absolute; width: 560px; height: 560px; background: radial-gradient(ellipse, rgba(0,240,255,0.09) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: auraPulse 6s ease-in-out infinite; pointer-events: none; z-index: 0; }
+@keyframes auraPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
 .hero > * { position: relative; z-index: 1; }
+.logo-wrap { position: relative; margin-bottom: 30px; }
+.logo-glow-ring { position: absolute; inset: -24px; border: 1px solid rgba(0,240,255,0.18); border-radius: 50%; animation: ringRotate 12s linear infinite; }
+@keyframes ringRotate { to { transform: rotate(360deg); } }
+.logo-box { width: 128px; height: 128px; border-radius: 22px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; }
+.logo-box img { width: 100px; height: 100px; object-fit: contain; }
+.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 46px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
 .hero-eyebrow { font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:.3em; color:rgba(0,240,255,.7); text-transform:uppercase; margin-bottom:18px; }
 .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(30px, 6.4vw, 58px); font-weight: 900; color: #fff; letter-spacing: 0.01em; line-height: 1.2; text-shadow: 0 0 40px rgba(0,240,255,0.3); margin-bottom: 20px; max-width: 900px; animation: heroReveal 1s var(--ease) both; }
 .hero h1 .accent { color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,.5); }
@@ -127,16 +144,28 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .btn-secondary { border: 1px solid rgba(37,211,102,0.55); color: var(--wa); background: rgba(37,211,102,0.06); }
 .btn-secondary:hover { background: rgba(37,211,102,0.16); box-shadow: 0 0 30px rgba(37,211,102,0.25); transform: translateY(-2px); }
 
-/* ══ SERVICE CARDS ══ */
-.service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px; }
-.service-card { padding: 32px; border: 1px solid var(--border); border-radius: 12px; background: rgba(0,240,255,0.02); transition: all 0.3s var(--ease); }
-.service-card:hover { border-color: var(--cyan); box-shadow: 0 0 30px rgba(0,240,255,0.12); transform: translateY(-4px); }
-.service-card h3 { font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
-.service-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 18px; }
-.service-card .btn-primary { display: inline-flex; }
+/* ══ VIDEO SECTION ══ */
+.video-section { text-align: center; }
+.video-frame-wrap { display: flex; justify-content: center; margin: 8px 0 26px; }
+.video-frame { position: relative; width: 280px; aspect-ratio: 9/16; border-radius: 30px; border: 2px solid rgba(0,240,255,0.35); overflow: hidden; box-shadow: 0 0 70px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); background:#000; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.video-frame-glow { position: absolute; inset: -2px; border-radius: 30px; pointer-events: none; box-shadow: 0 0 0 1px rgba(0,240,255,0.15); }
+.video-sound-toggle { position: absolute; bottom: 14px; right: 14px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,240,255,0.4); background: rgba(14,1,5,0.6); backdrop-filter: blur(4px); color: var(--cyan); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
+.video-sound-toggle:hover { border-color: var(--cyan); background: rgba(0,240,255,0.12); }
+.video-sound-toggle svg { width: 15px; height: 15px; }
+.video-channel-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-family:'Orbitron',sans-serif; font-size: 9px; letter-spacing:.15em; text-transform:uppercase; color: rgba(0,240,255,.75); text-decoration:none; border-bottom: 1px solid rgba(0,240,255,.25); padding-bottom: 4px; transition: color .2s, border-color .2s; }
+.video-channel-link:hover { color: var(--cyan); border-color: var(--cyan); }
+
+/* ══ SERVICE GRID ══ */
+.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.service-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease); padding: 30px; text-align: left; }
+.service-card:hover { border-color: var(--cyan); box-shadow: 0 0 34px rgba(0,240,255,0.16); transform: translateY(-4px); }
+.service-card h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 12px; font-weight: 700; }
+.service-card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
+.service-card .btn-primary { margin-top: auto; }
 
 /* ══ FORMS ══ */
-.nform { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; }
+.nform { display: flex; flex-direction: column; gap: 20px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .form-field { display: flex; flex-direction: column; gap: 8px; }
 .form-field.full { grid-column: 1 / -1; }
@@ -148,588 +177,856 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(0,240,255,0.55); background: rgba(0,240,255,0.05); }
 .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,242,246,0.4); }
 .form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-.form-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
-.btn-submit { flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.25s var(--ease); border: 1px solid; }
+.form-field.error .form-input, .form-field.error .form-select, .form-field.error .form-textarea { border-color: rgba(255,90,110,0.75); }
+.form-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+.btn-submit { flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.25s var(--ease); border: 1px solid; }
+.btn-submit svg { width: 15px; height: 15px; }
 .btn-submit.email { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.12); }
 .btn-submit.email:hover { background: rgba(0,240,255,0.22); box-shadow: 0 0 36px rgba(0,240,255,0.3); transform: translateY(-2px); }
 .btn-submit.whatsapp { background: linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05)); border-color: rgba(37,211,102,0.6); color: var(--wa); box-shadow: 0 0 24px rgba(37,211,102,0.1); }
-.btn-submit.whatsapp:hover { background: rgba(37,211,102,0.22); box-shadow: 0 0 36px rgba(37,211,102,0.25); transform: translateY(-2px); }
-.form-status { font-size: 12px; letter-spacing: 0.04em; color: rgba(255,90,110,0.9); min-height: 16px; }
-.form-status.ok { color: var(--wa); }
+.btn-submit.whatsapp:hover { background: rgba(37,211,102,0.2); box-shadow: 0 0 36px rgba(37,211,102,0.3); transform: translateY(-2px); }
 
-/* ══ CONTACT ══ */
-.contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 30px; }
-.contact-item { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 32px 18px; border: 1px solid var(--border); border-radius: 8px; background: rgba(0,240,255,0.02); cursor: pointer; transition: all 0.3s var(--ease); text-decoration: none; text-align: center; }
-.contact-item:hover { border-color: rgba(0,240,255,0.4); background: rgba(0,240,255,0.04); transform: translateY(-3px); box-shadow: 0 0 20px rgba(0,240,255,0.08); }
-.contact-icon { color: var(--cyan); display: flex; align-items: center; justify-content: center; }
-.contact-icon svg { width: 26px; height: 26px; }
-.contact-label { font-family: 'Orbitron', sans-serif; font-size: 8px; color: rgba(0,240,255,0.55); letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 2px; }
-.contact-value { font-size: 13px; color: var(--text-dim); font-weight: 600; word-break: break-word; }
+/* Path-specific styling */
+.funnel-badge { display:inline-block; font-family:'Orbitron',sans-serif; font-size:8px; letter-spacing:.25em; text-transform:uppercase; padding:5px 12px; border-radius:3px; margin-bottom:18px; }
+.funnel-badge.b2b { color: var(--cyan); border: 1px solid rgba(0,240,255,.35); background: rgba(0,240,255,.05); }
+.funnel-badge.b2c { color: var(--wa); border: 1px solid rgba(37,211,102,.4); background: rgba(37,211,102,.06); }
+.funnel-title { font-family:'Orbitron',sans-serif; font-size: clamp(20px,3.4vw,28px); font-weight:800; color:#fff; letter-spacing:.02em; margin-bottom: 16px; line-height:1.3; }
+.funnel-sub { font-size: 15px; color: var(--text-dim); line-height: 1.8; max-width: 640px; margin-bottom: 30px; }
+.funnel-get { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.funnel-get-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text); border: 1px solid rgba(0,240,255,.18); background: rgba(0,240,255,.03); padding: 9px 14px; border-radius: 20px; }
+.funnel-get-item svg { width: 14px; height: 14px; color: var(--cyan); flex-shrink:0; }
+.b2c-funnel .funnel-get-item svg { color: var(--wa); }
+.b2c-funnel .funnel-get-item { border-color: rgba(37,211,102,.22); background: rgba(37,211,102,.04); }
+.funnel-timeline { display: inline-flex; align-items:center; gap:10px; font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:.08em; color: rgba(0,240,255,.85); border:1px solid rgba(0,240,255,.25); padding:10px 18px; border-radius:6px; margin-bottom: 34px; background: rgba(0,240,255,.03); }
+.b2c-funnel .funnel-timeline { color: rgba(37,211,102,.9); border-color: rgba(37,211,102,.3); background: rgba(37,211,102,.04); }
+.funnel-timeline svg { width:15px; height:15px; }
+.funnel-divider { height: 1px; background: linear-gradient(90deg, rgba(0,240,255,.2), transparent); margin: 8px 0 34px; }
 
-/* ══ FOOTER ══ */
-.footer { margin: 48px 0 0; padding: 40px 20px; text-align: center; border-top: 1px solid rgba(0,240,255,0.08); }
-.footer-brand { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,0.25); letter-spacing: 0.3em; margin-bottom: 10px; }
-.footer-copy, .footer-ip { font-family: 'Orbitron', sans-serif; font-size: 9px; color: rgba(0,240,255,0.45); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 6px; }
-.footer-ip { color: rgba(0,240,255,0.3); margin-top: 4px; }
+/* Contact Section */
+.contact-section { text-align: center; }
+.contact-methods { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+.contact-method { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); padding: 12px 18px; border: 1px solid rgba(0,240,255,.2); border-radius: 8px; transition: all 0.3s var(--ease); text-decoration: none; }
+.contact-method:hover { border-color: var(--cyan); background: rgba(0,240,255,.08); }
+.contact-method svg { width: 16px; height: 16px; }
 
-/* ══ FLOATING WHATSAPP ══ */
-.floating-whatsapp { position: fixed; bottom: 26px; right: 26px; z-index: 500; width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg,#25d366,#1da851); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 24px rgba(37,211,102,.45); animation: floatPulse 2.4s ease-in-out infinite; text-decoration: none; }
-.floating-whatsapp svg { width: 28px; height: 28px; color: #fff; }
-@keyframes floatPulse { 0%,100% { box-shadow: 0 4px 24px rgba(37,211,102,.4); } 50% { box-shadow: 0 4px 38px rgba(37,211,102,.75); } }
-.floating-whatsapp:hover { transform: scale(1.08); }
-
-/* ══ RESPONSIVE ══ */
+/* Responsive */
 @media (max-width: 768px) {
-  nav { padding: 14px 20px; }
-  .layer { padding: 40px 22px; margin: 22px 12px; }
-  .service-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr 1fr; }
+  nav { padding: 14px 24px; }
+  .nav-links { gap: 16px; }
   .form-row { grid-template-columns: 1fr; }
-  .form-actions { flex-direction: column; }
-  .path-buttons { flex-direction: column; }
-  .path-btn { width: 100%; }
-  .floating-whatsapp { bottom: 18px; right: 16px; width: 52px; height: 52px; }
-  .floating-whatsapp svg { width: 24px; height: 24px; }
-}
-@media (max-width: 420px) {
-  .entry-brand { font-size: 28px; }
   .service-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
+  .path-options { grid-template-columns: 1fr; }
+  .hero { padding: 100px 16px 60px; }
 }
+
 </style>
 </head>
 <body>
 
-<canvas id="particleCanvas"></canvas>
 <div class="system-bar"></div>
 
-<!-- ═══ LANGUAGE SELECTOR ═══ -->
-<div class="lang-selector" id="langSelector">
-  <div class="lang-selector-logo">NOUVURA</div>
-  <div class="lang-selector-text">Select Your Language</div>
-  <div class="lang-buttons">
-    <button class="lang-choice" onclick="selectLanguage('fr')">Français</button>
-    <button class="lang-choice" onclick="selectLanguage('en')">English</button>
-    <button class="lang-choice" onclick="selectLanguage('ar')">العربية</button>
+<!-- Language Selection Screen -->
+<div id="languageScreen" class="screen active">
+  <div class="screen-overlay">
+    <div class="lang-selector-header">
+      <h1>NOUVURA</h1>
+      <p data-i18n="select-language">Select Your Language</p>
+    </div>
+    <div class="lang-options">
+      <div class="lang-option" onclick="setLanguage('en')">
+        <span>English</span>
+        <p>English</p>
+      </div>
+      <div class="lang-option" onclick="setLanguage('fr')">
+        <span>Français</span>
+        <p>Français</p>
+      </div>
+      <div class="lang-option" onclick="setLanguage('ar')">
+        <span>العربية</span>
+        <p>العربية</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ═══ LOADING SCREEN ═══ -->
-<div class="loading-screen hidden" id="loadingScreen">
-  <div class="spinner"></div>
-  <div class="loading-text">Preparing your experience...</div>
-</div>
-
-<!-- ═══ ENTRY SCREEN ═══ -->
-<div class="screen active" id="entryScreen">
-  <nav id="mainNav">
-    <a class="nav-logo" onclick="resetToEntry()">NOUVURA</a>
-    <div class="nav-lang">
-      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('ar')">AR</button>
+<!-- Path Selection Screen -->
+<div id="pathScreen" class="screen">
+  <div class="screen-overlay">
+    <div class="path-selector-header">
+      <h1><span data-i18n="welcome">Welcome to</span> <span class="accent">NOUVURA</span></h1>
+      <p class="path-selector-question" data-i18n="who-are-you">Who are you?</p>
     </div>
-  </nav>
-
-  <section class="entry-screen">
-    <div class="entry-aura"></div>
-    <div class="entry-content">
-      <div class="entry-logo-box">
-        <div class="entry-logo">N</div>
+    <div class="path-options">
+      <div class="path-option-card" onclick="selectPath('individual')">
+        <div class="path-option-icon">👤</div>
+        <h3 data-i18n="path-individual">I am an Individual</h3>
+        <p data-i18n="path-individual-desc">Personal printing & design needs</p>
       </div>
-      <div class="entry-brand">NOUVURA</div>
-      <p class="entry-tagline">We don't just design. We build perception.</p>
-      <div class="entry-question">Who are you?</div>
-      <div class="path-buttons">
-        <button class="path-btn" onclick="selectPath('individual')">I am an Individual</button>
-        <button class="path-btn" onclick="selectPath('company')">I am a Company</button>
-        <button class="path-btn" onclick="selectPath('client')">I am a Client</button>
+      <div class="path-option-card" onclick="selectPath('company')">
+        <div class="path-option-icon">🏢</div>
+        <h3 data-i18n="path-company">I am a Company</h3>
+        <p data-i18n="path-company-desc">Large projects & production</p>
+      </div>
+      <div class="path-option-card" onclick="selectPath('client')">
+        <div class="path-option-icon">💻</div>
+        <h3 data-i18n="path-client">I am a Client</h3>
+        <p data-i18n="path-client-desc">Digital services & web solutions</p>
       </div>
     </div>
-  </section>
-</div>
-
-<!-- ═══ INDIVIDUAL PAGE ═══ -->
-<div class="screen" id="individualScreen">
-  <nav id="mainNav">
-    <a class="nav-logo" onclick="resetToEntry()">NOUVURA</a>
-    <ul class="nav-links">
-      <li><a onclick="scrollTo('services-ind')">Services</a></li>
-      <li><a onclick="scrollTo('contact-ind')">Contact</a></li>
-    </ul>
-    <div class="nav-lang">
-      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('ar')">AR</button>
-    </div>
-  </nav>
-
-  <section class="hero">
-    <div class="hero-aura"></div>
-    <div class="hero-eyebrow">INDIVIDUAL SOLUTIONS</div>
-    <h1>Welcome to <span class="accent">NOUVURA</span></h1>
-    <p class="hero-slogan">Fast, simple, high-quality solutions for your personal needs</p>
-    <div class="scroll-hint"><span>SCROLL</span><div class="scroll-arrow"></div></div>
-  </section>
-
-  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-  <div class="layer reveal" id="services-ind">
-    <div class="layer-inner-glow"></div>
-    <div class="section-header">
-      <h2>Our Services</h2>
-      <span class="section-tag">IND-01</span>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="service-grid">
-      <!-- DTF Printing -->
-      <div class="service-card">
-        <h3>DTF Printing (Clothing)</h3>
-        <p>Print your designs on premium garments with high precision and durability. Perfect for personal projects, merchandise, and custom wear.</p>
-        <button class="btn-primary" onclick="openServiceModal('dtf')">Order Now</button>
-      </div>
-
-      <!-- Business Cards & Flyers -->
-      <div class="service-card">
-        <h3>Business Cards & Flyers</h3>
-        <p>Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, and NFC smart cards.</p>
-        <button class="btn-primary" onclick="openServiceModal('cards')">Request Now</button>
-      </div>
-
-      <!-- Posters -->
-      <div class="service-card">
-        <h3>Posters</h3>
-        <p>High-quality large format prints: Autocollant (adhesive), standard paper, and premium finish options available.</p>
-        <button class="btn-primary" onclick="openServiceModal('posters')">Order Poster</button>
-      </div>
-
-      <!-- Stickers -->
-      <div class="service-card">
-        <h3>Stickers</h3>
-        <p>Custom stickers you can place anywhere: phones, laptops, packaging, and more. Premium quality with lasting adhesion.</p>
-        <button class="btn-primary" onclick="openServiceModal('stickers')">Order Stickers</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-  <div class="layer reveal" id="contact-ind">
-    <div class="layer-inner-glow"></div>
-    <div class="section-header">
-      <h2>Get in Touch</h2>
-      <span class="section-tag">IND-02</span>
-      <div class="section-line"></div>
-    </div>
-    <p class="section-sub">Ready to bring your idea to life? Contact us through your preferred channel.</p>
-    <div class="contact-grid">
-      <a class="contact-item" href="https://wa.me/213776532042" target="_blank" rel="noopener">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.6L3 20l1-5.5A8.5 8.5 0 1 1 21 11.5Z"/></svg></span>
-        <span class="contact-label">WhatsApp</span>
-        <span class="contact-value">0776 532 042</span>
-      </a>
-      <a class="contact-item" href="mailto:yacineiguenene@gmail.com">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span>
-        <span class="contact-label">Email</span>
-        <span class="contact-value">yacineiguenene@gmail.com</span>
-      </a>
-      <a class="contact-item" href="tel:+213776532042">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.4 2.1L8 10.3a16 16 0 0 0 6 6l1.5-1.4a2 2 0 0 1 2.1-.4c1 .4 2 .6 3 .7a2 2 0 0 1 1.7 2Z"/></svg></span>
-        <span class="contact-label">Phone</span>
-        <span class="contact-value">0776 532 042</span>
-      </a>
-      <a class="contact-item" href="https://www.youtube.com/@Nouvura" target="_blank" rel="noopener">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor" stroke="none"/></svg></span>
-        <span class="contact-label">YouTube</span>
-        <span class="contact-value">Studio Reel</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="footer-brand">NOUVURA</div>
-    <div class="footer-copy">© 2025 NOUVURA — All Rights Reserved</div>
   </div>
 </div>
 
-<!-- ═══ COMPANY PAGE ═══ -->
-<div class="screen" id="companyScreen">
-  <nav id="mainNav">
-    <a class="nav-logo" onclick="resetToEntry()">NOUVURA</a>
-    <ul class="nav-links">
-      <li><a onclick="scrollTo('services-com')">Services</a></li>
-      <li><a onclick="scrollTo('contact-com')">Contact</a></li>
-    </ul>
-    <div class="nav-lang">
-      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('ar')">AR</button>
+<!-- Loading Screen -->
+<div id="loadingScreen" class="screen">
+  <div class="screen-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <h2 data-i18n="loading-title">Preparing Experience</h2>
+      <p data-i18n="loading-subtitle">Please wait while we personalize your journey...</p>
     </div>
-  </nav>
-
-  <section class="hero">
-    <div class="hero-aura"></div>
-    <div class="hero-eyebrow">BUSINESS SOLUTIONS</div>
-    <h1>Build Your Brand <span class="accent">With Precision</span></h1>
-    <p class="hero-slogan">From concept to execution — we handle everything your company needs to stand out.</p>
-    <div class="scroll-hint"><span>SCROLL</span><div class="scroll-arrow"></div></div>
-  </section>
-
-  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-  <div class="layer reveal" id="services-com">
-    <div class="layer-inner-glow"></div>
-    <div class="section-header">
-      <h2>Services for Companies</h2>
-      <span class="section-tag">COM-01</span>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="service-grid">
-      <!-- CNC & Laser -->
-      <div class="service-card">
-        <h3>CNC & Laser Cutting</h3>
-        <p>Precision cutting and design using Forex, Alucobond, acrylic, and more. Perfect for signage, displays, and custom projects.</p>
-        <button class="btn-primary" onclick="openServiceModal('cnc')">Request Now</button>
-      </div>
-
-      <!-- Signage -->
-      <div class="service-card">
-        <h3>Signage & Advertising Boards</h3>
-        <p>All types of signage: illuminated signs, 3D lettering, autocollant signage, and large-format displays for maximum impact.</p>
-        <button class="btn-primary" onclick="openServiceModal('signage')">Get Quote</button>
-      </div>
-
-      <!-- Vehicle Wrapping -->
-      <div class="service-card">
-        <h3>Vehicle Wrapping</h3>
-        <p>Transform cars and trucks into moving advertisements. Professional installation with premium vinyl and lasting durability.</p>
-        <button class="btn-primary" onclick="openServiceModal('wrapping')">Request Now</button>
-      </div>
-
-      <!-- Branding & Printing -->
-      <div class="service-card">
-        <h3>Branding & Printing</h3>
-        <p>Complete brand solutions: business cards, clothing, large prints, packaging, and full brand identity development.</p>
-        <button class="btn-primary" onclick="openServiceModal('branding')">Start Project</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-  <div class="layer reveal" id="contact-com">
-    <div class="layer-inner-glow"></div>
-    <div class="section-header">
-      <h2>Let's Work Together</h2>
-      <span class="section-tag">COM-02</span>
-      <div class="section-line"></div>
-    </div>
-    <p class="section-sub">Contact us to discuss your project requirements and get a customized proposal.</p>
-    <div class="contact-grid">
-      <a class="contact-item" href="https://wa.me/213776532042" target="_blank" rel="noopener">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.6L3 20l1-5.5A8.5 8.5 0 1 1 21 11.5Z"/></svg></span>
-        <span class="contact-label">WhatsApp</span>
-        <span class="contact-value">0776 532 042</span>
-      </a>
-      <a class="contact-item" href="mailto:yacineiguenene@gmail.com">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span>
-        <span class="contact-label">Email</span>
-        <span class="contact-value">yacineiguenene@gmail.com</span>
-      </a>
-      <a class="contact-item" href="tel:+213776532042">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.4 2.1L8 10.3a16 16 0 0 0 6 6l1.5-1.4a2 2 0 0 1 2.1-.4c1 .4 2 .6 3 .7a2 2 0 0 1 1.7 2Z"/></svg></span>
-        <span class="contact-label">Phone</span>
-        <span class="contact-value">0776 532 042</span>
-      </a>
-      <a class="contact-item" href="https://www.youtube.com/@Nouvura" target="_blank" rel="noopener">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor" stroke="none"/></svg></span>
-        <span class="contact-label">YouTube</span>
-        <span class="contact-value">Studio Reel</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="footer-brand">NOUVURA</div>
-    <div class="footer-copy">© 2025 NOUVURA — All Rights Reserved</div>
   </div>
 </div>
 
-<!-- ═══ CLIENT PAGE ═══ -->
-<div class="screen" id="clientScreen">
-  <nav id="mainNav">
-    <a class="nav-logo" onclick="resetToEntry()">NOUVURA</a>
-    <ul class="nav-links">
-      <li><a onclick="scrollTo('services-cli')">Services</a></li>
-      <li><a onclick="scrollTo('contact-cli')">Contact</a></li>
-    </ul>
-    <div class="nav-lang">
-      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('ar')">AR</button>
+<!-- Main Navigation -->
+<nav id="mainNav" style="display:none;">
+  <a href="#" class="nav-logo">NOUVURA</a>
+  <ul class="nav-links">
+    <li><a href="#services" data-i18n="nav-services">Services</a></li>
+    <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
+  </ul>
+  <div class="nav-lang">
+    <button class="lang-btn initial-active" onclick="setLanguage('en')">EN</button>
+    <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
+    <button class="lang-btn" onclick="setLanguage('ar')">AR</button>
+  </div>
+</nav>
+
+<!-- Main Content Area -->
+<div id="mainContent">
+
+  <!-- Individual Path -->
+  <div id="individual-path" style="display:none;">
+    <div class="hero">
+      <div class="hero-aura"></div>
+      <div class="logo-wrap">
+        <div class="logo-glow-ring"></div>
+        <div class="logo-box">
+          <span class="logo-box-fallback">N</span>
+        </div>
+      </div>
+      <h1 data-i18n="individual-title">Welcome to <span class="accent">Nouvura</span> Services</h1>
+      <p class="hero-slogan" data-i18n="individual-slogan">Fast, simple, high-quality solutions for your personal needs</p>
+      <div class="scroll-hint">
+        <span data-i18n="scroll-explore">Scroll to Explore</span>
+        <div class="scroll-arrow"></div>
+      </div>
     </div>
-  </nav>
 
-  <section class="hero">
-    <div class="hero-aura"></div>
-    <div class="hero-eyebrow">DIGITAL SERVICES</div>
-    <h1>Digital Growth & <span class="accent">Online Presence</span></h1>
-    <p class="hero-slogan">Build your brand's digital identity with strategic design and web solutions.</p>
-    <div class="scroll-hint"><span>SCROLL</span><div class="scroll-arrow"></div></div>
-  </section>
+    <div class="layer show" style="animation-delay: 0.2s;">
+      <div class="layer-inner-glow"></div>
+      <div class="section-header">
+        <h2 data-i18n="individual-services">Our Services</h2>
+        <span class="section-tag" data-i18n="for-you">FOR YOU</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="service-grid">
+        <!-- DTF Printing -->
+        <div class="service-card">
+          <h4 data-i18n="service-dtf-title">DTF Printing</h4>
+          <p data-i18n="service-dtf-desc">Print your designs on premium garments with high precision and durability.</p>
+          <button class="btn-primary" data-i18n="btn-order">Order Now</button>
+        </div>
 
-  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
+        <!-- Business Cards & Flyers -->
+        <div class="service-card">
+          <h4 data-i18n="service-print-title">Business Cards & Flyers</h4>
+          <p data-i18n="service-print-desc">Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.</p>
+          <button class="btn-primary" data-i18n="btn-request">Request Now</button>
+        </div>
 
-  <div class="layer reveal" id="services-cli">
+        <!-- Posters -->
+        <div class="service-card">
+          <h4 data-i18n="service-posters-title">Posters</h4>
+          <p data-i18n="service-posters-desc">High-quality large format prints: autocollant (adhesive), standard paper, premium finish.</p>
+          <button class="btn-primary" data-i18n="btn-order-poster">Order Poster</button>
+        </div>
+
+        <!-- Stickers -->
+        <div class="service-card">
+          <h4 data-i18n="service-stickers-title">Stickers</h4>
+          <p data-i18n="service-stickers-desc">Custom stickers you can place anywhere: phones, laptops, packaging, and more.</p>
+          <button class="btn-primary" data-i18n="btn-order-stickers">Order Stickers</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer" style="animation-delay: 0.4s;">
+      <div class="layer-inner-glow"></div>
+      <div class="section-header">
+        <h2 data-i18n="quick-form">Quick Request</h2>
+        <div class="section-line"></div>
+      </div>
+      <form class="nform" id="individualForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-name">Name <span class="req">*</span></label>
+            <input type="text" class="form-input" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
+            <input type="tel" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-service">Service Type <span class="req">*</span></label>
+            <select class="form-select" required>
+              <option value="">-- Select Service --</option>
+              <option value="dtf" data-i18n="service-dtf-title">DTF Printing</option>
+              <option value="cards" data-i18n="service-print-title">Business Cards</option>
+              <option value="posters" data-i18n="service-posters-title">Posters</option>
+              <option value="stickers" data-i18n="service-stickers-title">Stickers</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-quantity">Quantity <span class="req">*</span></label>
+            <input type="number" class="form-input" min="1" required>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label class="form-label" data-i18n="form-budget">Budget (Optional)</label>
+          <input type="text" class="form-input" placeholder="e.g., $50 - $200">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit email">
+            <span data-i18n="btn-send">Send Request</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Company Path -->
+  <div id="company-path" style="display:none;">
+    <div class="hero">
+      <div class="hero-aura"></div>
+      <div class="logo-wrap">
+        <div class="logo-glow-ring"></div>
+        <div class="logo-box">
+          <span class="logo-box-fallback">N</span>
+        </div>
+      </div>
+      <h1 data-i18n="company-title">Build Your Brand With <span class="accent">Precision</span></h1>
+      <p class="hero-slogan" data-i18n="company-slogan">From concept to execution — we handle everything</p>
+      <div class="scroll-hint">
+        <span data-i18n="scroll-explore">Scroll to Explore</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+
+    <div class="layer show" style="animation-delay: 0.2s;">
+      <div class="layer-inner-glow"></div>
+      <div class="section-header">
+        <h2 data-i18n="company-services">Our Services</h2>
+        <span class="section-tag" data-i18n="for-companies">FOR COMPANIES</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="service-grid">
+        <!-- CNC & Laser -->
+        <div class="service-card">
+          <h4 data-i18n="service-cnc-title">CNC & Laser Cutting</h4>
+          <p data-i18n="service-cnc-desc">Precision cutting and design using: Forex, Alucobond, Acrylic and more.</p>
+          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+        </div>
+
+        <!-- Signage -->
+        <div class="service-card">
+          <h4 data-i18n="service-signage-title">Signage & Advertising Boards</h4>
+          <p data-i18n="service-signage-desc">All types of signage: illuminated signs, 3D lettering, autocollant signage.</p>
+          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+        </div>
+
+        <!-- Vehicle Wrapping -->
+        <div class="service-card">
+          <h4 data-i18n="service-wrap-title">Vehicle Wrapping</h4>
+          <p data-i18n="service-wrap-desc">Transform cars and trucks into moving advertisements.</p>
+          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+        </div>
+
+        <!-- Branding -->
+        <div class="service-card">
+          <h4 data-i18n="service-branding-title">Branding & Printing</h4>
+          <p data-i18n="service-branding-desc">Business cards, clothing, large prints, and full brand identity.</p>
+          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer" style="animation-delay: 0.4s;">
+      <div class="layer-inner-glow"></div>
+      <div class="section-header">
+        <h2 data-i18n="project-form">Project Request</h2>
+        <div class="section-line"></div>
+      </div>
+      <form class="nform" id="companyForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-company-name">Company Name <span class="req">*</span></label>
+            <input type="text" class="form-input" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-contact">Contact Person <span class="req">*</span></label>
+            <input type="text" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-project-type">Project Type <span class="req">*</span></label>
+            <select class="form-select" required>
+              <option value="">-- Select Project Type --</option>
+              <option value="cnc" data-i18n="service-cnc-title">CNC & Laser Cutting</option>
+              <option value="signage" data-i18n="service-signage-title">Signage & Boards</option>
+              <option value="wrapping" data-i18n="service-wrap-title">Vehicle Wrapping</option>
+              <option value="branding" data-i18n="service-branding-title">Branding</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-budget">Budget <span class="req">*</span></label>
+            <input type="text" class="form-input" required placeholder="e.g., $5,000 - $25,000">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-deadline">Project Deadline <span class="req">*</span></label>
+            <input type="date" class="form-input" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
+            <input type="tel" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label class="form-label" data-i18n="form-description">Project Description</label>
+          <textarea class="form-textarea" placeholder="Tell us about your project..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit email">
+            <span data-i18n="btn-send">Send Request</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Client Path (Digital Services) -->
+  <div id="client-path" style="display:none;">
+    <div class="hero">
+      <div class="hero-aura"></div>
+      <div class="logo-wrap">
+        <div class="logo-glow-ring"></div>
+        <div class="logo-box">
+          <span class="logo-box-fallback">N</span>
+        </div>
+      </div>
+      <h1 data-i18n="client-title">Digital Growth & <span class="accent">Presence</span></h1>
+      <p class="hero-slogan" data-i18n="client-slogan">Build your online presence with cutting-edge digital solutions</p>
+      <div class="scroll-hint">
+        <span data-i18n="scroll-explore">Scroll to Explore</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+
+    <div class="layer show" style="animation-delay: 0.2s;">
+      <div class="layer-inner-glow"></div>
+      <div class="section-header">
+        <h2 data-i18n="digital-services">Digital Services</h2>
+        <span class="section-tag" data-i18n="online">ONLINE</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="service-grid">
+        <!-- Web Design -->
+        <div class="service-card">
+          <h4 data-i18n="service-web-title">Website Design</h4>
+          <p data-i18n="service-web-desc">Custom, high-performing websites that convert visitors into customers.</p>
+          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+        </div>
+
+        <!-- Social Media -->
+        <div class="service-card">
+          <h4 data-i18n="service-social-title">Social Media Management</h4>
+          <p data-i18n="service-social-desc">Content creation, strategy, and engagement across all major platforms.</p>
+          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+        </div>
+
+        <!-- UI/UX -->
+        <div class="service-card">
+          <h4 data-i18n="service-uiux-title">UI/UX Design</h4>
+          <p data-i18n="service-uiux-desc">Beautiful, intuitive interfaces that users love and brands trust.</p>
+          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+        </div>
+
+        <!-- Optimization -->
+        <div class="service-card">
+          <h4 data-i18n="service-seo-title">Website Optimization</h4>
+          <p data-i18n="service-seo-desc">Performance, SEO, and conversion rate optimization for maximum ROI.</p>
+          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Section -->
+    <div class="layer" style="animation-delay: 0.4s;">
+      <div class="layer-inner-glow"></div>
+      <div class="video-section">
+        <div class="section-header" style="justify-content: center; margin-bottom: 32px;">
+          <h2 data-i18n="see-work">See Our Work</h2>
+        </div>
+        <div class="video-frame-wrap">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/jcedW1i46DA" allowfullscreen="" loading="lazy"></iframe>
+            <div class="video-frame-glow"></div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/@nouvura" target="_blank" class="video-channel-link" data-i18n="visit-channel">
+          Visit Channel →
+        </a>
+      </div>
+    </div>
+
+    <div class="layer" style="animation-delay: 0.6s;">
+      <div class="layer-inner-glow"></div>
+      <div class="section-header">
+        <h2 data-i18n="start-project">Start Your Project</h2>
+        <div class="section-line"></div>
+      </div>
+      <form class="nform" id="clientForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-name">Name <span class="req">*</span></label>
+            <input type="text" class="form-input" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-email">Email <span class="req">*</span></label>
+            <input type="email" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-service-type">Service Type <span class="req">*</span></label>
+            <select class="form-select" required>
+              <option value="">-- Select Service --</option>
+              <option value="web" data-i18n="service-web-title">Website Design</option>
+              <option value="social" data-i18n="service-social-title">Social Media</option>
+              <option value="uiux" data-i18n="service-uiux-title">UI/UX Design</option>
+              <option value="seo" data-i18n="service-seo-title">Website Optimization</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" data-i18n="form-budget">Budget <span class="req">*</span></label>
+            <input type="text" class="form-input" required placeholder="e.g., $2,000 - $10,000">
+          </div>
+        </div>
+        <div class="form-field full">
+          <label class="form-label" data-i18n="form-description">Project Description <span class="req">*</span></label>
+          <textarea class="form-textarea" required placeholder="Tell us about your vision..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit email">
+            <span data-i18n="btn-send">Send Project Brief</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Universal Contact Section -->
+  <div class="layer" id="contactSection" style="animation-delay: 0.8s; margin-bottom: 60px;">
     <div class="layer-inner-glow"></div>
-    <div class="section-header">
-      <h2>Digital Services</h2>
-      <span class="section-tag">CLI-01</span>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="service-grid">
-      <!-- Web Design -->
-      <div class="service-card">
-        <h3>Website Design</h3>
-        <p>Custom website design tailored to your brand. Responsive, modern, and optimized for conversion and user engagement.</p>
-        <button class="btn-primary" onclick="openServiceModal('web')">Start Project</button>
+    <div class="contact-section">
+      <div class="section-header" style="justify-content: center; margin-bottom: 24px;">
+        <h2 data-i18n="get-touch">Get In Touch</h2>
       </div>
-
-      <!-- Social Media -->
-      <div class="service-card">
-        <h3>Social Media Management</h3>
-        <p>Strategic content creation, community management, and brand growth across all major social platforms.</p>
-        <button class="btn-primary" onclick="openServiceModal('social')">Get Started</button>
-      </div>
-
-      <!-- UI/UX -->
-      <div class="service-card">
-        <h3>UI/UX Design</h3>
-        <p>User-centered interface and experience design for apps and digital products that users love.</p>
-        <button class="btn-primary" onclick="openServiceModal('uiux')">Request Now</button>
-      </div>
-
-      <!-- Optimization -->
-      <div class="service-card">
-        <h3>Website Optimization</h3>
-        <p>Improve performance, SEO, load speed, and user experience. Make your site work harder for your business.</p>
-        <button class="btn-primary" onclick="openServiceModal('optimization')">Analyze Now</button>
+      <p class="section-sub" style="text-align: center; margin: 0 auto;" data-i18n="contact-desc">
+        Have questions? Reach out through your preferred channel.
+      </p>
+      <div class="contact-methods">
+        <a href="mailto:hello@nouvura.com" class="contact-method">
+          <span data-i18n="contact-email">Email</span>
+        </a>
+        <a href="https://wa.me/213123456789" target="_blank" class="contact-method" style="border-color: rgba(37,211,102,.3); color: var(--wa);">
+          <span data-i18n="contact-whatsapp">WhatsApp</span>
+        </a>
+        <a href="https://instagram.com/nouvura" target="_blank" class="contact-method">
+          <span data-i18n="contact-social">Follow Us</span>
+        </a>
       </div>
     </div>
   </div>
 
-  <div class="energy-line"><div class="energy-node"></div><div class="connection"></div><div class="energy-node"></div></div>
-
-  <div class="layer reveal" id="contact-cli">
-    <div class="layer-inner-glow"></div>
-    <div class="section-header">
-      <h2>Start Your Project</h2>
-      <span class="section-tag">CLI-02</span>
-      <div class="section-line"></div>
-    </div>
-    <p class="section-sub">Let's discuss your digital goals and create a strategy to achieve them.</p>
-    <div class="contact-grid">
-      <a class="contact-item" href="https://wa.me/213776532042" target="_blank" rel="noopener">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.6L3 20l1-5.5A8.5 8.5 0 1 1 21 11.5Z"/></svg></span>
-        <span class="contact-label">WhatsApp</span>
-        <span class="contact-value">0776 532 042</span>
-      </a>
-      <a class="contact-item" href="mailto:yacineiguenene@gmail.com">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span>
-        <span class="contact-label">Email</span>
-        <span class="contact-value">yacineiguenene@gmail.com</span>
-      </a>
-      <a class="contact-item" href="tel:+213776532042">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 3a2 2 0 0 1-.4 2.1L8 10.3a16 16 0 0 0 6 6l1.5-1.4a2 2 0 0 1 2.1-.4c1 .4 2 .6 3 .7a2 2 0 0 1 1.7 2Z"/></svg></span>
-        <span class="contact-label">Phone</span>
-        <span class="contact-value">0776 532 042</span>
-      </a>
-      <a class="contact-item" href="https://www.youtube.com/@Nouvura" target="_blank" rel="noopener">
-        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor" stroke="none"/></svg></span>
-        <span class="contact-label">YouTube</span>
-        <span class="contact-value">Studio Reel</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="footer-brand">NOUVURA</div>
-    <div class="footer-copy">© 2025 NOUVURA — All Rights Reserved</div>
-  </div>
 </div>
-
-<!-- ═══ FLOATING WHATSAPP ═══ -->
-<a class="floating-whatsapp" href="https://wa.me/213776532042" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l6.29-.97C9 21.63 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.41 0-2.73-.35-3.88-.94l-.28-.15-2.89.44.44-2.89-.15-.28C4.35 14.73 4 13.41 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/><path d="M16.5 12.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm-3 0c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm-3 0c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z"/></svg>
-</a>
 
 <script>
-// Language data
+// Internationalization data
 const translations = {
-  fr: {
-    lang_select: "Sélectionnez votre langue",
-    who_are_you: "Qui êtes-vous?",
-    individual: "Je suis un particulier",
-    company: "Je suis une entreprise",
-    client: "Je suis un client"
-  },
   en: {
-    lang_select: "Select Your Language",
-    who_are_you: "Who are you?",
-    individual: "I am an Individual",
-    company: "I am a Company",
-    client: "I am a Client"
+    'select-language': 'Select Your Language',
+    'welcome': 'Welcome to',
+    'who-are-you': 'Who are you?',
+    'path-individual': 'I am an Individual',
+    'path-individual-desc': 'Personal printing & design needs',
+    'path-company': 'I am a Company',
+    'path-company-desc': 'Large projects & production',
+    'path-client': 'I am a Client',
+    'path-client-desc': 'Digital services & web solutions',
+    'loading-title': 'Preparing Your Experience',
+    'loading-subtitle': 'Please wait while we personalize your journey...',
+    'nav-services': 'Services',
+    'nav-contact': 'Contact',
+    'scroll-explore': 'Scroll to Explore',
+    'individual-title': 'Welcome to Nouvura Services',
+    'individual-slogan': 'Fast, simple, high-quality solutions for your personal needs',
+    'individual-services': 'Our Services',
+    'for-you': 'FOR YOU',
+    'service-dtf-title': 'DTF Printing',
+    'service-dtf-desc': 'Print your designs on premium garments with high precision and durability.',
+    'service-print-title': 'Business Cards & Flyers',
+    'service-print-desc': 'Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.',
+    'service-posters-title': 'Posters',
+    'service-posters-desc': 'High-quality large format prints: autocollant (adhesive), standard paper, premium finish.',
+    'service-stickers-title': 'Stickers',
+    'service-stickers-desc': 'Custom stickers you can place anywhere: phones, laptops, packaging, and more.',
+    'btn-order': 'Order Now',
+    'btn-request': 'Request Now',
+    'btn-order-poster': 'Order Poster',
+    'btn-order-stickers': 'Order Stickers',
+    'quick-form': 'Quick Request',
+    'form-name': 'Name',
+    'form-phone': 'Phone',
+    'form-service': 'Service Type',
+    'form-quantity': 'Quantity',
+    'form-budget': 'Budget',
+    'btn-send': 'Send Request',
+    'company-title': 'Build Your Brand With Precision',
+    'company-slogan': 'From concept to execution — we handle everything',
+    'company-services': 'Our Services',
+    'for-companies': 'FOR COMPANIES',
+    'service-cnc-title': 'CNC & Laser Cutting',
+    'service-cnc-desc': 'Precision cutting and design using: Forex, Alucobond, Acrylic and more.',
+    'service-signage-title': 'Signage & Advertising Boards',
+    'service-signage-desc': 'All types of signage: illuminated signs, 3D lettering, autocollant signage.',
+    'service-wrap-title': 'Vehicle Wrapping',
+    'service-wrap-desc': 'Transform cars and trucks into moving advertisements.',
+    'service-branding-title': 'Branding & Printing',
+    'service-branding-desc': 'Business cards, clothing, large prints, and full brand identity.',
+    'btn-inquire': 'Inquire',
+    'project-form': 'Project Request',
+    'form-company-name': 'Company Name',
+    'form-contact': 'Contact Person',
+    'form-project-type': 'Project Type',
+    'form-deadline': 'Project Deadline',
+    'form-description': 'Project Description',
+    'client-title': 'Digital Growth & Presence',
+    'client-slogan': 'Build your online presence with cutting-edge digital solutions',
+    'digital-services': 'Digital Services',
+    'online': 'ONLINE',
+    'service-web-title': 'Website Design',
+    'service-web-desc': 'Custom, high-performing websites that convert visitors into customers.',
+    'service-social-title': 'Social Media Management',
+    'service-social-desc': 'Content creation, strategy, and engagement across all major platforms.',
+    'service-uiux-title': 'UI/UX Design',
+    'service-uiux-desc': 'Beautiful, intuitive interfaces that users love and brands trust.',
+    'service-seo-title': 'Website Optimization',
+    'service-seo-desc': 'Performance, SEO, and conversion rate optimization for maximum ROI.',
+    'btn-start': 'Get Started',
+    'see-work': 'See Our Work',
+    'visit-channel': 'Visit Channel →',
+    'start-project': 'Start Your Project',
+    'form-email': 'Email',
+    'form-service-type': 'Service Type',
+    'get-touch': 'Get In Touch',
+    'contact-desc': 'Have questions? Reach out through your preferred channel.',
+    'contact-email': 'Email',
+    'contact-whatsapp': 'WhatsApp',
+    'contact-social': 'Follow Us'
+  },
+  fr: {
+    'select-language': 'Sélectionnez Votre Langue',
+    'welcome': 'Bienvenue à',
+    'who-are-you': 'Qui êtes-vous?',
+    'path-individual': 'Je suis un Particulier',
+    'path-individual-desc': 'Besoins personnels d\'impression et de design',
+    'path-company': 'Je suis une Entreprise',
+    'path-company-desc': 'Grands projets & production',
+    'path-client': 'Je suis un Client',
+    'path-client-desc': 'Services numériques & solutions web',
+    'loading-title': 'Préparation de Votre Expérience',
+    'loading-subtitle': 'Veuillez patienter pendant que nous personnalisons votre parcours...',
+    'nav-services': 'Services',
+    'nav-contact': 'Contact',
+    'scroll-explore': 'Faites Défiler pour Explorer',
+    'individual-title': 'Bienvenue aux Services Nouvura',
+    'individual-slogan': 'Solutions rapides, simples et de haute qualité pour vos besoins personnels',
+    'individual-services': 'Nos Services',
+    'for-you': 'POUR VOUS',
+    'service-dtf-title': 'Impression DTF',
+    'service-dtf-desc': 'Imprimez vos designs sur des vêtements haut de gamme avec une précision et une durabilité élevées.',
+    'service-print-title': 'Cartes de Visite & Dépliants',
+    'service-print-desc': 'Impression professionnelle sur plusieurs matériaux : papier 300g, mat & brillant premium, cartes aluminium, cartes NFC.',
+    'service-posters-title': 'Affiches',
+    'service-posters-desc': 'Impressions grand format de haute qualité : autocollants, papier standard, finition premium.',
+    'service-stickers-title': 'Autocollants',
+    'service-stickers-desc': 'Autocollants personnalisés que vous pouvez placer n\'importe où : téléphones, ordinateurs portables, emballage, etc.',
+    'btn-order': 'Commander Maintenant',
+    'btn-request': 'Demander Maintenant',
+    'btn-order-poster': 'Commander une Affiche',
+    'btn-order-stickers': 'Commander des Autocollants',
+    'quick-form': 'Demande Rapide',
+    'form-name': 'Nom',
+    'form-phone': 'Téléphone',
+    'form-service': 'Type de Service',
+    'form-quantity': 'Quantité',
+    'form-budget': 'Budget',
+    'btn-send': 'Envoyer la Demande',
+    'company-title': 'Construisez Votre Marque Avec Précision',
+    'company-slogan': 'Du concept à l\'exécution — nous gérons tout',
+    'company-services': 'Nos Services',
+    'for-companies': 'POUR LES ENTREPRISES',
+    'service-cnc-title': 'Découpe CNC & Laser',
+    'service-cnc-desc': 'Découpe et conception précises utilisant : Forex, Alucobond, Acrylique et plus.',
+    'service-signage-title': 'Signalétique & Panneaux Publicitaires',
+    'service-signage-desc': 'Tous types de signalétique : enseignes lumineuses, lettrage 3D, signalétique autocollante.',
+    'service-wrap-title': 'Habillage Véhicules',
+    'service-wrap-desc': 'Transformez les voitures et les camions en publicités ambulantes.',
+    'service-branding-title': 'Branding & Impression',
+    'service-branding-desc': 'Cartes de visite, vêtements, grandes impressions, et identité de marque complète.',
+    'btn-inquire': 'S\'Informer',
+    'project-form': 'Demande de Projet',
+    'form-company-name': 'Nom de l\'Entreprise',
+    'form-contact': 'Personne de Contact',
+    'form-project-type': 'Type de Projet',
+    'form-deadline': 'Date limite du Projet',
+    'form-description': 'Description du Projet',
+    'client-title': 'Croissance Numérique & Présence',
+    'client-slogan': 'Construisez votre présence en ligne avec des solutions numériques avant-gardistes',
+    'digital-services': 'Services Numériques',
+    'online': 'EN LIGNE',
+    'service-web-title': 'Conception Web',
+    'service-web-desc': 'Sites web personnalisés et performants qui convertissent les visiteurs en clients.',
+    'service-social-title': 'Gestion des Réseaux Sociaux',
+    'service-social-desc': 'Création de contenu, stratégie et engagement sur toutes les principales plateformes.',
+    'service-uiux-title': 'Design UI/UX',
+    'service-uiux-desc': 'Des interfaces belles et intuitives que les utilisateurs adorent et les marques font confiance.',
+    'service-seo-title': 'Optimisation Web',
+    'service-seo-desc': 'Optimisation des performances, SEO et taux de conversion pour un ROI maximal.',
+    'btn-start': 'Commencer',
+    'see-work': 'Voir Notre Travail',
+    'visit-channel': 'Visiter la Chaîne →',
+    'start-project': 'Démarrer Votre Projet',
+    'form-email': 'Email',
+    'form-service-type': 'Type de Service',
+    'get-touch': 'Nous Contacter',
+    'contact-desc': 'Des questions ? Contactez-nous via votre canal préféré.',
+    'contact-email': 'Email',
+    'contact-whatsapp': 'WhatsApp',
+    'contact-social': 'Nous Suivre'
   },
   ar: {
-    lang_select: "اختر لغتك",
-    who_are_you: "من أنت؟",
-    individual: "أنا فرد",
-    company: "أنا شركة",
-    client: "أنا عميل"
+    'select-language': 'اختر ل��تك',
+    'welcome': 'أهلا بك في',
+    'who-are-you': 'من أنت؟',
+    'path-individual': 'أنا فرد',
+    'path-individual-desc': 'احتياجات الطباعة والتصميم الشخصية',
+    'path-company': 'أنا شركة',
+    'path-company-desc': 'المشاريع الكبيرة والإنتاج',
+    'path-client': 'أنا عميل',
+    'path-client-desc': 'الخدمات الرقمية وحلول الويب',
+    'loading-title': 'تحضير تجربتك',
+    'loading-subtitle': 'يرجى الانتظار بينما نخصص رحلتك...',
+    'nav-services': 'الخدمات',
+    'nav-contact': 'اتصل بنا',
+    'scroll-explore': 'قم بالتمرير للاستكشاف',
+    'individual-title': 'مرحبا بك في خدمات نوفورا',
+    'individual-slogan': 'حلول سريعة وبسيطة وعالية الجودة لاحتياجاتك الشخصية',
+    'individual-services': 'خدماتنا',
+    'for-you': 'لك',
+    'service-dtf-title': 'طباعة DTF',
+    'service-dtf-desc': 'اطبع تصاميمك على الملابس الفاخرة بدقة عالية ومتانة فائقة.',
+    'service-print-title': 'بطاقات العمل والنشرات',
+    'service-print-desc': 'طباعة احترافية على مواد متعددة: ورق 300 جرام، مات وبريق فاخر، بطاقات ألومنيوم، بطاقات NFC ذكية.',
+    'service-posters-title': 'ملصقات',
+    'service-posters-desc': 'طباعات عالية الجودة بصيغ كبيرة: ملصقات لاصقة، ورق عادي، تشطيب فاخر.',
+    'service-stickers-title': 'ملصقات',
+    'service-stickers-desc': 'ملصقات مخصصة يمكنك وضعها في أي مكان: الهواتف والحواسيب المحمولة والعبوات وغيرها.',
+    'btn-order': 'اطلب الآن',
+    'btn-request': 'اطلب الآن',
+    'btn-order-poster': 'اطلب ملصق',
+    'btn-order-stickers': 'اطلب ملصقات',
+    'quick-form': 'طلب سريع',
+    'form-name': 'الاسم',
+    'form-phone': 'الهاتف',
+    'form-service': 'نوع الخدمة',
+    'form-quantity': 'الكمية',
+    'form-budget': 'الميزانية',
+    'btn-send': 'إرسال الطلب',
+    'company-title': 'بناء علامتك التجارية بدقة',
+    'company-slogan': 'من المفهوم إلى التنفيذ - نحن نتولى كل شيء',
+    'company-services': 'خدماتنا',
+    'for-companies': 'للشركات',
+    'service-cnc-title': 'قطع CNC والليزر',
+    'service-cnc-desc': 'قطع وتصميم دقيق باستخدام: Forex و Alucobond والأكريليك والمزيد.',
+    'service-signage-title': 'اللافتات والجنات الإعلانية',
+    'service-signage-desc': 'جميع أنواع اللافتات: اللافتات المضاءة والحروف ثلاثية الأبعاد واللافتات اللاصقة.',
+    'service-wrap-title': 'تغليف المركبات',
+    'service-wrap-desc': 'تحول السيارات والشاحنات إلى إعلانات متنقلة.',
+    'service-branding-title': 'العلامات التجارية والطباعة',
+    'service-branding-desc': 'بطاقات العمل والملابس والطباعات الكبيرة والهوية التجارية الكاملة.',
+    'btn-inquire': 'استفسر',
+    'project-form': 'طلب مشروع',
+    'form-company-name': 'اسم الشركة',
+    'form-contact': 'شخص الاتصال',
+    'form-project-type': 'نوع المشروع',
+    'form-deadline': 'موعد المشروع النهائي',
+    'form-description': 'وصف المشروع',
+    'client-title': 'النمو الرقمي والحضور',
+    'client-slogan': 'بناء حضورك عبر الإنترنت باستخدام حلول رقمية متقدمة',
+    'digital-services': 'الخدمات الرقمية',
+    'online': 'عبر ا��إنترنت',
+    'service-web-title': 'تصميم المواقع',
+    'service-web-desc': 'مواقع ويب مخصصة وعالية الأداء تحول الزوار إلى عملاء.',
+    'service-social-title': 'إدارة وسائل التواصل الاجتماعي',
+    'service-social-desc': 'إنشاء المحتوى والاستراتيجية والمشاركة عبر جميع المنصات الرئيسية.',
+    'service-uiux-title': 'تصميم واجهات المستخدم والتجربة',
+    'service-uiux-desc': 'واجهات جميلة وبديهية يحبها المستخدمون وتثق بها العلامات التجارية.',
+    'service-seo-title': 'تحسين موقع الويب',
+    'service-seo-desc': 'تحسين الأداء وتحسين محرك البحث ومعدل التحويل للحصول على أقصى عائد على الاستثمار.',
+    'btn-start': 'ابدأ',
+    'see-work': 'اطلع على عملنا',
+    'visit-channel': 'زيارة القناة →',
+    'start-project': 'ابدأ مشروعك',
+    'form-email': 'البريد الإلكتروني',
+    'form-service-type': 'نوع الخدمة',
+    'get-touch': 'اتصل بنا',
+    'contact-desc': 'هل لديك أسئلة؟ اتصل بنا عبر قناتك المفضلة.',
+    'contact-email': 'البريد الإلكتروني',
+    'contact-whatsapp': 'واتس آب',
+    'contact-social': 'تابعنا'
   }
 };
 
-let currentLang = localStorage.getItem('nouvuraLang') || 'fr';
-let languageSelected = localStorage.getItem('nouvuraLangSelected') === 'true';
+let currentLanguage = 'en';
+let selectedPath = null;
 
-function selectLanguage(lang) {
-  currentLang = lang;
-  localStorage.setItem('nouvuraLang', lang);
-  localStorage.setItem('nouvuraLangSelected', 'true');
-  document.getElementById('langSelector').classList.add('hidden');
-  setTimeout(() => {
-    document.documentElement.lang = lang;
-  }, 300);
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('nouvuraLang', lang);
+// Set language and update translations
+function setLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem('selectedLanguage', lang);
   document.documentElement.lang = lang;
+  updateTranslations();
+  
+  if (lang === 'ar') {
+    document.documentElement.dir = 'rtl';
+    document.body.style.direction = 'rtl';
+  } else {
+    document.documentElement.dir = 'ltr';
+    document.body.style.direction = 'ltr';
+  }
+  
+  // Update active language button
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active', 'initial-active'));
+  const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn => 
+    btn.textContent.trim().toUpperCase() === lang.toUpperCase()
+  );
+  if (langBtn) langBtn.classList.add('initial-active');
 }
 
-function selectPath(path) {
-  const loading = document.getElementById('loadingScreen');
-  loading.classList.remove('hidden');
-  
-  setTimeout(() => {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    
-    if (path === 'individual') {
-      document.getElementById('individualScreen').classList.add('active');
-    } else if (path === 'company') {
-      document.getElementById('companyScreen').classList.add('active');
-    } else if (path === 'client') {
-      document.getElementById('clientScreen').classList.add('active');
+// Update all translations on page
+function updateTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[currentLanguage][key]) {
+      el.textContent = translations[currentLanguage][key];
     }
+  });
+}
+
+// Select path and transition
+function selectPath(path) {
+  selectedPath = path;
+  localStorage.setItem('selectedPath', path);
+  
+  // Show loading screen
+  document.getElementById('languageScreen').classList.remove('active');
+  document.getElementById('pathScreen').classList.remove('active');
+  document.getElementById('loadingScreen').classList.add('active');
+  
+  // Simulate loading and transition
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.remove('active');
+    document.getElementById('mainNav').style.display = 'flex';
+    document.getElementById('mainContent').classList.add('show');
     
-    loading.classList.add('hidden');
+    // Show selected path
+    document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
+    document.getElementById(`${path}-path`).style.display = 'block';
     
-    // Animate layers
+    // Trigger animations
     setTimeout(() => {
-      document.querySelectorAll('.layer').forEach((layer, index) => {
-        setTimeout(() => {
-          layer.classList.add('show');
-        }, index * 150);
+      document.querySelectorAll('.layer').forEach((layer, i) => {
+        layer.style.animationDelay = `${i * 0.2}s`;
       });
     }, 100);
   }, 1500);
 }
 
-function resetToEntry() {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('entryScreen').classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-function scrollTo(id) {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-function openServiceModal(service) {
-  // Placeholder for service modal
-  alert('Service: ' + service + '\nForm and details will be added here.');
-}
-
-function toggleNav() {
-  const links = document.getElementById('navLinks');
-  links.classList.toggle('open');
-}
-
-// Initialize
+// Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
-  if (!languageSelected) {
-    document.getElementById('langSelector').classList.remove('hidden');
+  // Check for saved preferences
+  const savedLanguage = localStorage.getItem('selectedLanguage');
+  const savedPath = localStorage.getItem('selectedPath');
+  
+  if (savedLanguage) {
+    setLanguage(savedLanguage);
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('initial-active'));
+    const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn => 
+      btn.textContent.trim().toUpperCase() === savedLanguage.toUpperCase()
+    );
+    if (langBtn) langBtn.classList.add('initial-active');
+  }
+  
+  // If path is saved, skip to path selection
+  if (savedPath) {
+    document.getElementById('languageScreen').classList.remove('active');
+    document.getElementById('pathScreen').classList.add('active');
   } else {
-    document.getElementById('langSelector').classList.add('hidden');
-    document.documentElement.lang = currentLang;
-  }
-});
-
-// Particle canvas (optional enhanced effect)
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const particles = [];
-const particleCount = 30;
-
-class Particle {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 2;
-    this.speedX = (Math.random() - 0.5) * 0.5;
-    this.speedY = (Math.random() - 0.5) * 0.5;
-    this.opacity = Math.random() * 0.5 + 0.2;
+    // Show language screen first
+    updateTranslations();
   }
   
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.x > canvas.width) this.x = 0;
-    if (this.x < 0) this.x = canvas.width;
-    if (this.y > canvas.height) this.y = 0;
-    if (this.y < 0) this.y = canvas.height;
-  }
-  
-  draw() {
-    ctx.fillStyle = `rgba(0, 240, 255, ${this.opacity})`;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function initParticles() {
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let particle of particles) {
-    particle.update();
-    particle.draw();
-  }
-  requestAnimationFrame(animateParticles);
-}
-
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // Show path screen after language selection
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      setTimeout(() => {
+        document.getElementById('languageScreen').classList.remove('active');
+        document.getElementById('pathScreen').classList.add('active');
+      }, 300);
+    });
+  });
 });
 
-initParticles();
-animateParticles();
+// Smooth scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.layer').forEach(layer => {
+    observer.observe(layer);
+  });
+});
 </script>
 
 </body>
