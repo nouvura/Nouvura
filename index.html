@@ -58,6 +58,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
 .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--cyan); transition: all 0.3s; }
 
+/* ══ BACK BUTTONS ══ */
+.btn-back { display: inline-flex; align-items: center; gap: 8px; font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); background: rgba(0,240,255,0.05); border: 1px solid rgba(0,240,255,0.3); border-radius: 6px; padding: 10px 18px; cursor: pointer; transition: all 0.2s var(--ease); }
+.btn-back:hover { background: rgba(0,240,255,0.14); box-shadow: 0 0 22px rgba(0,240,255,0.2); transform: translateX(-2px); }
+[dir="rtl"] .btn-back:hover { transform: translateX(2px); }
+.btn-back svg { width: 13px; height: 13px; flex-shrink: 0; }
+[dir="rtl"] .btn-back svg { transform: scaleX(-1); }
+.path-back-wrap { display: flex; justify-content: center; }
+.nav-back-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,240,255,0.3); background: rgba(0,240,255,0.05); color: var(--cyan); cursor: pointer; transition: all 0.2s var(--ease); margin-right: 14px; }
+[dir="rtl"] .nav-back-btn { margin-right: 0; margin-left: 14px; transform: scaleX(-1); }
+.nav-back-btn:hover { background: rgba(0,240,255,0.14); box-shadow: 0 0 18px rgba(0,240,255,0.25); }
+.nav-back-btn svg { width: 15px; height: 15px; }
+.nav-left { display: flex; align-items: center; }
+
 /* ══ SCREENS ══ */
 .screen { position: fixed; inset: 0; z-index: 300; opacity: 0; visibility: hidden; transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease); }
 .screen.active { opacity: 1; visibility: visible; }
@@ -185,6 +198,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .btn-submit.email:hover { background: rgba(0,240,255,0.22); box-shadow: 0 0 36px rgba(0,240,255,0.3); transform: translateY(-2px); }
 .btn-submit.whatsapp { background: linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05)); border-color: rgba(37,211,102,0.6); color: var(--wa); box-shadow: 0 0 24px rgba(37,211,102,0.1); }
 .btn-submit.whatsapp:hover { background: rgba(37,211,102,0.2); box-shadow: 0 0 36px rgba(37,211,102,0.3); transform: translateY(-2px); }
+.form-status { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; min-height: 16px; }
+.form-status.success { color: var(--cyan); }
+.form-status.error { color: rgba(255,120,140,0.9); }
 
 /* Path-specific styling */
 .funnel-badge { display:inline-block; font-family:'Orbitron',sans-serif; font-size:8px; letter-spacing:.25em; text-transform:uppercase; padding:5px 12px; border-radius:3px; margin-bottom:18px; }
@@ -273,6 +289,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
         <p data-i18n="path-client-desc">Digital services & web solutions</p>
       </div>
     </div>
+    <div class="path-back-wrap">
+      <button type="button" class="btn-back" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span data-i18n="btn-back">Back</span>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -289,7 +311,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
 <!-- Main Navigation -->
 <nav id="mainNav" style="display:none;">
-  <a href="#" class="nav-logo">NOUVURA</a>
+  <div class="nav-left">
+    <button type="button" class="nav-back-btn" onclick="goBack()" data-i18n-title="btn-back" title="Back" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <a href="#" class="nav-logo">NOUVURA</a>
+  </div>
   <ul class="nav-links">
     <li><a href="#services" data-i18n="nav-services">Services</a></li>
     <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
@@ -360,27 +387,46 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
     </div>
 
+    <!-- Video Section -->
     <div class="layer" style="animation-delay: 0.4s;">
+      <div class="layer-inner-glow"></div>
+      <div class="video-section">
+        <div class="section-header" style="justify-content: center; margin-bottom: 32px;">
+          <h2 data-i18n="see-work">See Our Work</h2>
+        </div>
+        <div class="video-frame-wrap">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/jcedW1i46DA" allowfullscreen="" loading="lazy"></iframe>
+            <div class="video-frame-glow"></div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/@nouvura" target="_blank" class="video-channel-link" data-i18n="visit-channel">
+          Visit Channel →
+        </a>
+      </div>
+    </div>
+
+    <div class="layer" style="animation-delay: 0.6s;">
       <div class="layer-inner-glow"></div>
       <div class="section-header">
         <h2 data-i18n="quick-form">Quick Request</h2>
         <div class="section-line"></div>
       </div>
-      <form class="nform" id="individualForm">
+      <form class="nform" id="individualForm" novalidate>
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" data-i18n="form-name">Name <span class="req">*</span></label>
-            <input type="text" class="form-input" required>
+            <input type="text" class="form-input" data-field="Name" required>
           </div>
           <div class="form-field">
             <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
-            <input type="tel" class="form-input" required>
+            <input type="tel" class="form-input" data-field="Phone" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" data-i18n="form-service">Service Type <span class="req">*</span></label>
-            <select class="form-select" required>
+            <select class="form-select" data-field="Service Type" required>
               <option value="">-- Select Service --</option>
               <option value="dtf" data-i18n="service-dtf-title">DTF Printing</option>
               <option value="cards" data-i18n="service-print-title">Business Cards</option>
@@ -390,18 +436,22 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
           </div>
           <div class="form-field">
             <label class="form-label" data-i18n="form-quantity">Quantity <span class="req">*</span></label>
-            <input type="number" class="form-input" min="1" required>
+            <input type="number" class="form-input" data-field="Quantity" min="1" required>
           </div>
         </div>
         <div class="form-field full">
           <label class="form-label" data-i18n="form-budget">Budget (Optional)</label>
-          <input type="text" class="form-input" placeholder="e.g., $50 - $200">
+          <input type="text" class="form-input" data-field="Budget" placeholder="e.g., $50 - $200">
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn-submit email">
+          <button type="button" class="btn-submit email" onclick="submitViaEmail('individualForm', 'New Individual Request')">
             <span data-i18n="btn-send">Send Request</span>
           </button>
+          <button type="button" class="btn-submit whatsapp" onclick="submitViaWhatsApp('individualForm', 'New Individual Request')">
+            <span data-i18n="btn-send-wa">Send via WhatsApp</span>
+          </button>
         </div>
+        <p class="form-status" data-role="status"></p>
       </form>
     </div>
   </div>
@@ -462,27 +512,46 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
     </div>
 
+    <!-- Video Section -->
     <div class="layer" style="animation-delay: 0.4s;">
+      <div class="layer-inner-glow"></div>
+      <div class="video-section">
+        <div class="section-header" style="justify-content: center; margin-bottom: 32px;">
+          <h2 data-i18n="see-work">See Our Work</h2>
+        </div>
+        <div class="video-frame-wrap">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/jcedW1i46DA" allowfullscreen="" loading="lazy"></iframe>
+            <div class="video-frame-glow"></div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/@nouvura" target="_blank" class="video-channel-link" data-i18n="visit-channel">
+          Visit Channel →
+        </a>
+      </div>
+    </div>
+
+    <div class="layer" style="animation-delay: 0.6s;">
       <div class="layer-inner-glow"></div>
       <div class="section-header">
         <h2 data-i18n="project-form">Project Request</h2>
         <div class="section-line"></div>
       </div>
-      <form class="nform" id="companyForm">
+      <form class="nform" id="companyForm" novalidate>
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" data-i18n="form-company-name">Company Name <span class="req">*</span></label>
-            <input type="text" class="form-input" required>
+            <input type="text" class="form-input" data-field="Company Name" required>
           </div>
           <div class="form-field">
             <label class="form-label" data-i18n="form-contact">Contact Person <span class="req">*</span></label>
-            <input type="text" class="form-input" required>
+            <input type="text" class="form-input" data-field="Contact Person" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" data-i18n="form-project-type">Project Type <span class="req">*</span></label>
-            <select class="form-select" required>
+            <select class="form-select" data-field="Project Type" required>
               <option value="">-- Select Project Type --</option>
               <option value="cnc" data-i18n="service-cnc-title">CNC & Laser Cutting</option>
               <option value="signage" data-i18n="service-signage-title">Signage & Boards</option>
@@ -492,28 +561,32 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
           </div>
           <div class="form-field">
             <label class="form-label" data-i18n="form-budget">Budget <span class="req">*</span></label>
-            <input type="text" class="form-input" required placeholder="e.g., $5,000 - $25,000">
+            <input type="text" class="form-input" data-field="Budget" required placeholder="e.g., $5,000 - $25,000">
           </div>
         </div>
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" data-i18n="form-deadline">Project Deadline <span class="req">*</span></label>
-            <input type="date" class="form-input" required>
+            <input type="date" class="form-input" data-field="Deadline" required>
           </div>
           <div class="form-field">
             <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
-            <input type="tel" class="form-input" required>
+            <input type="tel" class="form-input" data-field="Phone" required>
           </div>
         </div>
         <div class="form-field full">
           <label class="form-label" data-i18n="form-description">Project Description</label>
-          <textarea class="form-textarea" placeholder="Tell us about your project..."></textarea>
+          <textarea class="form-textarea" data-field="Description" placeholder="Tell us about your project..."></textarea>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn-submit email">
+          <button type="button" class="btn-submit email" onclick="submitViaEmail('companyForm', 'New Company Project Request')">
             <span data-i18n="btn-send">Send Request</span>
           </button>
+          <button type="button" class="btn-submit whatsapp" onclick="submitViaWhatsApp('companyForm', 'New Company Project Request')">
+            <span data-i18n="btn-send-wa">Send via WhatsApp</span>
+          </button>
         </div>
+        <p class="form-status" data-role="status"></p>
       </form>
     </div>
   </div>
@@ -599,21 +672,21 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
         <h2 data-i18n="start-project">Start Your Project</h2>
         <div class="section-line"></div>
       </div>
-      <form class="nform" id="clientForm">
+      <form class="nform" id="clientForm" novalidate>
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" data-i18n="form-name">Name <span class="req">*</span></label>
-            <input type="text" class="form-input" required>
+            <input type="text" class="form-input" data-field="Name" required>
           </div>
           <div class="form-field">
             <label class="form-label" data-i18n="form-email">Email <span class="req">*</span></label>
-            <input type="email" class="form-input" required>
+            <input type="email" class="form-input" data-field="Email" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" data-i18n="form-service-type">Service Type <span class="req">*</span></label>
-            <select class="form-select" required>
+            <select class="form-select" data-field="Service Type" required>
               <option value="">-- Select Service --</option>
               <option value="web" data-i18n="service-web-title">Website Design</option>
               <option value="social" data-i18n="service-social-title">Social Media</option>
@@ -623,18 +696,22 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
           </div>
           <div class="form-field">
             <label class="form-label" data-i18n="form-budget">Budget <span class="req">*</span></label>
-            <input type="text" class="form-input" required placeholder="e.g., $2,000 - $10,000">
+            <input type="text" class="form-input" data-field="Budget" required placeholder="e.g., $2,000 - $10,000">
           </div>
         </div>
         <div class="form-field full">
           <label class="form-label" data-i18n="form-description">Project Description <span class="req">*</span></label>
-          <textarea class="form-textarea" required placeholder="Tell us about your vision..."></textarea>
+          <textarea class="form-textarea" data-field="Description" required placeholder="Tell us about your vision..."></textarea>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn-submit email">
+          <button type="button" class="btn-submit email" onclick="submitViaEmail('clientForm', 'New Client Project Brief')">
             <span data-i18n="btn-send">Send Project Brief</span>
           </button>
+          <button type="button" class="btn-submit whatsapp" onclick="submitViaWhatsApp('clientForm', 'New Client Project Brief')">
+            <span data-i18n="btn-send-wa">Send via WhatsApp</span>
+          </button>
         </div>
+        <p class="form-status" data-role="status"></p>
       </form>
     </div>
   </div>
@@ -747,7 +824,12 @@ const translations = {
     'contact-desc': 'Have questions? Reach out through your preferred channel.',
     'contact-email': 'Email',
     'contact-whatsapp': 'WhatsApp',
-    'contact-social': 'Follow Us'
+    'contact-social': 'Follow Us',
+    'btn-back': 'Back',
+    'btn-send-wa': 'Send via WhatsApp',
+    'form-required-alert': 'Please fill in all required fields before sending.',
+    'form-status-email': 'Opening your email app...',
+    'form-status-whatsapp': 'Opening WhatsApp...'
   },
   fr: {
     'select-language': 'Sélectionnez Votre Langue',
@@ -828,7 +910,12 @@ const translations = {
     'contact-desc': 'Des questions ? Contactez-nous via votre canal préféré.',
     'contact-email': 'Email',
     'contact-whatsapp': 'WhatsApp',
-    'contact-social': 'Nous Suivre'
+    'contact-social': 'Nous Suivre',
+    'btn-back': 'Retour',
+    'btn-send-wa': 'Envoyer via WhatsApp',
+    'form-required-alert': 'Veuillez remplir tous les champs obligatoires avant d\'envoyer.',
+    'form-status-email': 'Ouverture de votre application e-mail...',
+    'form-status-whatsapp': 'Ouverture de WhatsApp...'
   },
   ar: {
     'select-language': 'اختر ل��تك',
@@ -909,7 +996,12 @@ const translations = {
     'contact-desc': 'هل لديك أسئلة؟ اتصل بنا عبر قناتك المفضلة.',
     'contact-email': 'البريد الإلكتروني',
     'contact-whatsapp': 'واتس آب',
-    'contact-social': 'تابعنا'
+    'contact-social': 'تابعنا',
+    'btn-back': 'رجوع',
+    'btn-send-wa': 'إرسال عبر واتس آب',
+    'form-required-alert': 'يرجى تعبئة جميع الحقول المطلوبة قبل الإرسال.',
+    'form-status-email': 'جارٍ فتح تطبيق البريد الإلكتروني...',
+    'form-status-whatsapp': 'جارٍ فتح واتس آب...'
   }
 };
 
@@ -947,28 +1039,79 @@ function updateTranslations() {
       el.textContent = translations[currentLanguage][key];
     }
   });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    if (translations[currentLanguage][key]) {
+      el.title = translations[currentLanguage][key];
+    }
+  });
 }
 
-// Select path and transition
+/* ══ SCREEN / HISTORY NAVIGATION ══
+   Every screen change is recorded in the browser's history (pushState).
+   This means the device's native Back button and our in-app Back
+   buttons behave identically: they step back through the app's own
+   screens instead of leaving the page. The site only actually exits
+   the browser once the user goes back past the very first screen —
+   normal, expected browser behavior. */
+
+function hideAllScreens() {
+  document.getElementById('languageScreen').classList.remove('active');
+  document.getElementById('pathScreen').classList.remove('active');
+  document.getElementById('loadingScreen').classList.remove('active');
+  document.getElementById('mainNav').style.display = 'none';
+  document.getElementById('mainContent').classList.remove('show');
+  document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
+}
+
+// Instantly render a given state (used for popstate / initial load — no loading animation)
+function applyScreenState(state, isInitial) {
+  state = state || { screen: 'language' };
+  hideAllScreens();
+
+  if (state.screen === 'path') {
+    document.getElementById('pathScreen').classList.add('active');
+  } else if (state.screen === 'main' && state.path) {
+    selectedPath = state.path;
+    document.getElementById('mainNav').style.display = 'flex';
+    document.getElementById('mainContent').classList.add('show');
+    const pathEl = document.getElementById(`${state.path}-path`);
+    if (pathEl) pathEl.style.display = 'block';
+    document.querySelectorAll('.layer').forEach(layer => layer.classList.add('show'));
+  } else {
+    document.getElementById('languageScreen').classList.add('active');
+  }
+
+  if (!isInitial) window.scrollTo(0, 0);
+}
+
+// In-app Back button: reuses the real browser history so behavior stays consistent
+function goBack() {
+  history.back();
+}
+
+// Select path and transition (adds a new history entry)
 function selectPath(path) {
   selectedPath = path;
   localStorage.setItem('selectedPath', path);
-  
+
+  history.pushState({ screen: 'main', path: path }, '', '#' + path);
+
   // Show loading screen
   document.getElementById('languageScreen').classList.remove('active');
   document.getElementById('pathScreen').classList.remove('active');
   document.getElementById('loadingScreen').classList.add('active');
-  
+
   // Simulate loading and transition
   setTimeout(() => {
     document.getElementById('loadingScreen').classList.remove('active');
     document.getElementById('mainNav').style.display = 'flex';
     document.getElementById('mainContent').classList.add('show');
-    
+
     // Show selected path
     document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
     document.getElementById(`${path}-path`).style.display = 'block';
-    
+
     // Trigger animations
     setTimeout(() => {
       document.querySelectorAll('.layer').forEach((layer, i) => {
@@ -978,40 +1121,99 @@ function selectPath(path) {
   }, 1500);
 }
 
+window.addEventListener('popstate', (e) => {
+  applyScreenState(e.state);
+});
+
 // Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
   // Check for saved preferences
   const savedLanguage = localStorage.getItem('selectedLanguage');
   const savedPath = localStorage.getItem('selectedPath');
-  
+
   if (savedLanguage) {
     setLanguage(savedLanguage);
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('initial-active'));
-    const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn => 
+    const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn =>
       btn.textContent.trim().toUpperCase() === savedLanguage.toUpperCase()
     );
     if (langBtn) langBtn.classList.add('initial-active');
+  } else {
+    updateTranslations();
   }
-  
-  // If path is saved, skip to path selection
+
+  // If path is saved, skip to path selection; else show language screen first.
+  // Establish this as the base history entry (replaceState, not pushState).
   if (savedPath) {
     document.getElementById('languageScreen').classList.remove('active');
     document.getElementById('pathScreen').classList.add('active');
+    history.replaceState({ screen: 'path' }, '', '#path');
   } else {
-    // Show language screen first
-    updateTranslations();
+    history.replaceState({ screen: 'language' }, '', location.pathname);
   }
-  
+
   // Show path screen after language selection
   document.querySelectorAll('.lang-option').forEach(opt => {
     opt.addEventListener('click', () => {
       setTimeout(() => {
         document.getElementById('languageScreen').classList.remove('active');
         document.getElementById('pathScreen').classList.add('active');
+        history.pushState({ screen: 'path' }, '', '#path');
       }, 300);
     });
   });
 });
+
+/* ══ FORMS: real submission via Email or WhatsApp ══
+   There is no backend, so "sending" a request means handing the
+   visitor's data to their own email app (mailto:) or WhatsApp
+   (wa.me) with everything pre-filled — nothing is lost, nothing is
+   silently swallowed by a page reload like before. */
+
+const BUSINESS_EMAIL = 'hello@nouvura.com';
+const BUSINESS_WHATSAPP = '213123456789';
+
+function collectFormData(form) {
+  return Array.from(form.querySelectorAll('[data-field]')).map(field => ({
+    label: field.getAttribute('data-field'),
+    value: (field.value || '').trim()
+  }));
+}
+
+function setFormStatus(form, message, type) {
+  const status = form.querySelector('[data-role="status"]');
+  if (!status) return;
+  status.textContent = message;
+  status.className = 'form-status' + (type ? ' ' + type : '');
+}
+
+function submitViaEmail(formId, subjectPrefix) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  if (!form.reportValidity()) return;
+
+  const data = collectFormData(form);
+  const bodyLines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
+  const subject = `${subjectPrefix} — NOUVURA`;
+  const mailtoUrl = `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines)}`;
+
+  setFormStatus(form, translations[currentLanguage]['form-status-email'], 'success');
+  window.location.href = mailtoUrl;
+}
+
+function submitViaWhatsApp(formId, subjectPrefix) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  if (!form.reportValidity()) return;
+
+  const data = collectFormData(form);
+  const bodyLines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
+  const message = `${subjectPrefix}\n\n${bodyLines}`;
+  const waUrl = `https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent(message)}`;
+
+  setFormStatus(form, translations[currentLanguage]['form-status-whatsapp'], 'success');
+  window.open(waUrl, '_blank');
+}
 
 // Smooth scroll animations
 const observer = new IntersectionObserver((entries) => {
