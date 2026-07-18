@@ -173,9 +173,25 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
 .service-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease); padding: 30px; text-align: left; }
 .service-card:hover { border-color: var(--cyan); box-shadow: 0 0 34px rgba(0,240,255,0.16); transform: translateY(-4px); }
+.service-card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; margin-bottom: 18px; border: 1px solid rgba(0,240,255,0.15); background: rgba(0,240,255,0.04); }
 .service-card h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 12px; font-weight: 700; }
 .service-card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
 .service-card .btn-primary { margin-top: auto; }
+
+/* Highlight pulse when a service jumps the visitor to its request form */
+.nform.highlight { animation: formPulse 1.4s ease-out; border-radius: 10px; }
+@keyframes formPulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.5); } 70% { box-shadow: 0 0 0 14px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
+
+/* Site logo image (falls back to the "N" glyph if logo.png isn't found) */
+.logo-box img.logo-img { width: 84px; height: 84px; object-fit: contain; }
+
+/* Intro portfolio showcase strip on the language screen */
+.intro-gallery { width: 100%; max-width: 100%; overflow: hidden; margin-top: 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.intro-gallery-track { display: flex; gap: 16px; width: max-content; animation: introScroll 34s linear infinite; }
+.intro-gallery:hover .intro-gallery-track { animation-play-state: paused; }
+@keyframes introScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.intro-gallery-item { width: 150px; height: 100px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,240,255,0.22); background: rgba(0,240,255,0.04); flex-shrink: 0; box-shadow: 0 0 18px rgba(0,240,255,0.08); }
+.intro-gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ══ FORMS ══ */
 .nform { display: flex; flex-direction: column; gap: 20px; }
@@ -262,6 +278,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
         <p>العربية</p>
       </div>
     </div>
+    <div class="intro-gallery">
+      <div class="intro-gallery-track" id="introGalleryTrack"></div>
+    </div>
   </div>
 </div>
 
@@ -338,7 +357,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="logo-wrap">
         <div class="logo-glow-ring"></div>
         <div class="logo-box">
-          <span class="logo-box-fallback">N</span>
+          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+          <span class="logo-box-fallback" style="display:none;">N</span>
         </div>
       </div>
       <h1 data-i18n="individual-title">Welcome to <span class="accent">Nouvura</span> Services</h1>
@@ -359,30 +379,34 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- DTF Printing -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Impression DTF.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-dtf-title">DTF Printing</h4>
           <p data-i18n="service-dtf-desc">Print your designs on premium garments with high precision and durability.</p>
-          <button class="btn-primary" data-i18n="btn-order">Order Now</button>
+          <button class="btn-primary" data-i18n="btn-order" onclick="requestService('individual','dtf')">Order Now</button>
         </div>
 
         <!-- Business Cards & Flyers -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Cartes de Visite & Dépliants.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-print-title">Business Cards & Flyers</h4>
           <p data-i18n="service-print-desc">Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.</p>
-          <button class="btn-primary" data-i18n="btn-request">Request Now</button>
+          <button class="btn-primary" data-i18n="btn-request" onclick="requestService('individual','cards')">Request Now</button>
         </div>
 
         <!-- Posters -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Affiches.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-posters-title">Posters</h4>
           <p data-i18n="service-posters-desc">High-quality large format prints: autocollant (adhesive), standard paper, premium finish.</p>
-          <button class="btn-primary" data-i18n="btn-order-poster">Order Poster</button>
+          <button class="btn-primary" data-i18n="btn-order-poster" onclick="requestService('individual','posters')">Order Poster</button>
         </div>
 
         <!-- Stickers -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Autocollants.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-stickers-title">Stickers</h4>
           <p data-i18n="service-stickers-desc">Custom stickers you can place anywhere: phones, laptops, packaging, and more.</p>
-          <button class="btn-primary" data-i18n="btn-order-stickers">Order Stickers</button>
+          <button class="btn-primary" data-i18n="btn-order-stickers" onclick="requestService('individual','stickers')">Order Stickers</button>
         </div>
       </div>
     </div>
@@ -463,7 +487,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="logo-wrap">
         <div class="logo-glow-ring"></div>
         <div class="logo-box">
-          <span class="logo-box-fallback">N</span>
+          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+          <span class="logo-box-fallback" style="display:none;">N</span>
         </div>
       </div>
       <h1 data-i18n="company-title">Build Your Brand With <span class="accent">Precision</span></h1>
@@ -484,30 +509,34 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- CNC & Laser -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Découpe CNC & Laser.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-cnc-title">CNC & Laser Cutting</h4>
           <p data-i18n="service-cnc-desc">Precision cutting and design using: Forex, Alucobond, Acrylic and more.</p>
-          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','cnc')">Inquire</button>
         </div>
 
         <!-- Signage -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Signalétique & Panneaux Publicitaires.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-signage-title">Signage & Advertising Boards</h4>
           <p data-i18n="service-signage-desc">All types of signage: illuminated signs, 3D lettering, autocollant signage.</p>
-          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','signage')">Inquire</button>
         </div>
 
         <!-- Vehicle Wrapping -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Habillage Véhicules.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-wrap-title">Vehicle Wrapping</h4>
           <p data-i18n="service-wrap-desc">Transform cars and trucks into moving advertisements.</p>
-          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','wrapping')">Inquire</button>
         </div>
 
         <!-- Branding -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Branding & Impression.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-branding-title">Branding & Printing</h4>
           <p data-i18n="service-branding-desc">Business cards, clothing, large prints, and full brand identity.</p>
-          <button class="btn-primary" data-i18n="btn-inquire">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','branding')">Inquire</button>
         </div>
       </div>
     </div>
@@ -598,7 +627,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="logo-wrap">
         <div class="logo-glow-ring"></div>
         <div class="logo-box">
-          <span class="logo-box-fallback">N</span>
+          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+          <span class="logo-box-fallback" style="display:none;">N</span>
         </div>
       </div>
       <h1 data-i18n="client-title">Digital Growth & <span class="accent">Presence</span></h1>
@@ -619,30 +649,34 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- Web Design -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Conception Web.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-web-title">Website Design</h4>
           <p data-i18n="service-web-desc">Custom, high-performing websites that convert visitors into customers.</p>
-          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','web')">Get Started</button>
         </div>
 
         <!-- Social Media -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Création de contenu,.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-social-title">Social Media Management</h4>
           <p data-i18n="service-social-desc">Content creation, strategy, and engagement across all major platforms.</p>
-          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','social')">Get Started</button>
         </div>
 
         <!-- UI/UX -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Des interfaces belles.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-uiux-title">UI/UX Design</h4>
           <p data-i18n="service-uiux-desc">Beautiful, intuitive interfaces that users love and brands trust.</p>
-          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','uiux')">Get Started</button>
         </div>
 
         <!-- Optimization -->
         <div class="service-card">
+          <img class="service-card-img" src="images/Optimisation Web.png" alt="" onerror="this.remove();">
           <h4 data-i18n="service-seo-title">Website Optimization</h4>
           <p data-i18n="service-seo-desc">Performance, SEO, and conversion rate optimization for maximum ROI.</p>
-          <button class="btn-primary" data-i18n="btn-start">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','seo')">Get Started</button>
         </div>
       </div>
     </div>
@@ -1090,6 +1124,61 @@ function goBack() {
   history.back();
 }
 
+/* ══ SERVICE → FORM LINKING ══
+   Clicking "Order / Request / Inquire / Get Started" on a service card
+   now actually does something: it jumps to that path's request form,
+   pre-selects the matching service, highlights the form, and focuses
+   the first field so the visitor can immediately type and send. */
+function requestService(path, serviceValue) {
+  const formIds = { individual: 'individualForm', company: 'companyForm', client: 'clientForm' };
+  const form = document.getElementById(formIds[path]);
+  if (!form) return;
+
+  const select = form.querySelector('select');
+  if (select) select.value = serviceValue;
+
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  form.classList.remove('highlight');
+  // restart the animation even if triggered twice in a row
+  void form.offsetWidth;
+  form.classList.add('highlight');
+  setTimeout(() => form.classList.remove('highlight'), 1500);
+
+  const firstField = form.querySelector('input, textarea');
+  setTimeout(() => { if (firstField) firstField.focus({ preventScroll: true }); }, 450);
+}
+
+/* ══ INTRO PORTFOLIO GALLERY ══
+   Populated from /images/ next to this HTML file. Any image that
+   fails to load quietly removes itself instead of showing a broken
+   icon, so the strip still looks clean even before all files are added. */
+const introGalleryImages = [
+  '3 --02.jpg',
+  '3 -_Plan de travail 1.jpg',
+  '555.jpg',
+  'CNAME cafai 01 .jpg',
+  'cap.png',
+  'captur .png',
+  'cart visite -02 copie.jpg',
+  'cart visite _Plan de travail 1 copie.jpg',
+  'carte visit 1.jpg',
+  'flayer.jpg',
+  'habillage .jpg'
+];
+
+function buildIntroGallery() {
+  const track = document.getElementById('introGalleryTrack');
+  if (!track) return;
+  // duplicated once for a seamless infinite scroll loop
+  const doubled = introGalleryImages.concat(introGalleryImages);
+  track.innerHTML = doubled.map(name => `
+    <div class="intro-gallery-item">
+      <img src="images/${name}" alt="" loading="lazy" onerror="this.parentElement.remove();">
+    </div>
+  `).join('');
+}
+
 // Select path and transition (adds a new history entry)
 function selectPath(path) {
   selectedPath = path;
@@ -1127,6 +1216,8 @@ window.addEventListener('popstate', (e) => {
 
 // Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
+  buildIntroGallery();
+
   // Check for saved preferences
   const savedLanguage = localStorage.getItem('selectedLanguage');
   const savedPath = localStorage.getItem('selectedPath');
