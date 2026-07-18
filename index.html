@@ -1,1325 +1,259 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOUVURA — Build Your Brand. Or Print Your Vision.</title>
-<meta name="description" content="NOUVURA — Studio créatif premium. Branding, UI/UX, Web, DTF, CNC et Laser. Pour les marques et les particuliers.">
-<meta name="keywords" content="NOUVURA, branding, DTF, clothing brand, UI/UX, web, CNC, laser, Algérie">
-<meta name="author" content="NOUVURA">
-<meta property="og:title" content="NOUVURA — Build Your Brand. Or Print Your Vision.">
-<meta property="og:description" content="We don't just design. We build perception.">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#0e0105">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>NOUVURA</title>
+
 <style>
-:root {
-  --cyan: #00f0ff;
-  --cyan-dim: rgba(0,240,255,0.15);
-  --bg-deep: #0e0105;
-  --bg-panel: rgba(20,2,8,0.85);
-  --text: #ffffff;
-  --text-dim: rgba(255,242,246,0.95);
-  --border: rgba(0,240,255,0.18);
-  --border-bright: rgba(0,240,255,0.45);
-  --radius: 8px;
-  --ease: cubic-bezier(0.4,0,0.2,1);
-  --wa: #25d366;
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: linear-gradient(160deg,#1a0005 0%,#0e0105 40%,#180008 70%,#100003 100%);
-  color: var(--text);
-  font-family: 'Rajdhani', sans-serif;
-  overflow-x: hidden;
-  letter-spacing: 0.03em;
-  min-height: 100vh;
-}
-::selection { background: var(--cyan-dim); color: var(--cyan); }
-body::before { content:""; position:fixed; inset:0; background-image: linear-gradient(rgba(0,240,255,0.04) 1px, transparent 1px), linear-gradient(90deg,rgba(0,240,255,0.04) 1px,transparent 1px); background-size: 44px 44px; z-index:-2; pointer-events:none; }
-body::after { content:""; position:fixed; inset:0; background: radial-gradient(ellipse at center, transparent 40%, rgba(14,1,5,0.7) 100%); z-index:-1; pointer-events:none; }
-#particleCanvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-
-.system-bar { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan), rgba(0,240,255,0.3), var(--cyan), transparent); z-index: 100; animation: barGlow 4s ease-in-out infinite; }
-@keyframes barGlow { 0%,100% { opacity: 0.6; } 50% { opacity: 1; box-shadow: 0 0 20px var(--cyan); } }
-
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 18px 44px; background: linear-gradient(180deg, rgba(14,1,5,0.95) 0%, transparent 100%); backdrop-filter: blur(8px); }
-.nav-logo { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; color: var(--cyan); letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(0,240,255,0.5); text-decoration: none; }
-.nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: rgba(0,240,255,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
-.nav-links a:hover { color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.6); }
-.nav-lang { display: flex; gap: 6px; }
-.lang-btn { font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; border: 1px solid rgba(0,240,255,0.2); border-radius: 3px; color: rgba(0,240,255,0.5); background: transparent; padding: 4px 10px; cursor: pointer; transition: all 0.2s; }
-.lang-btn:hover, .lang-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
-.lang-btn.initial-active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
-.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-.nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--cyan); transition: all 0.3s; }
-
-/* ══ BACK BUTTONS ══ */
-.btn-back { display: inline-flex; align-items: center; gap: 8px; font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); background: rgba(0,240,255,0.05); border: 1px solid rgba(0,240,255,0.3); border-radius: 6px; padding: 10px 18px; cursor: pointer; transition: all 0.2s var(--ease); }
-.btn-back:hover { background: rgba(0,240,255,0.14); box-shadow: 0 0 22px rgba(0,240,255,0.2); transform: translateX(-2px); }
-[dir="rtl"] .btn-back:hover { transform: translateX(2px); }
-.btn-back svg { width: 13px; height: 13px; flex-shrink: 0; }
-[dir="rtl"] .btn-back svg { transform: scaleX(-1); }
-.path-back-wrap { display: flex; justify-content: center; }
-.nav-back-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,240,255,0.3); background: rgba(0,240,255,0.05); color: var(--cyan); cursor: pointer; transition: all 0.2s var(--ease); margin-right: 14px; }
-[dir="rtl"] .nav-back-btn { margin-right: 0; margin-left: 14px; transform: scaleX(-1); }
-.nav-back-btn:hover { background: rgba(0,240,255,0.14); box-shadow: 0 0 18px rgba(0,240,255,0.25); }
-.nav-back-btn svg { width: 15px; height: 15px; }
-.nav-left { display: flex; align-items: center; }
-
-/* ══ SCREENS ══ */
-.screen { position: fixed; inset: 0; z-index: 300; opacity: 0; visibility: hidden; transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease); }
-.screen.active { opacity: 1; visibility: visible; }
-.screen-overlay { position: absolute; inset: 0; background: var(--bg-deep); display: flex; align-items: center; justify-content: center; }
-
-/* Language Selection Screen */
-#languageScreen .screen-overlay { flex-direction: column; gap: 40px; }
-.lang-selector-header { text-align: center; }
-.lang-selector-header h1 { font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900; color: var(--cyan); letter-spacing: 0.08em; margin-bottom: 10px; text-shadow: 0 0 30px rgba(0,240,255,0.4); }
-.lang-selector-header p { font-size: 14px; color: var(--text-dim); letter-spacing: 0.04em; }
-.lang-options { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.lang-option { width: 220px; padding: 30px; border: 1px solid rgba(0,240,255,0.25); border-radius: 12px; background: rgba(0,240,255,0.03); cursor: pointer; text-align: center; transition: all 0.3s var(--ease); }
-.lang-option:hover { border-color: var(--cyan); background: rgba(0,240,255,0.08); box-shadow: 0 0 40px rgba(0,240,255,0.15); transform: translateY(-3px); }
-.lang-option span { display: block; font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: var(--cyan); }
-.lang-option p { margin-top: 8px; font-size: 12px; color: var(--text-dim); }
-
-/* Path Selection Screen */
-#pathScreen .screen-overlay { flex-direction: column; gap: 50px; padding: 40px; }
-.path-selector-header { text-align: center; max-width: 700px; }
-.path-selector-header h1 { font-family: 'Orbitron', sans-serif; font-size: 42px; font-weight: 900; color: var(--text); letter-spacing: 0.02em; margin-bottom: 15px; line-height: 1.2; text-shadow: 0 0 40px rgba(0,240,255,0.3); }
-.path-selector-header .accent { color: var(--cyan); }
-.path-selector-question { font-size: 18px; color: var(--text-dim); letter-spacing: 0.02em; margin-bottom: 8px; }
-.path-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 900px; }
-.path-option-card { padding: 32px 26px; border: 1px solid rgba(0,240,255,0.25); border-radius: 14px; background: rgba(0,240,255,0.03); text-decoration: none; text-align: center; cursor: pointer; transition: all 0.3s var(--ease); position: relative; overflow: hidden; }
-.path-option-card::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg, rgba(0,240,255,0.07), transparent); opacity:0; transition:opacity .3s; }
-.path-option-card:hover { border-color: var(--cyan); box-shadow: 0 0 50px rgba(0,240,255,0.25); transform: translateY(-6px); }
-.path-option-card:hover::before { opacity: 1; }
-.path-option-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); color: var(--cyan); margin: 0 auto 18px; font-size: 24px; }
-.path-option-card h3 { font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin-bottom: 10px; font-weight: 700; }
-.path-option-card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.65; }
-
-/* Loading Transition Screen */
-#loadingScreen .screen-overlay { flex-direction: column; gap: 30px; }
-.loading-content { text-align: center; }
-.loading-spinner { width: 60px; height: 60px; border: 2px solid rgba(0,240,255,0.2); border-top: 2px solid var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-content h2 { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: 0.1em; text-transform: uppercase; }
-.loading-content p { font-size: 13px; color: var(--text-dim); margin-top: 8px; }
-
-/* ══ MAIN CONTENT ══ */
-#mainContent { opacity: 0; transition: opacity 0.8s var(--ease); visibility: hidden; }
-#mainContent.show { opacity: 1; visibility: visible; }
-
-/* Hero Section */
-.hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 20px 80px; overflow: hidden; }
-.hero-aura { position: absolute; width: 560px; height: 560px; background: radial-gradient(ellipse, rgba(0,240,255,0.09) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: auraPulse 6s ease-in-out infinite; pointer-events: none; z-index: 0; }
-@keyframes auraPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
-.hero > * { position: relative; z-index: 1; }
-.logo-wrap { position: relative; margin-bottom: 30px; }
-.logo-glow-ring { position: absolute; inset: -24px; border: 1px solid rgba(0,240,255,0.18); border-radius: 50%; animation: ringRotate 12s linear infinite; }
-@keyframes ringRotate { to { transform: rotate(360deg); } }
-.logo-box { width: 128px; height: 128px; border-radius: 22px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; }
-.logo-box img { width: 100px; height: 100px; object-fit: contain; }
-.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 46px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
-.hero-eyebrow { font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:.3em; color:rgba(0,240,255,.7); text-transform:uppercase; margin-bottom:18px; }
-.hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(30px, 6.4vw, 58px); font-weight: 900; color: #fff; letter-spacing: 0.01em; line-height: 1.2; text-shadow: 0 0 40px rgba(0,240,255,0.3); margin-bottom: 20px; max-width: 900px; animation: heroReveal 1s var(--ease) both; }
-.hero h1 .accent { color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,.5); }
-@keyframes heroReveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-.hero-slogan { font-size: clamp(14px, 2.2vw, 18px); color: var(--text-dim); letter-spacing: 0.02em; max-width: 640px; line-height: 1.7; margin-bottom: 8px; animation: heroReveal 1s var(--ease) 0.15s both; }
-
-.scroll-hint { margin-top: 56px; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.4; animation: fadeInUp 1s 1s both; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 0.4; } }
-.scroll-hint span { font-family: 'Orbitron', sans-serif; font-size: 7px; letter-spacing: 0.25em; color: var(--cyan); }
-.scroll-arrow { width: 1px; height: 34px; background: linear-gradient(180deg, var(--cyan), transparent); animation: scrollArrow 1.5s ease-in-out infinite; }
-@keyframes scrollArrow { 0%,100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(0.6); opacity: 1; } }
-
-.energy-line { display: flex; align-items: center; justify-content: center; padding: 16px 0; gap: 0; }
-.energy-node { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,240,255,0.3); border: 1px solid rgba(0,240,255,0.5); box-shadow: 0 0 8px rgba(0,240,255,0.3); }
-.connection { flex: 1; max-width: 200px; height: 1px; background: linear-gradient(90deg, rgba(0,240,255,0.15), rgba(0,240,255,0.4), rgba(0,240,255,0.15)); animation: connFlow 3s ease-in-out infinite; }
-@keyframes connFlow { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
-
-.layer { margin: 44px auto; max-width: 980px; padding: 68px 46px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; position: relative; overflow: hidden; opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-.layer.show { opacity: 1; transform: translateY(0); }
-.layer-inner-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(0,240,255,0.04) 0%, transparent 60%); pointer-events: none; }
-.section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
-.section-header h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(18px, 3vw, 24px); font-weight: 700; color: var(--text); letter-spacing: 0.12em; text-transform: uppercase; }
-.section-tag { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.2em; color: var(--cyan); border: 1px solid rgba(0,240,255,0.25); padding: 3px 10px; border-radius: 2px; opacity: 0.75; white-space: nowrap; }
-.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,240,255,0.25), transparent); }
-.section-sub { font-size: 14.5px; color: var(--text-dim); max-width: 620px; line-height: 1.75; margin: 0 0 40px; }
-
-.btn-primary, .btn-secondary { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; padding: 15px 32px; border-radius: 4px; cursor: pointer; transition: all 0.25s var(--ease); display: inline-flex; align-items:center; gap:8px; border: none; }
-.btn-primary { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border: 1px solid var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.15); }
-.btn-primary:hover { background: rgba(0,240,255,0.2); box-shadow: 0 0 40px rgba(0,240,255,0.35); transform: translateY(-2px); }
-.btn-secondary { border: 1px solid rgba(37,211,102,0.55); color: var(--wa); background: rgba(37,211,102,0.06); }
-.btn-secondary:hover { background: rgba(37,211,102,0.16); box-shadow: 0 0 30px rgba(37,211,102,0.25); transform: translateY(-2px); }
-
-/* ══ VIDEO SECTION ══ */
-.video-section { text-align: center; }
-.video-frame-wrap { display: flex; justify-content: center; margin: 8px 0 26px; }
-.video-frame { position: relative; width: 280px; aspect-ratio: 9/16; border-radius: 30px; border: 2px solid rgba(0,240,255,0.35); overflow: hidden; box-shadow: 0 0 70px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); background:#000; }
-.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-.video-frame-glow { position: absolute; inset: -2px; border-radius: 30px; pointer-events: none; box-shadow: 0 0 0 1px rgba(0,240,255,0.15); }
-.video-sound-toggle { position: absolute; bottom: 14px; right: 14px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,240,255,0.4); background: rgba(14,1,5,0.6); backdrop-filter: blur(4px); color: var(--cyan); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
-.video-sound-toggle:hover { border-color: var(--cyan); background: rgba(0,240,255,0.12); }
-.video-sound-toggle svg { width: 15px; height: 15px; }
-.video-channel-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-family:'Orbitron',sans-serif; font-size: 9px; letter-spacing:.15em; text-transform:uppercase; color: rgba(0,240,255,.75); text-decoration:none; border-bottom: 1px solid rgba(0,240,255,.25); padding-bottom: 4px; transition: color .2s, border-color .2s; }
-.video-channel-link:hover { color: var(--cyan); border-color: var(--cyan); }
-
-/* ══ SERVICE GRID ══ */
-.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.service-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease); padding: 30px; text-align: left; }
-.service-card:hover { border-color: var(--cyan); box-shadow: 0 0 34px rgba(0,240,255,0.16); transform: translateY(-4px); }
-.service-card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; margin-bottom: 18px; border: 1px solid rgba(0,240,255,0.15); background: rgba(0,240,255,0.04); }
-.service-card h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 12px; font-weight: 700; }
-.service-card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
-.service-card .btn-primary { margin-top: auto; }
-
-/* Highlight pulse when a service jumps the visitor to its request form */
-.nform.highlight { animation: formPulse 1.4s ease-out; border-radius: 10px; }
-@keyframes formPulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.5); } 70% { box-shadow: 0 0 0 14px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
-
-/* Site logo image (falls back to the "N" glyph if logo.png isn't found) */
-.logo-box img.logo-img { width: 84px; height: 84px; object-fit: contain; }
-
-/* Intro portfolio showcase strip on the language screen */
-.intro-gallery { width: 100%; max-width: 100%; overflow: hidden; margin-top: 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.intro-gallery-track { display: flex; gap: 16px; width: max-content; animation: introScroll 34s linear infinite; }
-.intro-gallery:hover .intro-gallery-track { animation-play-state: paused; }
-@keyframes introScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.intro-gallery-item { width: 150px; height: 100px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,240,255,0.22); background: rgba(0,240,255,0.04); flex-shrink: 0; box-shadow: 0 0 18px rgba(0,240,255,0.08); }
-.intro-gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-/* ══ FORMS ══ */
-.nform { display: flex; flex-direction: column; gap: 20px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.form-field { display: flex; flex-direction: column; gap: 8px; }
-.form-field.full { grid-column: 1 / -1; }
-.form-label { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,240,255,0.75); }
-.form-label .req { color: rgba(255,120,140,0.8); margin-left: 3px; }
-.form-input, .form-select, .form-textarea { background: rgba(0,240,255,0.03); border: 1px solid rgba(0,240,255,0.18); border-radius: 6px; color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 16px; outline: none; transition: border-color 0.2s, background 0.2s; width: 100%; }
-.form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300f0ff' fill-opacity='0.6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 36px; }
-.form-select option { background: #12030a; color: var(--text); }
-.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(0,240,255,0.55); background: rgba(0,240,255,0.05); }
-.form-input::placeholder, .form-textarea::placeholder { color: rgba(255,242,246,0.4); }
-.form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-.form-field.error .form-input, .form-field.error .form-select, .form-field.error .form-textarea { border-color: rgba(255,90,110,0.75); }
-.form-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
-.btn-submit { flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.25s var(--ease); border: 1px solid; }
-.btn-submit svg { width: 15px; height: 15px; }
-.btn-submit.email { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.12); }
-.btn-submit.email:hover { background: rgba(0,240,255,0.22); box-shadow: 0 0 36px rgba(0,240,255,0.3); transform: translateY(-2px); }
-.btn-submit.whatsapp { background: linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05)); border-color: rgba(37,211,102,0.6); color: var(--wa); box-shadow: 0 0 24px rgba(37,211,102,0.1); }
-.btn-submit.whatsapp:hover { background: rgba(37,211,102,0.2); box-shadow: 0 0 36px rgba(37,211,102,0.3); transform: translateY(-2px); }
-.form-status { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; min-height: 16px; }
-.form-status.success { color: var(--cyan); }
-.form-status.error { color: rgba(255,120,140,0.9); }
-
-/* Path-specific styling */
-.funnel-badge { display:inline-block; font-family:'Orbitron',sans-serif; font-size:8px; letter-spacing:.25em; text-transform:uppercase; padding:5px 12px; border-radius:3px; margin-bottom:18px; }
-.funnel-badge.b2b { color: var(--cyan); border: 1px solid rgba(0,240,255,.35); background: rgba(0,240,255,.05); }
-.funnel-badge.b2c { color: var(--wa); border: 1px solid rgba(37,211,102,.4); background: rgba(37,211,102,.06); }
-.funnel-title { font-family:'Orbitron',sans-serif; font-size: clamp(20px,3.4vw,28px); font-weight:800; color:#fff; letter-spacing:.02em; margin-bottom: 16px; line-height:1.3; }
-.funnel-sub { font-size: 15px; color: var(--text-dim); line-height: 1.8; max-width: 640px; margin-bottom: 30px; }
-.funnel-get { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
-.funnel-get-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text); border: 1px solid rgba(0,240,255,.18); background: rgba(0,240,255,.03); padding: 9px 14px; border-radius: 20px; }
-.funnel-get-item svg { width: 14px; height: 14px; color: var(--cyan); flex-shrink:0; }
-.b2c-funnel .funnel-get-item svg { color: var(--wa); }
-.b2c-funnel .funnel-get-item { border-color: rgba(37,211,102,.22); background: rgba(37,211,102,.04); }
-.funnel-timeline { display: inline-flex; align-items:center; gap:10px; font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:.08em; color: rgba(0,240,255,.85); border:1px solid rgba(0,240,255,.25); padding:10px 18px; border-radius:6px; margin-bottom: 34px; background: rgba(0,240,255,.03); }
-.b2c-funnel .funnel-timeline { color: rgba(37,211,102,.9); border-color: rgba(37,211,102,.3); background: rgba(37,211,102,.04); }
-.funnel-timeline svg { width:15px; height:15px; }
-.funnel-divider { height: 1px; background: linear-gradient(90deg, rgba(0,240,255,.2), transparent); margin: 8px 0 34px; }
-
-/* Contact Section */
-.contact-section { text-align: center; }
-.contact-methods { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
-.contact-method { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); padding: 12px 18px; border: 1px solid rgba(0,240,255,.2); border-radius: 8px; transition: all 0.3s var(--ease); text-decoration: none; }
-.contact-method:hover { border-color: var(--cyan); background: rgba(0,240,255,.08); }
-.contact-method svg { width: 16px; height: 16px; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  nav { padding: 14px 24px; }
-  .nav-links { gap: 16px; }
-  .form-row { grid-template-columns: 1fr; }
-  .service-grid { grid-template-columns: 1fr; }
-  .path-options { grid-template-columns: 1fr; }
-  .hero { padding: 100px 16px 60px; }
+body{
+margin:0;
+font-family:Arial;
+background:#0e0105;
+color:#fff;
+overflow-x:hidden;
 }
 
+/* SCREENS */
+.screen{
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background:#0e0105;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:999;
+opacity:0;
+visibility:hidden;
+transition:0.5s;
+}
+.screen.active{
+opacity:1;
+visibility:visible;
+}
+
+/* BUTTON */
+button{
+padding:10px 20px;
+border:none;
+background:#00f0ff;
+cursor:pointer;
+margin:10px;
+}
+
+/* HERO */
+.hero{
+position:relative;
+height:100vh;
+overflow:hidden;
+}
+
+.hero img{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+animation:slide 20s infinite;
+}
+
+.hero img:nth-child(1){animation-delay:0s;}
+.hero img:nth-child(2){animation-delay:5s;}
+.hero img:nth-child(3){animation-delay:10s;}
+.hero img:nth-child(4){animation-delay:15s;}
+
+@keyframes slide{
+0%{opacity:0;}
+5%{opacity:1;}
+25%{opacity:1;}
+30%{opacity:0;}
+100%{opacity:0;}
+}
+
+/* SERVICES */
+.services{
+padding:50px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#111;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.modal.active{display:flex;}
+
+.modal-box{
+background:#111;
+padding:20px;
+width:90%;
+max-width:400px;
+}
+
+input,textarea{
+width:100%;
+margin:5px 0;
+padding:10px;
+}
 </style>
+
 </head>
 <body>
 
-<div class="system-bar"></div>
-
-<!-- Language Selection Screen -->
-<div id="languageScreen" class="screen active">
-  <div class="screen-overlay">
-    <div class="lang-selector-header">
-      <h1>NOUVURA</h1>
-      <p data-i18n="select-language">Select Your Language</p>
-    </div>
-    <div class="lang-options">
-      <div class="lang-option" onclick="setLanguage('en')">
-        <span>English</span>
-        <p>English</p>
-      </div>
-      <div class="lang-option" onclick="setLanguage('fr')">
-        <span>Français</span>
-        <p>Français</p>
-      </div>
-      <div class="lang-option" onclick="setLanguage('ar')">
-        <span>العربية</span>
-        <p>العربية</p>
-      </div>
-    </div>
-    <div class="intro-gallery">
-      <div class="intro-gallery-track" id="introGalleryTrack"></div>
-    </div>
-  </div>
+<!-- LANGUAGE -->
+<div id="lang" class="screen active">
+<h1>Select Language</h1>
+<button onclick="next()">FR</button>
+<button onclick="next()">AR</button>
+<button onclick="next()">EN</button>
 </div>
 
-<!-- Path Selection Screen -->
-<div id="pathScreen" class="screen">
-  <div class="screen-overlay">
-    <div class="path-selector-header">
-      <h1><span data-i18n="welcome">Welcome to</span> <span class="accent">NOUVURA</span></h1>
-      <p class="path-selector-question" data-i18n="who-are-you">Who are you?</p>
-    </div>
-    <div class="path-options">
-      <div class="path-option-card" onclick="selectPath('individual')">
-        <div class="path-option-icon">👤</div>
-        <h3 data-i18n="path-individual">I am an Individual</h3>
-        <p data-i18n="path-individual-desc">Personal printing & design needs</p>
-      </div>
-      <div class="path-option-card" onclick="selectPath('company')">
-        <div class="path-option-icon">🏢</div>
-        <h3 data-i18n="path-company">I am a Company</h3>
-        <p data-i18n="path-company-desc">Large projects & production</p>
-      </div>
-      <div class="path-option-card" onclick="selectPath('client')">
-        <div class="path-option-icon">💻</div>
-        <h3 data-i18n="path-client">I am a Client</h3>
-        <p data-i18n="path-client-desc">Digital services & web solutions</p>
-      </div>
-    </div>
-    <div class="path-back-wrap">
-      <button type="button" class="btn-back" onclick="goBack()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        <span data-i18n="btn-back">Back</span>
-      </button>
-    </div>
-  </div>
+<!-- PATH -->
+<div id="path" class="screen">
+<h1>Vous êtes ?</h1>
+<button onclick="enter()">Entreprise</button>
+<button onclick="enter()">Particulier</button>
 </div>
 
-<!-- Loading Screen -->
-<div id="loadingScreen" class="screen">
-  <div class="screen-overlay">
-    <div class="loading-content">
-      <div class="loading-spinner"></div>
-      <h2 data-i18n="loading-title">Preparing Experience</h2>
-      <p data-i18n="loading-subtitle">Please wait while we personalize your journey...</p>
-    </div>
-  </div>
+<!-- MAIN -->
+<div id="main" style="display:none">
+
+<div class="hero">
+<img src="02.jpg">
+<img src="555.jpg">
+<img src="flayer.jpg">
+<img src="habillage.jpg">
 </div>
 
-<!-- Main Navigation -->
-<nav id="mainNav" style="display:none;">
-  <div class="nav-left">
-    <button type="button" class="nav-back-btn" onclick="goBack()" data-i18n-title="btn-back" title="Back" aria-label="Back">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    </button>
-    <a href="#" class="nav-logo">NOUVURA</a>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#services" data-i18n="nav-services">Services</a></li>
-    <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
-  </ul>
-  <div class="nav-lang">
-    <button class="lang-btn initial-active" onclick="setLanguage('en')">EN</button>
-    <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
-    <button class="lang-btn" onclick="setLanguage('ar')">AR</button>
-  </div>
-</nav>
+<h1 style="text-align:center">Services</h1>
 
-<!-- Main Content Area -->
-<div id="mainContent">
+<div class="services">
 
-  <!-- Individual Path -->
-  <div id="individual-path" style="display:none;">
-    <div class="hero">
-      <div class="hero-aura"></div>
-      <div class="logo-wrap">
-        <div class="logo-glow-ring"></div>
-        <div class="logo-box">
-          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
-          <span class="logo-box-fallback" style="display:none;">N</span>
-        </div>
-      </div>
-      <h1 data-i18n="individual-title">Welcome to <span class="accent">Nouvura</span> Services</h1>
-      <p class="hero-slogan" data-i18n="individual-slogan">Fast, simple, high-quality solutions for your personal needs</p>
-      <div class="scroll-hint">
-        <span data-i18n="scroll-explore">Scroll to Explore</span>
-        <div class="scroll-arrow"></div>
-      </div>
-    </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Conception%20Web.png">
+<h3>Conception Web</h3>
+</div>
 
-    <div class="layer show" style="animation-delay: 0.2s;">
-      <div class="layer-inner-glow"></div>
-      <div class="section-header">
-        <h2 data-i18n="individual-services">Our Services</h2>
-        <span class="section-tag" data-i18n="for-you">FOR YOU</span>
-        <div class="section-line"></div>
-      </div>
-      <div class="service-grid">
-        <!-- DTF Printing -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Impression DTF.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-dtf-title">DTF Printing</h4>
-          <p data-i18n="service-dtf-desc">Print your designs on premium garments with high precision and durability.</p>
-          <button class="btn-primary" data-i18n="btn-order" onclick="requestService('individual','dtf')">Order Now</button>
-        </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Cr%C3%A9ation%20de%20contenu%2C.png">
+<h3>Réseaux Sociaux</h3>
+</div>
 
-        <!-- Business Cards & Flyers -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Cartes de Visite & Dépliants.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-print-title">Business Cards & Flyers</h4>
-          <p data-i18n="service-print-desc">Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.</p>
-          <button class="btn-primary" data-i18n="btn-request" onclick="requestService('individual','cards')">Request Now</button>
-        </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Des%20interfaces%20belles.png">
+<h3>UI/UX</h3>
+</div>
 
-        <!-- Posters -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Affiches.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-posters-title">Posters</h4>
-          <p data-i18n="service-posters-desc">High-quality large format prints: autocollant (adhesive), standard paper, premium finish.</p>
-          <button class="btn-primary" data-i18n="btn-order-poster" onclick="requestService('individual','posters')">Order Poster</button>
-        </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Optimisation%20Web.png">
+<h3>Optimisation</h3>
+</div>
 
-        <!-- Stickers -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Autocollants.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-stickers-title">Stickers</h4>
-          <p data-i18n="service-stickers-desc">Custom stickers you can place anywhere: phones, laptops, packaging, and more.</p>
-          <button class="btn-primary" data-i18n="btn-order-stickers" onclick="requestService('individual','stickers')">Order Stickers</button>
-        </div>
-      </div>
-    </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/D%C3%A9coupe%20CNC%20%26%20Laser.png">
+<h3>CNC & Laser</h3>
+</div>
 
-    <!-- Video Section -->
-    <div class="layer" style="animation-delay: 0.4s;">
-      <div class="layer-inner-glow"></div>
-      <div class="video-section">
-        <div class="section-header" style="justify-content: center; margin-bottom: 32px;">
-          <h2 data-i18n="see-work">See Our Work</h2>
-        </div>
-        <div class="video-frame-wrap">
-          <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/jcedW1i46DA" allowfullscreen="" loading="lazy"></iframe>
-            <div class="video-frame-glow"></div>
-          </div>
-        </div>
-        <a href="https://www.youtube.com/@nouvura" target="_blank" class="video-channel-link" data-i18n="visit-channel">
-          Visit Channel →
-        </a>
-      </div>
-    </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Habillage%20V%C3%A9hicules.png">
+<h3>Habillage Véhicules</h3>
+</div>
 
-    <div class="layer" style="animation-delay: 0.6s;">
-      <div class="layer-inner-glow"></div>
-      <div class="section-header">
-        <h2 data-i18n="quick-form">Quick Request</h2>
-        <div class="section-line"></div>
-      </div>
-      <form class="nform" id="individualForm" novalidate>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-name">Name <span class="req">*</span></label>
-            <input type="text" class="form-input" data-field="Name" required>
-          </div>
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
-            <input type="tel" class="form-input" data-field="Phone" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-service">Service Type <span class="req">*</span></label>
-            <select class="form-select" data-field="Service Type" required>
-              <option value="">-- Select Service --</option>
-              <option value="dtf" data-i18n="service-dtf-title">DTF Printing</option>
-              <option value="cards" data-i18n="service-print-title">Business Cards</option>
-              <option value="posters" data-i18n="service-posters-title">Posters</option>
-              <option value="stickers" data-i18n="service-stickers-title">Stickers</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-quantity">Quantity <span class="req">*</span></label>
-            <input type="number" class="form-input" data-field="Quantity" min="1" required>
-          </div>
-        </div>
-        <div class="form-field full">
-          <label class="form-label" data-i18n="form-budget">Budget (Optional)</label>
-          <input type="text" class="form-input" data-field="Budget" placeholder="e.g., $50 - $200">
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn-submit email" onclick="submitViaEmail('individualForm', 'New Individual Request')">
-            <span data-i18n="btn-send">Send Request</span>
-          </button>
-          <button type="button" class="btn-submit whatsapp" onclick="submitViaWhatsApp('individualForm', 'New Individual Request')">
-            <span data-i18n="btn-send-wa">Send via WhatsApp</span>
-          </button>
-        </div>
-        <p class="form-status" data-role="status"></p>
-      </form>
-    </div>
-  </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Signal%C3%A9tique%20%26%20Panneaux%20Publicitaires.png">
+<h3>Signalétique</h3>
+</div>
 
-  <!-- Company Path -->
-  <div id="company-path" style="display:none;">
-    <div class="hero">
-      <div class="hero-aura"></div>
-      <div class="logo-wrap">
-        <div class="logo-glow-ring"></div>
-        <div class="logo-box">
-          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
-          <span class="logo-box-fallback" style="display:none;">N</span>
-        </div>
-      </div>
-      <h1 data-i18n="company-title">Build Your Brand With <span class="accent">Precision</span></h1>
-      <p class="hero-slogan" data-i18n="company-slogan">From concept to execution — we handle everything</p>
-      <div class="scroll-hint">
-        <span data-i18n="scroll-explore">Scroll to Explore</span>
-        <div class="scroll-arrow"></div>
-      </div>
-    </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Branding%20%26%20Impression.png">
+<h3>Branding</h3>
+</div>
 
-    <div class="layer show" style="animation-delay: 0.2s;">
-      <div class="layer-inner-glow"></div>
-      <div class="section-header">
-        <h2 data-i18n="company-services">Our Services</h2>
-        <span class="section-tag" data-i18n="for-companies">FOR COMPANIES</span>
-        <div class="section-line"></div>
-      </div>
-      <div class="service-grid">
-        <!-- CNC & Laser -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Découpe CNC & Laser.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-cnc-title">CNC & Laser Cutting</h4>
-          <p data-i18n="service-cnc-desc">Precision cutting and design using: Forex, Alucobond, Acrylic and more.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','cnc')">Inquire</button>
-        </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Impression%20DTF.png">
+<h3>DTF</h3>
+</div>
 
-        <!-- Signage -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Signalétique & Panneaux Publicitaires.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-signage-title">Signage & Advertising Boards</h4>
-          <p data-i18n="service-signage-desc">All types of signage: illuminated signs, 3D lettering, autocollant signage.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','signage')">Inquire</button>
-        </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Affiches.png">
+<h3>Affiches</h3>
+</div>
 
-        <!-- Vehicle Wrapping -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Habillage Véhicules.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-wrap-title">Vehicle Wrapping</h4>
-          <p data-i18n="service-wrap-desc">Transform cars and trucks into moving advertisements.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','wrapping')">Inquire</button>
-        </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Cartes%20de%20Visite%20%26%20D%C3%A9pliants.png">
+<h3>Cartes</h3>
+</div>
 
-        <!-- Branding -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Branding & Impression.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-branding-title">Branding & Printing</h4>
-          <p data-i18n="service-branding-desc">Business cards, clothing, large prints, and full brand identity.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','branding')">Inquire</button>
-        </div>
-      </div>
-    </div>
+<div class="card">
+<img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Autocollants.png">
+<h3>Autocollants</h3>
+</div>
 
-    <!-- Video Section -->
-    <div class="layer" style="animation-delay: 0.4s;">
-      <div class="layer-inner-glow"></div>
-      <div class="video-section">
-        <div class="section-header" style="justify-content: center; margin-bottom: 32px;">
-          <h2 data-i18n="see-work">See Our Work</h2>
-        </div>
-        <div class="video-frame-wrap">
-          <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/jcedW1i46DA" allowfullscreen="" loading="lazy"></iframe>
-            <div class="video-frame-glow"></div>
-          </div>
-        </div>
-        <a href="https://www.youtube.com/@nouvura" target="_blank" class="video-channel-link" data-i18n="visit-channel">
-          Visit Channel →
-        </a>
-      </div>
-    </div>
+</div>
 
-    <div class="layer" style="animation-delay: 0.6s;">
-      <div class="layer-inner-glow"></div>
-      <div class="section-header">
-        <h2 data-i18n="project-form">Project Request</h2>
-        <div class="section-line"></div>
-      </div>
-      <form class="nform" id="companyForm" novalidate>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-company-name">Company Name <span class="req">*</span></label>
-            <input type="text" class="form-input" data-field="Company Name" required>
-          </div>
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-contact">Contact Person <span class="req">*</span></label>
-            <input type="text" class="form-input" data-field="Contact Person" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-project-type">Project Type <span class="req">*</span></label>
-            <select class="form-select" data-field="Project Type" required>
-              <option value="">-- Select Project Type --</option>
-              <option value="cnc" data-i18n="service-cnc-title">CNC & Laser Cutting</option>
-              <option value="signage" data-i18n="service-signage-title">Signage & Boards</option>
-              <option value="wrapping" data-i18n="service-wrap-title">Vehicle Wrapping</option>
-              <option value="branding" data-i18n="service-branding-title">Branding</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-budget">Budget <span class="req">*</span></label>
-            <input type="text" class="form-input" data-field="Budget" required placeholder="e.g., $5,000 - $25,000">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-deadline">Project Deadline <span class="req">*</span></label>
-            <input type="date" class="form-input" data-field="Deadline" required>
-          </div>
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
-            <input type="tel" class="form-input" data-field="Phone" required>
-          </div>
-        </div>
-        <div class="form-field full">
-          <label class="form-label" data-i18n="form-description">Project Description</label>
-          <textarea class="form-textarea" data-field="Description" placeholder="Tell us about your project..."></textarea>
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn-submit email" onclick="submitViaEmail('companyForm', 'New Company Project Request')">
-            <span data-i18n="btn-send">Send Request</span>
-          </button>
-          <button type="button" class="btn-submit whatsapp" onclick="submitViaWhatsApp('companyForm', 'New Company Project Request')">
-            <span data-i18n="btn-send-wa">Send via WhatsApp</span>
-          </button>
-        </div>
-        <p class="form-status" data-role="status"></p>
-      </form>
-    </div>
-  </div>
+<div style="text-align:center">
+<button onclick="openForm()">طلب الآن</button>
+</div>
 
-  <!-- Client Path (Digital Services) -->
-  <div id="client-path" style="display:none;">
-    <div class="hero">
-      <div class="hero-aura"></div>
-      <div class="logo-wrap">
-        <div class="logo-glow-ring"></div>
-        <div class="logo-box">
-          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
-          <span class="logo-box-fallback" style="display:none;">N</span>
-        </div>
-      </div>
-      <h1 data-i18n="client-title">Digital Growth & <span class="accent">Presence</span></h1>
-      <p class="hero-slogan" data-i18n="client-slogan">Build your online presence with cutting-edge digital solutions</p>
-      <div class="scroll-hint">
-        <span data-i18n="scroll-explore">Scroll to Explore</span>
-        <div class="scroll-arrow"></div>
-      </div>
-    </div>
+</div>
 
-    <div class="layer show" style="animation-delay: 0.2s;">
-      <div class="layer-inner-glow"></div>
-      <div class="section-header">
-        <h2 data-i18n="digital-services">Digital Services</h2>
-        <span class="section-tag" data-i18n="online">ONLINE</span>
-        <div class="section-line"></div>
-      </div>
-      <div class="service-grid">
-        <!-- Web Design -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Conception Web.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-web-title">Website Design</h4>
-          <p data-i18n="service-web-desc">Custom, high-performing websites that convert visitors into customers.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','web')">Get Started</button>
-        </div>
-
-        <!-- Social Media -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Création de contenu,.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-social-title">Social Media Management</h4>
-          <p data-i18n="service-social-desc">Content creation, strategy, and engagement across all major platforms.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','social')">Get Started</button>
-        </div>
-
-        <!-- UI/UX -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Des interfaces belles.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-uiux-title">UI/UX Design</h4>
-          <p data-i18n="service-uiux-desc">Beautiful, intuitive interfaces that users love and brands trust.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','uiux')">Get Started</button>
-        </div>
-
-        <!-- Optimization -->
-        <div class="service-card">
-          <img class="service-card-img" src="images/Optimisation Web.png" alt="" onerror="this.remove();">
-          <h4 data-i18n="service-seo-title">Website Optimization</h4>
-          <p data-i18n="service-seo-desc">Performance, SEO, and conversion rate optimization for maximum ROI.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','seo')">Get Started</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Video Section -->
-    <div class="layer" style="animation-delay: 0.4s;">
-      <div class="layer-inner-glow"></div>
-      <div class="video-section">
-        <div class="section-header" style="justify-content: center; margin-bottom: 32px;">
-          <h2 data-i18n="see-work">See Our Work</h2>
-        </div>
-        <div class="video-frame-wrap">
-          <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/jcedW1i46DA" allowfullscreen="" loading="lazy"></iframe>
-            <div class="video-frame-glow"></div>
-          </div>
-        </div>
-        <a href="https://www.youtube.com/@nouvura" target="_blank" class="video-channel-link" data-i18n="visit-channel">
-          Visit Channel →
-        </a>
-      </div>
-    </div>
-
-    <div class="layer" style="animation-delay: 0.6s;">
-      <div class="layer-inner-glow"></div>
-      <div class="section-header">
-        <h2 data-i18n="start-project">Start Your Project</h2>
-        <div class="section-line"></div>
-      </div>
-      <form class="nform" id="clientForm" novalidate>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-name">Name <span class="req">*</span></label>
-            <input type="text" class="form-input" data-field="Name" required>
-          </div>
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-email">Email <span class="req">*</span></label>
-            <input type="email" class="form-input" data-field="Email" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-service-type">Service Type <span class="req">*</span></label>
-            <select class="form-select" data-field="Service Type" required>
-              <option value="">-- Select Service --</option>
-              <option value="web" data-i18n="service-web-title">Website Design</option>
-              <option value="social" data-i18n="service-social-title">Social Media</option>
-              <option value="uiux" data-i18n="service-uiux-title">UI/UX Design</option>
-              <option value="seo" data-i18n="service-seo-title">Website Optimization</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label class="form-label" data-i18n="form-budget">Budget <span class="req">*</span></label>
-            <input type="text" class="form-input" data-field="Budget" required placeholder="e.g., $2,000 - $10,000">
-          </div>
-        </div>
-        <div class="form-field full">
-          <label class="form-label" data-i18n="form-description">Project Description <span class="req">*</span></label>
-          <textarea class="form-textarea" data-field="Description" required placeholder="Tell us about your vision..."></textarea>
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn-submit email" onclick="submitViaEmail('clientForm', 'New Client Project Brief')">
-            <span data-i18n="btn-send">Send Project Brief</span>
-          </button>
-          <button type="button" class="btn-submit whatsapp" onclick="submitViaWhatsApp('clientForm', 'New Client Project Brief')">
-            <span data-i18n="btn-send-wa">Send via WhatsApp</span>
-          </button>
-        </div>
-        <p class="form-status" data-role="status"></p>
-      </form>
-    </div>
-  </div>
-
-  <!-- Universal Contact Section -->
-  <div class="layer" id="contactSection" style="animation-delay: 0.8s; margin-bottom: 60px;">
-    <div class="layer-inner-glow"></div>
-    <div class="contact-section">
-      <div class="section-header" style="justify-content: center; margin-bottom: 24px;">
-        <h2 data-i18n="get-touch">Get In Touch</h2>
-      </div>
-      <p class="section-sub" style="text-align: center; margin: 0 auto;" data-i18n="contact-desc">
-        Have questions? Reach out through your preferred channel.
-      </p>
-      <div class="contact-methods">
-        <a href="mailto:hello@nouvura.com" class="contact-method">
-          <span data-i18n="contact-email">Email</span>
-        </a>
-        <a href="https://wa.me/213123456789" target="_blank" class="contact-method" style="border-color: rgba(37,211,102,.3); color: var(--wa);">
-          <span data-i18n="contact-whatsapp">WhatsApp</span>
-        </a>
-        <a href="https://instagram.com/nouvura" target="_blank" class="contact-method">
-          <span data-i18n="contact-social">Follow Us</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
+<!-- FORM -->
+<div id="form" class="modal">
+<div class="modal-box">
+<h2>طلب خدمة</h2>
+<input placeholder="Nom">
+<input placeholder="Service">
+<input placeholder="WhatsApp">
+<textarea placeholder="Details"></textarea>
+<button onclick="send()">Envoyer</button>
+<button onclick="closeForm()">Close</button>
+</div>
 </div>
 
 <script>
-// Internationalization data
-const translations = {
-  en: {
-    'select-language': 'Select Your Language',
-    'welcome': 'Welcome to',
-    'who-are-you': 'Who are you?',
-    'path-individual': 'I am an Individual',
-    'path-individual-desc': 'Personal printing & design needs',
-    'path-company': 'I am a Company',
-    'path-company-desc': 'Large projects & production',
-    'path-client': 'I am a Client',
-    'path-client-desc': 'Digital services & web solutions',
-    'loading-title': 'Preparing Your Experience',
-    'loading-subtitle': 'Please wait while we personalize your journey...',
-    'nav-services': 'Services',
-    'nav-contact': 'Contact',
-    'scroll-explore': 'Scroll to Explore',
-    'individual-title': 'Welcome to Nouvura Services',
-    'individual-slogan': 'Fast, simple, high-quality solutions for your personal needs',
-    'individual-services': 'Our Services',
-    'for-you': 'FOR YOU',
-    'service-dtf-title': 'DTF Printing',
-    'service-dtf-desc': 'Print your designs on premium garments with high precision and durability.',
-    'service-print-title': 'Business Cards & Flyers',
-    'service-print-desc': 'Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.',
-    'service-posters-title': 'Posters',
-    'service-posters-desc': 'High-quality large format prints: autocollant (adhesive), standard paper, premium finish.',
-    'service-stickers-title': 'Stickers',
-    'service-stickers-desc': 'Custom stickers you can place anywhere: phones, laptops, packaging, and more.',
-    'btn-order': 'Order Now',
-    'btn-request': 'Request Now',
-    'btn-order-poster': 'Order Poster',
-    'btn-order-stickers': 'Order Stickers',
-    'quick-form': 'Quick Request',
-    'form-name': 'Name',
-    'form-phone': 'Phone',
-    'form-service': 'Service Type',
-    'form-quantity': 'Quantity',
-    'form-budget': 'Budget',
-    'btn-send': 'Send Request',
-    'company-title': 'Build Your Brand With Precision',
-    'company-slogan': 'From concept to execution — we handle everything',
-    'company-services': 'Our Services',
-    'for-companies': 'FOR COMPANIES',
-    'service-cnc-title': 'CNC & Laser Cutting',
-    'service-cnc-desc': 'Precision cutting and design using: Forex, Alucobond, Acrylic and more.',
-    'service-signage-title': 'Signage & Advertising Boards',
-    'service-signage-desc': 'All types of signage: illuminated signs, 3D lettering, autocollant signage.',
-    'service-wrap-title': 'Vehicle Wrapping',
-    'service-wrap-desc': 'Transform cars and trucks into moving advertisements.',
-    'service-branding-title': 'Branding & Printing',
-    'service-branding-desc': 'Business cards, clothing, large prints, and full brand identity.',
-    'btn-inquire': 'Inquire',
-    'project-form': 'Project Request',
-    'form-company-name': 'Company Name',
-    'form-contact': 'Contact Person',
-    'form-project-type': 'Project Type',
-    'form-deadline': 'Project Deadline',
-    'form-description': 'Project Description',
-    'client-title': 'Digital Growth & Presence',
-    'client-slogan': 'Build your online presence with cutting-edge digital solutions',
-    'digital-services': 'Digital Services',
-    'online': 'ONLINE',
-    'service-web-title': 'Website Design',
-    'service-web-desc': 'Custom, high-performing websites that convert visitors into customers.',
-    'service-social-title': 'Social Media Management',
-    'service-social-desc': 'Content creation, strategy, and engagement across all major platforms.',
-    'service-uiux-title': 'UI/UX Design',
-    'service-uiux-desc': 'Beautiful, intuitive interfaces that users love and brands trust.',
-    'service-seo-title': 'Website Optimization',
-    'service-seo-desc': 'Performance, SEO, and conversion rate optimization for maximum ROI.',
-    'btn-start': 'Get Started',
-    'see-work': 'See Our Work',
-    'visit-channel': 'Visit Channel →',
-    'start-project': 'Start Your Project',
-    'form-email': 'Email',
-    'form-service-type': 'Service Type',
-    'get-touch': 'Get In Touch',
-    'contact-desc': 'Have questions? Reach out through your preferred channel.',
-    'contact-email': 'Email',
-    'contact-whatsapp': 'WhatsApp',
-    'contact-social': 'Follow Us',
-    'btn-back': 'Back',
-    'btn-send-wa': 'Send via WhatsApp',
-    'form-required-alert': 'Please fill in all required fields before sending.',
-    'form-status-email': 'Opening your email app...',
-    'form-status-whatsapp': 'Opening WhatsApp...'
-  },
-  fr: {
-    'select-language': 'Sélectionnez Votre Langue',
-    'welcome': 'Bienvenue à',
-    'who-are-you': 'Qui êtes-vous?',
-    'path-individual': 'Je suis un Particulier',
-    'path-individual-desc': 'Besoins personnels d\'impression et de design',
-    'path-company': 'Je suis une Entreprise',
-    'path-company-desc': 'Grands projets & production',
-    'path-client': 'Je suis un Client',
-    'path-client-desc': 'Services numériques & solutions web',
-    'loading-title': 'Préparation de Votre Expérience',
-    'loading-subtitle': 'Veuillez patienter pendant que nous personnalisons votre parcours...',
-    'nav-services': 'Services',
-    'nav-contact': 'Contact',
-    'scroll-explore': 'Faites Défiler pour Explorer',
-    'individual-title': 'Bienvenue aux Services Nouvura',
-    'individual-slogan': 'Solutions rapides, simples et de haute qualité pour vos besoins personnels',
-    'individual-services': 'Nos Services',
-    'for-you': 'POUR VOUS',
-    'service-dtf-title': 'Impression DTF',
-    'service-dtf-desc': 'Imprimez vos designs sur des vêtements haut de gamme avec une précision et une durabilité élevées.',
-    'service-print-title': 'Cartes de Visite & Dépliants',
-    'service-print-desc': 'Impression professionnelle sur plusieurs matériaux : papier 300g, mat & brillant premium, cartes aluminium, cartes NFC.',
-    'service-posters-title': 'Affiches',
-    'service-posters-desc': 'Impressions grand format de haute qualité : autocollants, papier standard, finition premium.',
-    'service-stickers-title': 'Autocollants',
-    'service-stickers-desc': 'Autocollants personnalisés que vous pouvez placer n\'importe où : téléphones, ordinateurs portables, emballage, etc.',
-    'btn-order': 'Commander Maintenant',
-    'btn-request': 'Demander Maintenant',
-    'btn-order-poster': 'Commander une Affiche',
-    'btn-order-stickers': 'Commander des Autocollants',
-    'quick-form': 'Demande Rapide',
-    'form-name': 'Nom',
-    'form-phone': 'Téléphone',
-    'form-service': 'Type de Service',
-    'form-quantity': 'Quantité',
-    'form-budget': 'Budget',
-    'btn-send': 'Envoyer la Demande',
-    'company-title': 'Construisez Votre Marque Avec Précision',
-    'company-slogan': 'Du concept à l\'exécution — nous gérons tout',
-    'company-services': 'Nos Services',
-    'for-companies': 'POUR LES ENTREPRISES',
-    'service-cnc-title': 'Découpe CNC & Laser',
-    'service-cnc-desc': 'Découpe et conception précises utilisant : Forex, Alucobond, Acrylique et plus.',
-    'service-signage-title': 'Signalétique & Panneaux Publicitaires',
-    'service-signage-desc': 'Tous types de signalétique : enseignes lumineuses, lettrage 3D, signalétique autocollante.',
-    'service-wrap-title': 'Habillage Véhicules',
-    'service-wrap-desc': 'Transformez les voitures et les camions en publicités ambulantes.',
-    'service-branding-title': 'Branding & Impression',
-    'service-branding-desc': 'Cartes de visite, vêtements, grandes impressions, et identité de marque complète.',
-    'btn-inquire': 'S\'Informer',
-    'project-form': 'Demande de Projet',
-    'form-company-name': 'Nom de l\'Entreprise',
-    'form-contact': 'Personne de Contact',
-    'form-project-type': 'Type de Projet',
-    'form-deadline': 'Date limite du Projet',
-    'form-description': 'Description du Projet',
-    'client-title': 'Croissance Numérique & Présence',
-    'client-slogan': 'Construisez votre présence en ligne avec des solutions numériques avant-gardistes',
-    'digital-services': 'Services Numériques',
-    'online': 'EN LIGNE',
-    'service-web-title': 'Conception Web',
-    'service-web-desc': 'Sites web personnalisés et performants qui convertissent les visiteurs en clients.',
-    'service-social-title': 'Gestion des Réseaux Sociaux',
-    'service-social-desc': 'Création de contenu, stratégie et engagement sur toutes les principales plateformes.',
-    'service-uiux-title': 'Design UI/UX',
-    'service-uiux-desc': 'Des interfaces belles et intuitives que les utilisateurs adorent et les marques font confiance.',
-    'service-seo-title': 'Optimisation Web',
-    'service-seo-desc': 'Optimisation des performances, SEO et taux de conversion pour un ROI maximal.',
-    'btn-start': 'Commencer',
-    'see-work': 'Voir Notre Travail',
-    'visit-channel': 'Visiter la Chaîne →',
-    'start-project': 'Démarrer Votre Projet',
-    'form-email': 'Email',
-    'form-service-type': 'Type de Service',
-    'get-touch': 'Nous Contacter',
-    'contact-desc': 'Des questions ? Contactez-nous via votre canal préféré.',
-    'contact-email': 'Email',
-    'contact-whatsapp': 'WhatsApp',
-    'contact-social': 'Nous Suivre',
-    'btn-back': 'Retour',
-    'btn-send-wa': 'Envoyer via WhatsApp',
-    'form-required-alert': 'Veuillez remplir tous les champs obligatoires avant d\'envoyer.',
-    'form-status-email': 'Ouverture de votre application e-mail...',
-    'form-status-whatsapp': 'Ouverture de WhatsApp...'
-  },
-  ar: {
-    'select-language': 'اختر ل��تك',
-    'welcome': 'أهلا بك في',
-    'who-are-you': 'من أنت؟',
-    'path-individual': 'أنا فرد',
-    'path-individual-desc': 'احتياجات الطباعة والتصميم الشخصية',
-    'path-company': 'أنا شركة',
-    'path-company-desc': 'المشاريع الكبيرة والإنتاج',
-    'path-client': 'أنا عميل',
-    'path-client-desc': 'الخدمات الرقمية وحلول الويب',
-    'loading-title': 'تحضير تجربتك',
-    'loading-subtitle': 'يرجى الانتظار بينما نخصص رحلتك...',
-    'nav-services': 'الخدمات',
-    'nav-contact': 'اتصل بنا',
-    'scroll-explore': 'قم بالتمرير للاستكشاف',
-    'individual-title': 'مرحبا بك في خدمات نوفورا',
-    'individual-slogan': 'حلول سريعة وبسيطة وعالية الجودة لاحتياجاتك الشخصية',
-    'individual-services': 'خدماتنا',
-    'for-you': 'لك',
-    'service-dtf-title': 'طباعة DTF',
-    'service-dtf-desc': 'اطبع تصاميمك على الملابس الفاخرة بدقة عالية ومتانة فائقة.',
-    'service-print-title': 'بطاقات العمل والنشرات',
-    'service-print-desc': 'طباعة احترافية على مواد متعددة: ورق 300 جرام، مات وبريق فاخر، بطاقات ألومنيوم، بطاقات NFC ذكية.',
-    'service-posters-title': 'ملصقات',
-    'service-posters-desc': 'طباعات عالية الجودة بصيغ كبيرة: ملصقات لاصقة، ورق عادي، تشطيب فاخر.',
-    'service-stickers-title': 'ملصقات',
-    'service-stickers-desc': 'ملصقات مخصصة يمكنك وضعها في أي مكان: الهواتف والحواسيب المحمولة والعبوات وغيرها.',
-    'btn-order': 'اطلب الآن',
-    'btn-request': 'اطلب الآن',
-    'btn-order-poster': 'اطلب ملصق',
-    'btn-order-stickers': 'اطلب ملصقات',
-    'quick-form': 'طلب سريع',
-    'form-name': 'الاسم',
-    'form-phone': 'الهاتف',
-    'form-service': 'نوع الخدمة',
-    'form-quantity': 'الكمية',
-    'form-budget': 'الميزانية',
-    'btn-send': 'إرسال الطلب',
-    'company-title': 'بناء علامتك التجارية بدقة',
-    'company-slogan': 'من المفهوم إلى التنفيذ - نحن نتولى كل شيء',
-    'company-services': 'خدماتنا',
-    'for-companies': 'للشركات',
-    'service-cnc-title': 'قطع CNC والليزر',
-    'service-cnc-desc': 'قطع وتصميم دقيق باستخدام: Forex و Alucobond والأكريليك والمزيد.',
-    'service-signage-title': 'اللافتات والجنات الإعلانية',
-    'service-signage-desc': 'جميع أنواع اللافتات: اللافتات المضاءة والحروف ثلاثية الأبعاد واللافتات اللاصقة.',
-    'service-wrap-title': 'تغليف المركبات',
-    'service-wrap-desc': 'تحول السيارات والشاحنات إلى إعلانات متنقلة.',
-    'service-branding-title': 'العلامات التجارية والطباعة',
-    'service-branding-desc': 'بطاقات العمل والملابس والطباعات الكبيرة والهوية التجارية الكاملة.',
-    'btn-inquire': 'استفسر',
-    'project-form': 'طلب مشروع',
-    'form-company-name': 'اسم الشركة',
-    'form-contact': 'شخص الاتصال',
-    'form-project-type': 'نوع المشروع',
-    'form-deadline': 'موعد المشروع النهائي',
-    'form-description': 'وصف المشروع',
-    'client-title': 'النمو الرقمي والحضور',
-    'client-slogan': 'بناء حضورك عبر الإنترنت باستخدام حلول رقمية متقدمة',
-    'digital-services': 'الخدمات الرقمية',
-    'online': 'عبر ا��إنترنت',
-    'service-web-title': 'تصميم المواقع',
-    'service-web-desc': 'مواقع ويب مخصصة وعالية الأداء تحول الزوار إلى عملاء.',
-    'service-social-title': 'إدارة وسائل التواصل الاجتماعي',
-    'service-social-desc': 'إنشاء المحتوى والاستراتيجية والمشاركة عبر جميع المنصات الرئيسية.',
-    'service-uiux-title': 'تصميم واجهات المستخدم والتجربة',
-    'service-uiux-desc': 'واجهات جميلة وبديهية يحبها المستخدمون وتثق بها العلامات التجارية.',
-    'service-seo-title': 'تحسين موقع الويب',
-    'service-seo-desc': 'تحسين الأداء وتحسين محرك البحث ومعدل التحويل للحصول على أقصى عائد على الاستثمار.',
-    'btn-start': 'ابدأ',
-    'see-work': 'اطلع على عملنا',
-    'visit-channel': 'زيارة القناة →',
-    'start-project': 'ابدأ مشروعك',
-    'form-email': 'البريد الإلكتروني',
-    'form-service-type': 'نوع الخدمة',
-    'get-touch': 'اتصل بنا',
-    'contact-desc': 'هل لديك أسئلة؟ اتصل بنا عبر قناتك المفضلة.',
-    'contact-email': 'البريد الإلكتروني',
-    'contact-whatsapp': 'واتس آب',
-    'contact-social': 'تابعنا',
-    'btn-back': 'رجوع',
-    'btn-send-wa': 'إرسال عبر واتس آب',
-    'form-required-alert': 'يرجى تعبئة جميع الحقول المطلوبة قبل الإرسال.',
-    'form-status-email': 'جارٍ فتح تطبيق البريد الإلكتروني...',
-    'form-status-whatsapp': 'جارٍ فتح واتس آب...'
-  }
-};
-
-let currentLanguage = 'en';
-let selectedPath = null;
-
-// Set language and update translations
-function setLanguage(lang) {
-  currentLanguage = lang;
-  localStorage.setItem('selectedLanguage', lang);
-  document.documentElement.lang = lang;
-  updateTranslations();
-  
-  if (lang === 'ar') {
-    document.documentElement.dir = 'rtl';
-    document.body.style.direction = 'rtl';
-  } else {
-    document.documentElement.dir = 'ltr';
-    document.body.style.direction = 'ltr';
-  }
-  
-  // Update active language button
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active', 'initial-active'));
-  const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn => 
-    btn.textContent.trim().toUpperCase() === lang.toUpperCase()
-  );
-  if (langBtn) langBtn.classList.add('initial-active');
+function next(){
+document.getElementById("lang").classList.remove("active");
+document.getElementById("path").classList.add("active");
 }
 
-// Update all translations on page
-function updateTranslations() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (translations[currentLanguage][key]) {
-      el.textContent = translations[currentLanguage][key];
-    }
-  });
-  document.querySelectorAll('[data-i18n-title]').forEach(el => {
-    const key = el.getAttribute('data-i18n-title');
-    if (translations[currentLanguage][key]) {
-      el.title = translations[currentLanguage][key];
-    }
-  });
+function enter(){
+document.getElementById("path").classList.remove("active");
+document.getElementById("main").style.display="block";
 }
 
-/* ══ SCREEN / HISTORY NAVIGATION ══
-   Every screen change is recorded in the browser's history (pushState).
-   This means the device's native Back button and our in-app Back
-   buttons behave identically: they step back through the app's own
-   screens instead of leaving the page. The site only actually exits
-   the browser once the user goes back past the very first screen —
-   normal, expected browser behavior. */
-
-function hideAllScreens() {
-  document.getElementById('languageScreen').classList.remove('active');
-  document.getElementById('pathScreen').classList.remove('active');
-  document.getElementById('loadingScreen').classList.remove('active');
-  document.getElementById('mainNav').style.display = 'none';
-  document.getElementById('mainContent').classList.remove('show');
-  document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
+function openForm(){
+document.getElementById("form").classList.add("active");
 }
 
-// Instantly render a given state (used for popstate / initial load — no loading animation)
-function applyScreenState(state, isInitial) {
-  state = state || { screen: 'language' };
-  hideAllScreens();
-
-  if (state.screen === 'path') {
-    document.getElementById('pathScreen').classList.add('active');
-  } else if (state.screen === 'main' && state.path) {
-    selectedPath = state.path;
-    document.getElementById('mainNav').style.display = 'flex';
-    document.getElementById('mainContent').classList.add('show');
-    const pathEl = document.getElementById(`${state.path}-path`);
-    if (pathEl) pathEl.style.display = 'block';
-    document.querySelectorAll('.layer').forEach(layer => layer.classList.add('show'));
-  } else {
-    document.getElementById('languageScreen').classList.add('active');
-  }
-
-  if (!isInitial) window.scrollTo(0, 0);
+function closeForm(){
+document.getElementById("form").classList.remove("active");
 }
 
-// In-app Back button: reuses the real browser history so behavior stays consistent
-function goBack() {
-  history.back();
+function send(){
+alert("تم الإرسال");
 }
-
-/* ══ SERVICE → FORM LINKING ══
-   Clicking "Order / Request / Inquire / Get Started" on a service card
-   now actually does something: it jumps to that path's request form,
-   pre-selects the matching service, highlights the form, and focuses
-   the first field so the visitor can immediately type and send. */
-function requestService(path, serviceValue) {
-  const formIds = { individual: 'individualForm', company: 'companyForm', client: 'clientForm' };
-  const form = document.getElementById(formIds[path]);
-  if (!form) return;
-
-  const select = form.querySelector('select');
-  if (select) select.value = serviceValue;
-
-  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  form.classList.remove('highlight');
-  // restart the animation even if triggered twice in a row
-  void form.offsetWidth;
-  form.classList.add('highlight');
-  setTimeout(() => form.classList.remove('highlight'), 1500);
-
-  const firstField = form.querySelector('input, textarea');
-  setTimeout(() => { if (firstField) firstField.focus({ preventScroll: true }); }, 450);
-}
-
-/* ══ INTRO PORTFOLIO GALLERY ══
-   Populated from /images/ next to this HTML file. Any image that
-   fails to load quietly removes itself instead of showing a broken
-   icon, so the strip still looks clean even before all files are added. */
-const introGalleryImages = [
-  '3 --02.jpg',
-  '3 -_Plan de travail 1.jpg',
-  '555.jpg',
-  'CNAME cafai 01 .jpg',
-  'cap.png',
-  'captur .png',
-  'cart visite -02 copie.jpg',
-  'cart visite _Plan de travail 1 copie.jpg',
-  'carte visit 1.jpg',
-  'flayer.jpg',
-  'habillage .jpg'
-];
-
-function buildIntroGallery() {
-  const track = document.getElementById('introGalleryTrack');
-  if (!track) return;
-  // duplicated once for a seamless infinite scroll loop
-  const doubled = introGalleryImages.concat(introGalleryImages);
-  track.innerHTML = doubled.map(name => `
-    <div class="intro-gallery-item">
-      <img src="images/${name}" alt="" loading="lazy" onerror="this.parentElement.remove();">
-    </div>
-  `).join('');
-}
-
-// Select path and transition (adds a new history entry)
-function selectPath(path) {
-  selectedPath = path;
-  localStorage.setItem('selectedPath', path);
-
-  history.pushState({ screen: 'main', path: path }, '', '#' + path);
-
-  // Show loading screen
-  document.getElementById('languageScreen').classList.remove('active');
-  document.getElementById('pathScreen').classList.remove('active');
-  document.getElementById('loadingScreen').classList.add('active');
-
-  // Simulate loading and transition
-  setTimeout(() => {
-    document.getElementById('loadingScreen').classList.remove('active');
-    document.getElementById('mainNav').style.display = 'flex';
-    document.getElementById('mainContent').classList.add('show');
-
-    // Show selected path
-    document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
-    document.getElementById(`${path}-path`).style.display = 'block';
-
-    // Trigger animations
-    setTimeout(() => {
-      document.querySelectorAll('.layer').forEach((layer, i) => {
-        layer.style.animationDelay = `${i * 0.2}s`;
-      });
-    }, 100);
-  }, 1500);
-}
-
-window.addEventListener('popstate', (e) => {
-  applyScreenState(e.state);
-});
-
-// Initialize on load
-window.addEventListener('DOMContentLoaded', () => {
-  buildIntroGallery();
-
-  // Check for saved preferences
-  const savedLanguage = localStorage.getItem('selectedLanguage');
-  const savedPath = localStorage.getItem('selectedPath');
-
-  if (savedLanguage) {
-    setLanguage(savedLanguage);
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('initial-active'));
-    const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn =>
-      btn.textContent.trim().toUpperCase() === savedLanguage.toUpperCase()
-    );
-    if (langBtn) langBtn.classList.add('initial-active');
-  } else {
-    updateTranslations();
-  }
-
-  // If path is saved, skip to path selection; else show language screen first.
-  // Establish this as the base history entry (replaceState, not pushState).
-  if (savedPath) {
-    document.getElementById('languageScreen').classList.remove('active');
-    document.getElementById('pathScreen').classList.add('active');
-    history.replaceState({ screen: 'path' }, '', '#path');
-  } else {
-    history.replaceState({ screen: 'language' }, '', location.pathname);
-  }
-
-  // Show path screen after language selection
-  document.querySelectorAll('.lang-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      setTimeout(() => {
-        document.getElementById('languageScreen').classList.remove('active');
-        document.getElementById('pathScreen').classList.add('active');
-        history.pushState({ screen: 'path' }, '', '#path');
-      }, 300);
-    });
-  });
-});
-
-/* ══ FORMS: real submission via Email or WhatsApp ══
-   There is no backend, so "sending" a request means handing the
-   visitor's data to their own email app (mailto:) or WhatsApp
-   (wa.me) with everything pre-filled — nothing is lost, nothing is
-   silently swallowed by a page reload like before. */
-
-const BUSINESS_EMAIL = 'hello@nouvura.com';
-const BUSINESS_WHATSAPP = '213123456789';
-
-function collectFormData(form) {
-  return Array.from(form.querySelectorAll('[data-field]')).map(field => ({
-    label: field.getAttribute('data-field'),
-    value: (field.value || '').trim()
-  }));
-}
-
-function setFormStatus(form, message, type) {
-  const status = form.querySelector('[data-role="status"]');
-  if (!status) return;
-  status.textContent = message;
-  status.className = 'form-status' + (type ? ' ' + type : '');
-}
-
-function submitViaEmail(formId, subjectPrefix) {
-  const form = document.getElementById(formId);
-  if (!form) return;
-  if (!form.reportValidity()) return;
-
-  const data = collectFormData(form);
-  const bodyLines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
-  const subject = `${subjectPrefix} — NOUVURA`;
-  const mailtoUrl = `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines)}`;
-
-  setFormStatus(form, translations[currentLanguage]['form-status-email'], 'success');
-  window.location.href = mailtoUrl;
-}
-
-function submitViaWhatsApp(formId, subjectPrefix) {
-  const form = document.getElementById(formId);
-  if (!form) return;
-  if (!form.reportValidity()) return;
-
-  const data = collectFormData(form);
-  const bodyLines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
-  const message = `${subjectPrefix}\n\n${bodyLines}`;
-  const waUrl = `https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent(message)}`;
-
-  setFormStatus(form, translations[currentLanguage]['form-status-whatsapp'], 'success');
-  window.open(waUrl, '_blank');
-}
-
-// Smooth scroll animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('show');
-    }
-  });
-}, { threshold: 0.1 });
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.layer').forEach(layer => {
-    observer.observe(layer);
-  });
-});
 </script>
 
 </body>
