@@ -47,7 +47,7 @@ body::after { content:""; position:fixed; inset:0; background: radial-gradient(e
 @keyframes barGlow { 0%,100% { opacity: 0.6; } 50% { opacity: 1; box-shadow: 0 0 20px var(--cyan); } }
 
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 18px 44px; background: linear-gradient(180deg, rgba(14,1,5,0.95) 0%, transparent 100%); backdrop-filter: blur(8px); }
-.nav-logo { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; color: var(--cyan); letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(0,240,255,0.5); text-decoration: none; }
+.nav-logo { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; color: var(--cyan); letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(0,240,255,0.5); text-decoration: none; }
 .nav-links { display: flex; gap: 32px; list-style: none; }
 .nav-links a { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: rgba(0,240,255,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
 .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.6); }
@@ -122,9 +122,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .logo-wrap { position: relative; margin-bottom: 30px; }
 .logo-glow-ring { position: absolute; inset: -24px; border: 1px solid rgba(0,240,255,0.18); border-radius: 50%; animation: ringRotate 12s linear infinite; }
 @keyframes ringRotate { to { transform: rotate(360deg); } }
-.logo-box { width: 128px; height: 128px; border-radius: 22px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; }
-.logo-box img { width: 100px; height: 100px; object-fit: contain; }
-.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 46px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
+.logo-box { width: 140px; height: 140px; border-radius: 24px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; }
+.logo-box img { width: 108px; height: 108px; object-fit: contain; }
+.logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 50px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
 .hero-eyebrow { font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:.3em; color:rgba(0,240,255,.7); text-transform:uppercase; margin-bottom:18px; }
 .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(30px, 6.4vw, 58px); font-weight: 900; color: #fff; letter-spacing: 0.01em; line-height: 1.2; text-shadow: 0 0 40px rgba(0,240,255,0.3); margin-bottom: 20px; max-width: 900px; animation: heroReveal 1s var(--ease) both; }
 .hero h1 .accent { color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,.5); }
@@ -183,7 +183,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 @keyframes formPulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.5); } 70% { box-shadow: 0 0 0 14px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
 
 /* Site logo image (falls back to the "N" glyph if logo.png isn't found) */
-.logo-box img.logo-img { width: 84px; height: 84px; object-fit: contain; }
+.logo-box img.logo-img { width: 94px; height: 94px; object-fit: contain; }
 
 /* Intro portfolio showcase strip on the language screen */
 .intro-gallery { width: 100%; max-width: 100%; overflow: hidden; margin-top: 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
@@ -249,13 +249,68 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
   .service-grid { grid-template-columns: 1fr; }
   .path-options { grid-template-columns: 1fr; }
   .hero { padding: 100px 16px 60px; }
+  .intro-tagline { font-size: 12.5px; padding: 0 30px; }
+  .hero-cta { width: 100%; max-width: 320px; }
 }
+
+/* ══ INTRO SPLASH (first visit only) ══ */
+.intro-splash { z-index: 500; }
+.intro-splash .screen-overlay { flex-direction: column; gap: 20px; background: var(--bg-deep); }
+.intro-logo-wrap { position: relative; animation: introLogoIn 1s var(--ease) both; }
+.intro-logo-wrap .logo-glow-ring { animation: ringRotate 12s linear infinite, introRingGlow 2.2s ease-in-out infinite; }
+@keyframes introLogoIn { from { opacity: 0; transform: scale(0.72); } to { opacity: 1; transform: scale(1); } }
+@keyframes introRingGlow { 0%,100% { opacity: 0.5; } 50% { opacity: 1; box-shadow: 0 0 30px rgba(0,240,255,0.3); } }
+.intro-brand-name { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; letter-spacing: 0.32em; color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,0.55); animation: fadeInUp 0.9s 0.25s both; opacity: 0; animation-fill-mode: forwards; }
+.intro-tagline { font-size: 14px; color: var(--text-dim); letter-spacing: 0.03em; text-align: center; max-width: 480px; padding: 0 20px; animation: fadeInUp 0.9s 0.5s both; opacity: 0; animation-fill-mode: forwards; }
+.intro-splash.intro-fade-out { opacity: 0 !important; visibility: hidden !important; transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease); }
+@media (prefers-reduced-motion: reduce) {
+  .intro-logo-wrap, .intro-brand-name, .intro-tagline, .logo-glow-ring { animation: none !important; opacity: 1 !important; }
+}
+
+/* ══ HERO CTA (added conversion button) ══ */
+.hero-cta { margin-top: 22px; animation: heroReveal 1s var(--ease) 0.3s both; }
+
+/* ══ MICRO-INTERACTIONS: tactile press feedback ══ */
+.btn-primary, .btn-secondary, .btn-submit, .btn-back, .lang-option, .path-option-card, .contact-method, .nav-back-btn, .lang-btn { transition: all 0.2s var(--ease), transform 0.15s var(--ease); }
+.btn-primary:active, .btn-secondary:active, .btn-submit:active, .btn-back:active { transform: scale(0.96); }
+.lang-option:active { transform: scale(0.97); }
+.path-option-card:active { transform: translateY(-2px) scale(0.98); }
+.contact-method:active, .nav-back-btn:active, .lang-btn:active { transform: scale(0.94); }
+.service-card { transition: all 0.35s var(--ease), transform 0.2s var(--ease); }
+.service-card:active { transform: translateY(-2px) scale(0.99); }
+
+/* ══ STAGGERED SERVICE CARD REVEAL ══ */
+.layer .service-card { opacity: 0; animation: cardReveal 0.6s var(--ease) forwards; animation-play-state: paused; }
+.layer.show .service-card { animation-play-state: running; }
+.layer .service-card:nth-child(1) { animation-delay: 0.05s; }
+.layer .service-card:nth-child(2) { animation-delay: 0.15s; }
+.layer .service-card:nth-child(3) { animation-delay: 0.25s; }
+.layer .service-card:nth-child(4) { animation-delay: 0.35s; }
+@keyframes cardReveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ══ TRUST LINE ══ */
+.trust-line { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,240,255,0.55); margin-top: 22px; }
 
 </style>
 </head>
 <body>
 
 <div class="system-bar"></div>
+
+<!-- Intro Splash (first visit only, self-dismissing, no history entry) -->
+<div id="introSplash" class="screen intro-splash">
+  <div class="screen-overlay">
+    <div class="intro-logo-wrap">
+      <div class="logo-glow-ring"></div>
+      <div class="logo-box">
+        <img class="logo-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+        <span class="logo-box-fallback" style="display:none;">N</span>
+      </div>
+    </div>
+    <div class="intro-brand-name">NOUVURA</div>
+    <p class="intro-tagline" id="introTagline"></p>
+  </div>
+</div>
 
 <!-- Language Selection Screen -->
 <div id="languageScreen" class="screen active">
@@ -363,6 +418,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
       <h1 data-i18n="individual-title">Welcome to <span class="accent">Nouvura</span> Services</h1>
       <p class="hero-slogan" data-i18n="individual-slogan">Fast, simple, high-quality solutions for your personal needs</p>
+      <button type="button" class="btn-primary hero-cta" onclick="scrollToForm('individualForm')" data-i18n="hero-cta-individual">Get a Free Quote</button>
       <div class="scroll-hint">
         <span data-i18n="scroll-explore">Scroll to Explore</span>
         <div class="scroll-arrow"></div>
@@ -379,7 +435,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- DTF Printing -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Impression%20DTF.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Impression%20DTF.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-dtf-title">DTF Printing</h4>
           <p data-i18n="service-dtf-desc">Print your designs on premium garments with high precision and durability.</p>
           <button class="btn-primary" data-i18n="btn-order" onclick="requestService('individual','dtf')">Order Now</button>
@@ -387,7 +443,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Business Cards & Flyers -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Cartes%20de%20Visite%20&%20Dépliants.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Cartes%20de%20Visite%20&%20Dépliants.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-print-title">Business Cards & Flyers</h4>
           <p data-i18n="service-print-desc">Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.</p>
           <button class="btn-primary" data-i18n="btn-request" onclick="requestService('individual','cards')">Request Now</button>
@@ -395,7 +451,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Posters -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Affiches.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Affiches.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-posters-title">Posters</h4>
           <p data-i18n="service-posters-desc">High-quality large format prints: autocollant (adhesive), standard paper, premium finish.</p>
           <button class="btn-primary" data-i18n="btn-order-poster" onclick="requestService('individual','posters')">Order Poster</button>
@@ -403,7 +459,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Stickers -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Autocollants.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Autocollants.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-stickers-title">Stickers</h4>
           <p data-i18n="service-stickers-desc">Custom stickers you can place anywhere: phones, laptops, packaging, and more.</p>
           <button class="btn-primary" data-i18n="btn-order-stickers" onclick="requestService('individual','stickers')">Order Stickers</button>
@@ -493,6 +549,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
       <h1 data-i18n="company-title">Build Your Brand With <span class="accent">Precision</span></h1>
       <p class="hero-slogan" data-i18n="company-slogan">From concept to execution — we handle everything</p>
+      <button type="button" class="btn-primary hero-cta" onclick="scrollToForm('companyForm')" data-i18n="hero-cta-company">Start Your Project</button>
       <div class="scroll-hint">
         <span data-i18n="scroll-explore">Scroll to Explore</span>
         <div class="scroll-arrow"></div>
@@ -509,7 +566,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- CNC & Laser -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Découpe%20CNC%20&%20Laser.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Découpe%20CNC%20&%20Laser.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-cnc-title">CNC & Laser Cutting</h4>
           <p data-i18n="service-cnc-desc">Precision cutting and design using: Forex, Alucobond, Acrylic and more.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','cnc')">Inquire</button>
@@ -517,7 +574,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Signage -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Signalétique%20&%20Panneaux%20Publicitaires.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Signalétique%20&%20Panneaux%20Publicitaires.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-signage-title">Signage & Advertising Boards</h4>
           <p data-i18n="service-signage-desc">All types of signage: illuminated signs, 3D lettering, autocollant signage.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','signage')">Inquire</button>
@@ -525,7 +582,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Vehicle Wrapping -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Habillage%20Véhicules.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Habillage%20Véhicules.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-wrap-title">Vehicle Wrapping</h4>
           <p data-i18n="service-wrap-desc">Transform cars and trucks into moving advertisements.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','wrapping')">Inquire</button>
@@ -533,7 +590,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Branding -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Branding%20&%20Impression.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Branding%20&%20Impression.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-branding-title">Branding & Printing</h4>
           <p data-i18n="service-branding-desc">Business cards, clothing, large prints, and full brand identity.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','branding')">Inquire</button>
@@ -633,6 +690,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
       <h1 data-i18n="client-title">Digital Growth & <span class="accent">Presence</span></h1>
       <p class="hero-slogan" data-i18n="client-slogan">Build your online presence with cutting-edge digital solutions</p>
+      <button type="button" class="btn-primary hero-cta" onclick="scrollToForm('clientForm')" data-i18n="hero-cta-client">Let's Build Your Brand</button>
       <div class="scroll-hint">
         <span data-i18n="scroll-explore">Scroll to Explore</span>
         <div class="scroll-arrow"></div>
@@ -649,7 +707,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- Web Design -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Conception%20Web.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Conception%20Web.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-web-title">Website Design</h4>
           <p data-i18n="service-web-desc">Custom, high-performing websites that convert visitors into customers.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','web')">Get Started</button>
@@ -657,7 +715,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Social Media -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Création%20de%20contenu,.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Création%20de%20contenu,.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-social-title">Social Media Management</h4>
           <p data-i18n="service-social-desc">Content creation, strategy, and engagement across all major platforms.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','social')">Get Started</button>
@@ -665,7 +723,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- UI/UX -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Des%20interfaces%20belles.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Des%20interfaces%20belles.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-uiux-title">UI/UX Design</h4>
           <p data-i18n="service-uiux-desc">Beautiful, intuitive interfaces that users love and brands trust.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','uiux')">Get Started</button>
@@ -673,7 +731,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Optimization -->
         <div class="service-card">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Optimisation%20Web.png" alt="" onerror="this.remove();">
+          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Optimisation%20Web.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-seo-title">Website Optimization</h4>
           <p data-i18n="service-seo-desc">Performance, SEO, and conversion rate optimization for maximum ROI.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','seo')">Get Started</button>
@@ -761,16 +819,20 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
         Have questions? Reach out through your preferred channel.
       </p>
       <div class="contact-methods">
-        <a href="mailto:hello@nouvura.com" class="contact-method">
+        <a href="tel:+213776532042" class="contact-method">
+          <span data-i18n="contact-phone">Call Us</span>
+        </a>
+        <a href="mailto:yacineiguenene@gmail.com" class="contact-method">
           <span data-i18n="contact-email">Email</span>
         </a>
-        <a href="https://wa.me/213123456789" target="_blank" class="contact-method" style="border-color: rgba(37,211,102,.3); color: var(--wa);">
+        <a href="https://wa.me/213776532042" target="_blank" class="contact-method" style="border-color: rgba(37,211,102,.3); color: var(--wa);">
           <span data-i18n="contact-whatsapp">WhatsApp</span>
         </a>
         <a href="https://instagram.com/nouvura" target="_blank" class="contact-method">
           <span data-i18n="contact-social">Follow Us</span>
         </a>
       </div>
+      <p class="trust-line" data-i18n="trust-line">Trusted by growing businesses across Algeria.</p>
     </div>
   </div>
 
@@ -863,7 +925,12 @@ const translations = {
     'btn-send-wa': 'Send via WhatsApp',
     'form-required-alert': 'Please fill in all required fields before sending.',
     'form-status-email': 'Opening your email app...',
-    'form-status-whatsapp': 'Opening WhatsApp...'
+    'form-status-whatsapp': 'Opening WhatsApp...',
+    'hero-cta-individual': 'Get a Free Quote',
+    'hero-cta-company': 'Start Your Project',
+    'hero-cta-client': "Let's Build Your Brand",
+    'trust-line': 'Trusted by growing businesses across Algeria.',
+    'contact-phone': 'Call Us'
   },
   fr: {
     'select-language': 'Sélectionnez Votre Langue',
@@ -949,7 +1016,12 @@ const translations = {
     'btn-send-wa': 'Envoyer via WhatsApp',
     'form-required-alert': 'Veuillez remplir tous les champs obligatoires avant d\'envoyer.',
     'form-status-email': 'Ouverture de votre application e-mail...',
-    'form-status-whatsapp': 'Ouverture de WhatsApp...'
+    'form-status-whatsapp': 'Ouverture de WhatsApp...',
+    'hero-cta-individual': 'Obtenir un Devis Gratuit',
+    'hero-cta-company': 'Démarrer Votre Projet',
+    'hero-cta-client': 'Construisons Votre Marque',
+    'trust-line': 'Approuvé par des entreprises en pleine croissance en Algérie.',
+    'contact-phone': 'Appelez-nous'
   },
   ar: {
     'select-language': 'اختر ل��تك',
@@ -1035,7 +1107,12 @@ const translations = {
     'btn-send-wa': 'إرسال عبر واتس آب',
     'form-required-alert': 'يرجى تعبئة جميع الحقول المطلوبة قبل الإرسال.',
     'form-status-email': 'جارٍ فتح تطبيق البريد الإلكتروني...',
-    'form-status-whatsapp': 'جارٍ فتح واتس آب...'
+    'form-status-whatsapp': 'جارٍ فتح واتس آب...',
+    'hero-cta-individual': 'احصل على عرض سعر مجاني',
+    'hero-cta-company': 'ابدأ مشروعك',
+    'hero-cta-client': 'لنبنِ علامتك التجارية',
+    'trust-line': 'موثوق به من قبل شركات نامية في الجزائر.',
+    'contact-phone': 'اتصل بنا'
   }
 };
 
@@ -1261,8 +1338,8 @@ window.addEventListener('DOMContentLoaded', () => {
    (wa.me) with everything pre-filled — nothing is lost, nothing is
    silently swallowed by a page reload like before. */
 
-const BUSINESS_EMAIL = 'hello@nouvura.com';
-const BUSINESS_WHATSAPP = '213123456789';
+const BUSINESS_EMAIL = 'yacineiguenene@gmail.com';
+const BUSINESS_WHATSAPP = '213776532042';
 
 function collectFormData(form) {
   return Array.from(form.querySelectorAll('[data-field]')).map(field => ({
@@ -1320,6 +1397,51 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(layer);
   });
 });
+
+/* ══ FIRST-VISIT INTRO SPLASH ══
+   Shows only once per browser (localStorage flag). Purely a first-paint
+   overlay — it does not participate in the screen/history state machine,
+   so it can never interfere with back-button navigation. */
+(function initIntroSplash() {
+  const introEl = document.getElementById('introSplash');
+  if (!introEl) return;
+
+  if (localStorage.getItem('nouvuraIntroSeen')) {
+    introEl.style.display = 'none';
+    return;
+  }
+
+  const taglines = [
+    "We Don't Design. We Build Perception.",
+    "Your Brand, Elevated.",
+    "Design That Sells.",
+    "From فكرة to Impact.",
+    "Make Your Brand Unforgettable."
+  ];
+  const tagEl = document.getElementById('introTagline');
+  if (tagEl) tagEl.textContent = taglines[Math.floor(Math.random() * taglines.length)];
+
+  introEl.classList.add('active');
+  localStorage.setItem('nouvuraIntroSeen', '1');
+
+  setTimeout(() => {
+    introEl.classList.add('intro-fade-out');
+    setTimeout(() => { introEl.style.display = 'none'; }, 650);
+  }, 2600);
+})();
+
+/* ══ HERO CTA → jump to the relevant request form ══ */
+function scrollToForm(formId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  form.classList.remove('highlight');
+  void form.offsetWidth;
+  form.classList.add('highlight');
+  setTimeout(() => form.classList.remove('highlight'), 1500);
+  const firstField = form.querySelector('input, textarea, select');
+  setTimeout(() => { if (firstField) firstField.focus({ preventScroll: true }); }, 450);
+}
 </script>
 
 </body>
