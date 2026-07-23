@@ -171,12 +171,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
 /* ══ SERVICE GRID ══ */
 .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.service-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease); padding: 30px; text-align: left; }
+.service-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease); padding: 30px; text-align: left; cursor: pointer; }
 .service-card:hover { border-color: var(--cyan); box-shadow: 0 0 34px rgba(0,240,255,0.16); transform: translateY(-4px); }
 .service-card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; margin-bottom: 18px; border: 1px solid rgba(0,240,255,0.15); background: rgba(0,240,255,0.04); }
 .service-card h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 12px; font-weight: 700; }
 .service-card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
-.service-card .btn-primary { margin-top: auto; }
+.service-card .btn-primary { margin-top: auto; position: relative; z-index: 2; }
 
 /* Highlight pulse when a service jumps the visitor to its request form */
 .nform.highlight { animation: formPulse 1.4s ease-out; border-radius: 10px; }
@@ -290,6 +290,47 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
 /* ══ TRUST LINE ══ */
 .trust-line { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,240,255,0.55); margin-top: 22px; }
+
+/* ══════════════════════════════════════════════════════
+   SERVICE MARKETPLACE + ORDER FUNNEL (extends existing UI)
+   ══════════════════════════════════════════════════════ */
+.modal-overlay { position: fixed; inset: 0; z-index: 600; background: rgba(14,1,5,0.9); backdrop-filter: blur(10px); display: flex; align-items: flex-start; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.35s var(--ease), visibility 0.35s var(--ease); overflow-y: auto; padding: 90px 20px 60px; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-panel { width: 100%; max-width: 1000px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px 46px; position: relative; transform: translateY(24px); opacity: 0; transition: transform 0.4s var(--ease), opacity 0.4s var(--ease); }
+.modal-overlay.active .modal-panel { transform: translateY(0); opacity: 1; }
+.modal-header { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+.modal-header-text { flex: 1; min-width: 0; }
+.modal-title { font-family: 'Orbitron', sans-serif; font-size: clamp(16px, 2.6vw, 22px); font-weight: 800; color: #fff; letter-spacing: 0.02em; margin-top: 8px; }
+.modal-close { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,240,255,0.3); background: rgba(0,240,255,0.05); color: var(--cyan); cursor: pointer; font-size: 16px; line-height: 1; transition: all 0.2s var(--ease); }
+.modal-close:hover { background: rgba(0,240,255,0.14); box-shadow: 0 0 18px rgba(0,240,255,0.25); }
+.modal-close:active { transform: scale(0.92); }
+.modal-intro { font-size: 13.5px; color: var(--text-dim); line-height: 1.7; max-width: 680px; margin-bottom: 28px; }
+
+/* Product cards — mirror .service-card visual language */
+.product-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease), transform 0.2s var(--ease); padding: 26px; text-align: left; display: flex; flex-direction: column; opacity: 0; animation: cardReveal 0.5s var(--ease) forwards; }
+.product-card:hover { border-color: var(--cyan); box-shadow: 0 0 34px rgba(0,240,255,0.16); transform: translateY(-4px); }
+.product-card:active { transform: translateY(-2px) scale(0.99); }
+.product-card-img.placeholder-img { width: 100%; aspect-ratio: 16/10; border-radius: 8px; margin-bottom: 16px; border: 1px solid rgba(0,240,255,0.15); background: linear-gradient(135deg, rgba(0,240,255,0.08), rgba(0,240,255,0.02)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.product-card-img.placeholder-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(0,240,255,0.12) 50%, transparent 70%); background-size: 200% 100%; animation: shimmer 2.6s ease-in-out infinite; }
+@keyframes shimmer { 0% { background-position: 160% 0; } 100% { background-position: -60% 0; } }
+.product-card-img svg { width: 32px; height: 32px; color: rgba(0,240,255,0.5); position: relative; z-index: 1; }
+.coming-soon-badge { position: absolute; top: 14px; right: 14px; font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,240,255,0.4); background: rgba(0,240,255,0.08); padding: 5px 10px; border-radius: 20px; z-index: 2; white-space: nowrap; }
+[dir="rtl"] .coming-soon-badge { right: auto; left: 14px; }
+.product-title { font-family: 'Orbitron', sans-serif; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; margin-bottom: 10px; margin-right: 70px; font-weight: 700; line-height: 1.4; }
+[dir="rtl"] .product-title { margin-right: 0; margin-left: 70px; }
+.product-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin-bottom: 14px; flex: 1; }
+.product-price { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.06em; color: rgba(0,240,255,0.75); margin-bottom: 16px; }
+.product-card .btn-primary { width: 100%; justify-content: center; }
+
+/* Honeypot — invisible to real visitors, catches basic bots */
+.hp-field { position: absolute !important; left: -9999px !important; top: -9999px !important; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+/* Modal responsiveness */
+@media (max-width: 768px) {
+  .modal-overlay { padding: 84px 12px 40px; }
+  .modal-panel { padding: 28px 20px 34px; }
+  .modal-header { gap: 12px; }
+}
 
 </style>
 </head>
@@ -434,35 +475,35 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
       <div class="service-grid">
         <!-- DTF Printing -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('dtf')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Impression%20DTF.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-dtf-title">DTF Printing</h4>
           <p data-i18n="service-dtf-desc">Print your designs on premium garments with high precision and durability.</p>
-          <button class="btn-primary" data-i18n="btn-order" onclick="requestService('individual','dtf')">Order Now</button>
+          <button class="btn-primary" data-i18n="btn-order" onclick="openMarketplace('dtf')">Order Now</button>
         </div>
 
         <!-- Business Cards & Flyers -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('cards')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Cartes%20de%20Visite%20&%20Dépliants.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-print-title">Business Cards & Flyers</h4>
           <p data-i18n="service-print-desc">Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.</p>
-          <button class="btn-primary" data-i18n="btn-request" onclick="requestService('individual','cards')">Request Now</button>
+          <button class="btn-primary" data-i18n="btn-request" onclick="openMarketplace('cards')">Request Now</button>
         </div>
 
         <!-- Posters -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('posters')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Affiches.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-posters-title">Posters</h4>
           <p data-i18n="service-posters-desc">High-quality large format prints: autocollant (adhesive), standard paper, premium finish.</p>
-          <button class="btn-primary" data-i18n="btn-order-poster" onclick="requestService('individual','posters')">Order Poster</button>
+          <button class="btn-primary" data-i18n="btn-order-poster" onclick="openMarketplace('posters')">Order Poster</button>
         </div>
 
         <!-- Stickers -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('stickers')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Autocollants.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-stickers-title">Stickers</h4>
           <p data-i18n="service-stickers-desc">Custom stickers you can place anywhere: phones, laptops, packaging, and more.</p>
-          <button class="btn-primary" data-i18n="btn-order-stickers" onclick="requestService('individual','stickers')">Order Stickers</button>
+          <button class="btn-primary" data-i18n="btn-order-stickers" onclick="openMarketplace('stickers')">Order Stickers</button>
         </div>
       </div>
     </div>
@@ -565,35 +606,35 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
       <div class="service-grid">
         <!-- CNC & Laser -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('cnc')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Découpe%20CNC%20&%20Laser.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-cnc-title">CNC & Laser Cutting</h4>
           <p data-i18n="service-cnc-desc">Precision cutting and design using: Forex, Alucobond, Acrylic and more.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','cnc')">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('cnc')">Inquire</button>
         </div>
 
         <!-- Signage -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('signage')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Signalétique%20&%20Panneaux%20Publicitaires.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-signage-title">Signage & Advertising Boards</h4>
           <p data-i18n="service-signage-desc">All types of signage: illuminated signs, 3D lettering, autocollant signage.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','signage')">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('signage')">Inquire</button>
         </div>
 
         <!-- Vehicle Wrapping -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('wrapping')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Habillage%20Véhicules.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-wrap-title">Vehicle Wrapping</h4>
           <p data-i18n="service-wrap-desc">Transform cars and trucks into moving advertisements.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','wrapping')">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('wrapping')">Inquire</button>
         </div>
 
         <!-- Branding -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('branding')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Branding%20&%20Impression.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-branding-title">Branding & Printing</h4>
           <p data-i18n="service-branding-desc">Business cards, clothing, large prints, and full brand identity.</p>
-          <button class="btn-primary" data-i18n="btn-inquire" onclick="requestService('company','branding')">Inquire</button>
+          <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('branding')">Inquire</button>
         </div>
       </div>
     </div>
@@ -706,35 +747,35 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
       <div class="service-grid">
         <!-- Web Design -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('web')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Conception%20Web.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-web-title">Website Design</h4>
           <p data-i18n="service-web-desc">Custom, high-performing websites that convert visitors into customers.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','web')">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('web')">Get Started</button>
         </div>
 
         <!-- Social Media -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('social')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Création%20de%20contenu,.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-social-title">Social Media Management</h4>
           <p data-i18n="service-social-desc">Content creation, strategy, and engagement across all major platforms.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','social')">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('social')">Get Started</button>
         </div>
 
         <!-- UI/UX -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('uiux')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Des%20interfaces%20belles.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-uiux-title">UI/UX Design</h4>
           <p data-i18n="service-uiux-desc">Beautiful, intuitive interfaces that users love and brands trust.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','uiux')">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('uiux')">Get Started</button>
         </div>
 
         <!-- Optimization -->
-        <div class="service-card">
+        <div class="service-card" onclick="openMarketplace('seo')">
           <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Optimisation%20Web.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-seo-title">Website Optimization</h4>
           <p data-i18n="service-seo-desc">Performance, SEO, and conversion rate optimization for maximum ROI.</p>
-          <button class="btn-primary" data-i18n="btn-start" onclick="requestService('client','seo')">Get Started</button>
+          <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('seo')">Get Started</button>
         </div>
       </div>
     </div>
@@ -838,6 +879,84 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
 </div>
 
+<!-- ══ SERVICE MARKETPLACE MODAL ══ -->
+<div id="marketplaceModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="marketplaceTitle">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="nav-back-btn" onclick="closeMarketplace()" data-i18n-title="btn-back" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="modal-header-text">
+        <span class="funnel-badge b2b" data-i18n="badge-marketplace">MARKETPLACE</span>
+        <h2 class="modal-title" id="marketplaceTitle">Service</h2>
+      </div>
+      <button type="button" class="modal-close" onclick="closeMarketplace()" aria-label="Close">✕</button>
+    </div>
+    <p class="modal-intro" data-i18n="marketplace-intro">Browse the product lineup for this service below. Full ordering launches soon — place a pre-order request today and we'll follow up personally.</p>
+    <div class="service-grid" id="marketplaceGrid"></div>
+  </div>
+</div>
+
+<!-- ══ ORDER REQUEST MODAL ══ -->
+<div id="orderModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <button type="button" class="nav-back-btn" onclick="backToMarketplace()" data-i18n-title="btn-back" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="modal-header-text">
+        <span class="funnel-badge b2c" data-i18n="badge-order-request">ORDER REQUEST</span>
+        <h2 class="modal-title" id="orderModalTitle">Product</h2>
+      </div>
+      <button type="button" class="modal-close" onclick="closeOrderModal()" aria-label="Close">✕</button>
+    </div>
+    <form class="nform" id="orderForm" novalidate>
+      <!-- Honeypot: real visitors never see or fill this -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="orderWebsiteField">Website</label>
+        <input type="text" id="orderWebsiteField" data-field="Website" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="form-field full">
+        <label class="form-label" data-i18n="form-product">Product</label>
+        <input type="text" class="form-input" id="orderProductField" data-field="Product" readonly>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" data-i18n="form-name">Full Name <span class="req">*</span></label>
+          <input type="text" class="form-input" data-field="Full Name" required maxlength="80" autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
+          <input type="tel" class="form-input" data-field="Phone" required maxlength="30" autocomplete="tel">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" data-i18n="form-email">Email</label>
+          <input type="email" class="form-input" data-field="Email" maxlength="120" autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label class="form-label" data-i18n="form-attachment">Attach File</label>
+          <input type="file" class="form-input" data-field="Attachment" accept="image/*,.pdf">
+        </div>
+      </div>
+      <div class="form-field full">
+        <label class="form-label" data-i18n="form-details">Additional Details</label>
+        <textarea class="form-textarea" data-field="Details" maxlength="600" data-i18n-placeholder="form-details-placeholder" placeholder="Quantity, colors, sizes, deadline..."></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-submit email" onclick="submitOrderViaEmail()">
+          <span data-i18n="btn-send">Send Request</span>
+        </button>
+        <button type="button" class="btn-submit whatsapp" onclick="submitOrderViaWhatsApp()">
+          <span data-i18n="btn-send-wa">Send via WhatsApp</span>
+        </button>
+      </div>
+      <p class="form-status" id="orderFormStatus"></p>
+    </form>
+  </div>
+</div>
+
 <script>
 // Internationalization data
 const translations = {
@@ -930,7 +1049,15 @@ const translations = {
     'hero-cta-company': 'Start Your Project',
     'hero-cta-client': "Let's Build Your Brand",
     'trust-line': 'Trusted by growing businesses across Algeria.',
-    'contact-phone': 'Call Us'
+    'contact-phone': 'Call Us',
+    'badge-marketplace': 'MARKETPLACE',
+    'badge-order-request': 'ORDER REQUEST',
+    'marketplace-intro': "Browse the product lineup for this service below. Full ordering launches soon — place a pre-order request today and we'll follow up personally.",
+    'form-product': 'Product',
+    'form-attachment': 'Attach File',
+    'form-details': 'Additional Details',
+    'form-details-placeholder': 'Quantity, colors, sizes, deadline...',
+    'order-spam-warning': 'Please wait a moment and try again.'
   },
   fr: {
     'select-language': 'Sélectionnez Votre Langue',
@@ -1021,7 +1148,15 @@ const translations = {
     'hero-cta-company': 'Démarrer Votre Projet',
     'hero-cta-client': 'Construisons Votre Marque',
     'trust-line': 'Approuvé par des entreprises en pleine croissance en Algérie.',
-    'contact-phone': 'Appelez-nous'
+    'contact-phone': 'Appelez-nous',
+    'badge-marketplace': 'MARKETPLACE',
+    'badge-order-request': 'DEMANDE DE COMMANDE',
+    'marketplace-intro': "Parcourez la gamme de produits de ce service ci-dessous. Le système de commande complet sera bientôt disponible — passez une précommande dès aujourd'hui et nous vous recontacterons personnellement.",
+    'form-product': 'Produit',
+    'form-attachment': 'Joindre un Fichier',
+    'form-details': 'Détails Supplémentaires',
+    'form-details-placeholder': 'Quantité, couleurs, tailles, délai...',
+    'order-spam-warning': 'Veuillez patienter un instant et réessayer.'
   },
   ar: {
     'select-language': 'اختر ل��تك',
@@ -1112,7 +1247,15 @@ const translations = {
     'hero-cta-company': 'ابدأ مشروعك',
     'hero-cta-client': 'لنبنِ علامتك التجارية',
     'trust-line': 'موثوق به من قبل شركات نامية في الجزائر.',
-    'contact-phone': 'اتصل بنا'
+    'contact-phone': 'اتصل بنا',
+    'badge-marketplace': 'المتجر',
+    'badge-order-request': 'طلب الشراء',
+    'marketplace-intro': 'تصفح تشكيلة المنتجات لهذه الخدمة أدناه. سيتم إطلاق نظام الطلب الكامل قريبًا — قدّم طلب حجز مسبق اليوم وسنتواصل معك شخصيًا.',
+    'form-product': 'المنتج',
+    'form-attachment': 'إرفاق ملف',
+    'form-details': 'تفاصيل إضافية',
+    'form-details-placeholder': 'الكمية، الألوان، المقاسات، الموعد النهائي...',
+    'order-spam-warning': 'يرجى الانتظار قليلاً والمحاولة مرة أخرى.'
   }
 };
 
@@ -1140,6 +1283,11 @@ function setLanguage(lang) {
     btn.textContent.trim().toUpperCase() === lang.toUpperCase()
   );
   if (langBtn) langBtn.classList.add('initial-active');
+
+  // If the marketplace is open, re-render its products in the new language
+  if (currentMarketplaceService && document.getElementById('marketplaceModal').classList.contains('active')) {
+    openMarketplace(currentMarketplaceService);
+  }
 }
 
 // Update all translations on page
@@ -1154,6 +1302,12 @@ function updateTranslations() {
     const key = el.getAttribute('data-i18n-title');
     if (translations[currentLanguage][key]) {
       el.title = translations[currentLanguage][key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[currentLanguage][key]) {
+      el.placeholder = translations[currentLanguage][key];
     }
   });
 }
@@ -1225,6 +1379,234 @@ function requestService(path, serviceValue) {
   const firstField = form.querySelector('input, textarea');
   setTimeout(() => { if (firstField) firstField.focus({ preventScroll: true }); }, 450);
 }
+
+/* ══════════════════════════════════════════════════════════
+   SERVICE MARKETPLACE + ORDER FUNNEL
+   Service card click → product marketplace → order form →
+   WhatsApp / Email. Placeholder data below; swap in real
+   products, prices, and images later without touching the
+   surrounding modal/form system.
+   ══════════════════════════════════════════════════════════ */
+
+// Which service (by key) is currently open in the marketplace modal, if any
+let currentMarketplaceService = null;
+
+// Maps each service key to the existing i18n key already used for its card title,
+// so the modal heading always matches the service name shown on the card.
+const serviceTitleKeys = {
+  dtf: 'service-dtf-title', cards: 'service-print-title', posters: 'service-posters-title', stickers: 'service-stickers-title',
+  cnc: 'service-cnc-title', signage: 'service-signage-title', wrapping: 'service-wrap-title', branding: 'service-branding-title',
+  web: 'service-web-title', social: 'service-social-title', uiux: 'service-uiux-title', seo: 'service-seo-title'
+};
+
+// Placeholder product names per service, per language (Phase 1 — replace with real catalog later)
+const productCatalogI18n = {
+  en: {
+    dtf: ['Custom T-Shirt Print', 'DTF Hoodie Print', 'DTF Cap Print'],
+    cards: ['Premium Business Cards', 'NFC Smart Cards', 'Flyers & Brochures'],
+    posters: ['Standard Poster Print', 'Adhesive Poster', 'Premium Finish Poster'],
+    stickers: ['Die-Cut Stickers', 'Sheet Stickers', 'Vinyl Stickers'],
+    cnc: ['Acrylic CNC Cut', 'Alucobond Panel Cut', 'Forex Board Cut'],
+    signage: ['Illuminated Sign', '3D Letter Sign', 'Adhesive Signage'],
+    wrapping: ['Full Vehicle Wrap', 'Partial Vehicle Wrap', 'Fleet Branding Wrap'],
+    branding: ['Brand Identity Package', 'Logo + Business Card Bundle', 'Full Print Branding Kit'],
+    web: ['Business Website', 'E-Commerce Website', 'Landing Page'],
+    social: ['Monthly Content Package', 'Social Media Strategy', 'Content Creation Bundle'],
+    uiux: ['App UI/UX Design', 'Website UI/UX Design', 'Design System'],
+    seo: ['SEO Audit & Optimization', 'Conversion Rate Optimization', 'Performance Optimization']
+  },
+  fr: {
+    dtf: ['Impression T-Shirt Personnalisé', 'Impression DTF Hoodie', 'Impression DTF Casquette'],
+    cards: ['Cartes de Visite Premium', 'Cartes NFC Intelligentes', 'Flyers & Brochures'],
+    posters: ['Affiche Standard', 'Affiche Adhésive', 'Affiche Finition Premium'],
+    stickers: ["Autocollants Découpés", "Planche d'Autocollants", 'Autocollants Vinyle'],
+    cnc: ['Découpe CNC Acrylique', 'Découpe Panneau Alucobond', 'Découpe Panneau Forex'],
+    signage: ['Enseigne Lumineuse', 'Lettrage 3D', 'Signalétique Adhésive'],
+    wrapping: ['Habillage Complet Véhicule', 'Habillage Partiel Véhicule', 'Habillage de Flotte'],
+    branding: ['Pack Identité de Marque', 'Logo + Cartes de Visite', 'Kit Branding Complet'],
+    web: ['Site Web Professionnel', 'Site E-Commerce', 'Landing Page'],
+    social: ['Pack Contenu Mensuel', 'Stratégie Réseaux Sociaux', 'Création de Contenu'],
+    uiux: ['Design UI/UX App', 'Design UI/UX Site Web', 'Système de Design'],
+    seo: ['Audit & Optimisation SEO', 'Optimisation du Taux de Conversion', 'Optimisation des Performances']
+  },
+  ar: {
+    dtf: ['طباعة تيشيرت مخصص', 'طباعة DTF على هودي', 'طباعة DTF على قبعة'],
+    cards: ['بطاقات عمل فاخرة', 'بطاقات NFC ذكية', 'منشورات وفلايرز'],
+    posters: ['ملصق قياسي', 'ملصق لاصق', 'ملصق تشطيب فاخر'],
+    stickers: ['ملصقات مقصوصة', 'ورقة ملصقات', 'ملصقات فينيل'],
+    cnc: ['قطع أكريليك CNC', 'قطع لوح ألوكوبوند', 'قطع لوح فوركس'],
+    signage: ['لافتة مضيئة', 'حروف ثلاثية الأبعاد', 'لافتات لاصقة'],
+    wrapping: ['تغليف كامل للمركبة', 'تغليف جزئي للمركبة', 'تغليف أسطول'],
+    branding: ['حزمة الهوية التجارية', 'شعار + بطاقات عمل', 'كيت العلامة التجارية الكامل'],
+    web: ['موقع ويب احترافي', 'متجر إلكتروني', 'صفحة هبوط'],
+    social: ['باقة محتوى شهرية', 'استراتيجية وسائل التواصل', 'إنشاء محتوى'],
+    uiux: ['تصميم واجهة تطبيق', 'تصميم واجهة موقع', 'نظام تصميم'],
+    seo: ['تدقيق وتحسين SEO', 'تحسين معدل التحويل', 'تحسين الأداء']
+  }
+};
+
+// Shared placeholder copy shown on every product card until the real catalog ships
+const productPlaceholderText = {
+  en: { desc: 'Full details, pricing, and options will be available soon.', price: 'Price: Coming Soon', badge: 'Coming Soon' },
+  fr: { desc: 'Tous les détails, prix et options seront bientôt disponibles.', price: 'Prix : Bientôt disponible', badge: 'Bientôt Disponible' },
+  ar: { desc: 'ستتوفر جميع التفاصيل والأسعار والخيارات قريبًا.', price: 'السعر: قريبًا', badge: 'قريبًا' }
+};
+
+function productPlaceholderIcon() {
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+}
+
+function renderProductCard(serviceKey, title, idx) {
+  const t = productPlaceholderText[currentLanguage] || productPlaceholderText.en;
+  // Escape single quotes so the title can safely sit inside the inline onclick string
+  const safeTitle = title.replace(/'/g, "\\'");
+  return `<div class="product-card" style="animation-delay:${(idx * 0.08).toFixed(2)}s">
+    <div class="product-card-img placeholder-img">${productPlaceholderIcon()}</div>
+    <span class="coming-soon-badge">${t.badge}</span>
+    <h4 class="product-title">${title}</h4>
+    <p class="product-desc">${t.desc}</p>
+    <div class="product-price">${t.price}</div>
+    <button type="button" class="btn-primary" onclick="openOrderForm('${serviceKey}','${safeTitle}')">${translations[currentLanguage]['btn-order'] || 'Order Now'}</button>
+  </div>`;
+}
+
+function openMarketplace(serviceKey) {
+  const products = (productCatalogI18n[currentLanguage] || productCatalogI18n.en)[serviceKey];
+  if (!products) return;
+  currentMarketplaceService = serviceKey;
+
+  const titleKey = serviceTitleKeys[serviceKey];
+  const serviceTitle = (titleKey && translations[currentLanguage][titleKey]) || serviceKey;
+  document.getElementById('marketplaceTitle').textContent = serviceTitle;
+  document.getElementById('marketplaceGrid').innerHTML = products.map((p, i) => renderProductCard(serviceKey, p, i)).join('');
+
+  document.getElementById('orderModal').classList.remove('active');
+  document.getElementById('marketplaceModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMarketplace() {
+  document.getElementById('marketplaceModal').classList.remove('active');
+  document.body.style.overflow = '';
+  currentMarketplaceService = null;
+}
+
+function openOrderForm(serviceKey, productTitle) {
+  const titleKey = serviceTitleKeys[serviceKey];
+  const serviceTitle = (titleKey && translations[currentLanguage][titleKey]) || serviceKey;
+  const form = document.getElementById('orderForm');
+
+  form.reset();
+  form.dataset.openedAt = String(Date.now());
+  setOrderStatus('', '');
+
+  document.getElementById('orderModalTitle').textContent = productTitle;
+  document.getElementById('orderProductField').value = `${serviceTitle} — ${productTitle}`;
+  currentMarketplaceService = serviceKey;
+
+  document.getElementById('marketplaceModal').classList.remove('active');
+  document.getElementById('orderModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  const nameField = form.querySelector('[data-field="Full Name"]');
+  setTimeout(() => { if (nameField) nameField.focus({ preventScroll: true }); }, 400);
+}
+
+function backToMarketplace() {
+  document.getElementById('orderModal').classList.remove('active');
+  if (currentMarketplaceService) {
+    document.getElementById('marketplaceModal').classList.add('active');
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+
+function closeOrderModal() {
+  document.getElementById('orderModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ── Basic spam guard: honeypot field + minimum time-on-form check ──
+function isLikelyOrderSpam(form) {
+  const honeypot = form.querySelector('[data-field="Website"]');
+  if (honeypot && honeypot.value.trim() !== '') return true;
+  const openedAt = Number(form.dataset.openedAt || 0);
+  if (openedAt && (Date.now() - openedAt) < 1200) return true;
+  return false;
+}
+
+// Collects and trims/sanitizes every labeled field (excludes the honeypot)
+function collectOrderData(form) {
+  return Array.from(form.querySelectorAll('[data-field]'))
+    .filter(field => field.getAttribute('data-field') !== 'Website')
+    .map(field => {
+      const label = field.getAttribute('data-field');
+      if (field.type === 'file') {
+        return { label, value: field.files && field.files[0] ? field.files[0].name : '' };
+      }
+      // Strip angle brackets defensively and cap length (basic sanitization)
+      const raw = (field.value || '').replace(/[<>]/g, '').trim();
+      return { label, value: raw.slice(0, 600) };
+    });
+}
+
+function setOrderStatus(msg, type) {
+  const status = document.getElementById('orderFormStatus');
+  if (!status) return;
+  status.textContent = msg;
+  status.className = 'form-status' + (type ? ' ' + type : '');
+}
+
+function submitOrderViaEmail() {
+  const form = document.getElementById('orderForm');
+  if (!form.reportValidity()) return;
+  if (isLikelyOrderSpam(form)) {
+    setOrderStatus(translations[currentLanguage]['order-spam-warning'] || 'Please wait a moment and try again.', 'error');
+    return;
+  }
+  const data = collectOrderData(form);
+  const lines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
+  const fileField = form.querySelector('[data-field="Attachment"]');
+  const fileNote = (fileField && fileField.files[0])
+    ? `\n\nNote: please attach "${fileField.files[0].name}" manually — email links can't auto-attach files.`
+    : '';
+  const subject = 'New Order Request — NOUVURA';
+  const mailtoUrl = `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines + fileNote)}`;
+  setOrderStatus(translations[currentLanguage]['form-status-email'] || 'Opening your email app...', 'success');
+  window.location.href = mailtoUrl;
+}
+
+function submitOrderViaWhatsApp() {
+  const form = document.getElementById('orderForm');
+  if (!form.reportValidity()) return;
+  if (isLikelyOrderSpam(form)) {
+    setOrderStatus(translations[currentLanguage]['order-spam-warning'] || 'Please wait a moment and try again.', 'error');
+    return;
+  }
+  const data = collectOrderData(form);
+  const lines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
+  const message = `New Order Request\n\n${lines}`;
+  const waUrl = `https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent(message)}`;
+  setOrderStatus(translations[currentLanguage]['form-status-whatsapp'] || 'Opening WhatsApp...', 'success');
+  window.open(waUrl, '_blank');
+}
+
+// Close the top-most modal on Escape, and on backdrop click
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  const orderModal = document.getElementById('orderModal');
+  const marketModal = document.getElementById('marketplaceModal');
+  if (orderModal.classList.contains('active')) backToMarketplace();
+  else if (marketModal.classList.contains('active')) closeMarketplace();
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('marketplaceModal').addEventListener('click', (e) => {
+    if (e.target.id === 'marketplaceModal') closeMarketplace();
+  });
+  document.getElementById('orderModal').addEventListener('click', (e) => {
+    if (e.target.id === 'orderModal') backToMarketplace();
+  });
+});
 
 /* ══ INTRO PORTFOLIO GALLERY ══
    Populated from /images/ next to this HTML file. Any image that
