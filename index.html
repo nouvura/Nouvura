@@ -221,8 +221,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .btn-submit.whatsapp { background: linear-gradient(135deg, rgba(37,211,102,0.18), rgba(37,211,102,0.05)); border-color: rgba(37,211,102,0.6); color: var(--wa); box-shadow: 0 0 24px rgba(37,211,102,0.1); }
 .btn-submit.whatsapp:hover { background: rgba(37,211,102,0.2); box-shadow: 0 0 36px rgba(37,211,102,0.3); transform: translateY(-2px); }
 .form-status { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; min-height: 16px; }
-.form-status.success { color: var(--cyan); }
-.form-status.error { color: rgba(255,120,140,0.9); }
+.form-status.success { color: var(--cyan); animation: statusFadeIn 0.3s var(--ease); }
+.form-status.error { color: rgba(255,120,140,0.9); animation: statusShake 0.3s var(--ease); }
+.status-check { display: inline-block; color: var(--cyan); font-weight: 700; }
+@keyframes statusFadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes statusShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
 /* Path-specific styling */
 .funnel-badge { display:inline-block; font-family:'Orbitron',sans-serif; font-size:8px; letter-spacing:.25em; text-transform:uppercase; padding:5px 12px; border-radius:3px; margin-bottom:18px; }
@@ -329,8 +332,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
    ══════════════════════════════════════════════════════ */
 .modal-overlay { position: fixed; inset: 0; z-index: 600; background: rgba(14,1,5,0.9); backdrop-filter: blur(10px); display: flex; align-items: flex-start; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.35s var(--ease), visibility 0.35s var(--ease); overflow-y: auto; padding: 90px 20px 60px; }
 .modal-overlay.active { opacity: 1; visibility: visible; }
-.modal-panel { width: 100%; max-width: 1000px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px 46px; position: relative; transform: translateY(24px); opacity: 0; transition: transform 0.4s var(--ease), opacity 0.4s var(--ease); }
-.modal-overlay.active .modal-panel { transform: translateY(0); opacity: 1; }
+.modal-panel { width: 100%; max-width: 1000px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px 46px; position: relative; transform: translateY(16px) scale(0.97); opacity: 0; transition: transform 0.35s var(--ease), opacity 0.35s var(--ease); }
+.modal-overlay.active .modal-panel { transform: translateY(0) scale(1); opacity: 1; }
 .modal-header { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
 .modal-header-text { flex: 1; min-width: 0; }
 .modal-title { font-family: 'Orbitron', sans-serif; font-size: clamp(16px, 2.6vw, 22px); font-weight: 800; color: #fff; letter-spacing: 0.02em; margin-top: 8px; }
@@ -355,6 +358,15 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .product-price { font-family: 'Orbitron', sans-serif; font-size: 12.5px; letter-spacing: 0.05em; color: rgba(0,240,255,0.75); margin-bottom: 16px; }
 .product-card .btn-primary { width: 100%; justify-content: center; }
 
+/* Skeleton loading state — shown briefly while products render */
+.skeleton-card { border-radius: 14px; border: 1px solid var(--border); background: rgba(0,240,255,0.03); padding: 26px; }
+.skeleton-block { border-radius: 8px; background: linear-gradient(100deg, rgba(255,255,255,0.03) 30%, rgba(0,240,255,0.09) 50%, rgba(255,255,255,0.03) 70%); background-size: 200% 100%; animation: shimmer 1.4s ease-in-out infinite; }
+.skeleton-card .skeleton-block.img { width: 100%; aspect-ratio: 16/10; margin-bottom: 16px; }
+.skeleton-card .skeleton-block.line { height: 11px; margin-bottom: 10px; }
+.skeleton-card .skeleton-block.line.w60 { width: 60%; }
+.skeleton-card .skeleton-block.line.w90 { width: 90%; }
+.skeleton-card .skeleton-block.btn { height: 46px; margin-top: 10px; }
+
 /* Honeypot — invisible to real visitors, catches basic bots */
 .hp-field { position: absolute !important; left: -9999px !important; top: -9999px !important; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
@@ -363,6 +375,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
   .modal-overlay { padding: 84px 12px 40px; }
   .modal-panel { padding: 28px 20px 34px; }
   .modal-header { gap: 12px; }
+  #orderModal .form-actions .btn-submit { width: 100%; flex: 1 1 100%; }
+  .product-card { padding: 20px; }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -1654,6 +1668,17 @@ function renderProductCard(serviceKey, title, idx) {
   </div>`;
 }
 
+function renderSkeletonCards(count) {
+  return Array.from({ length: count }).map(() => `
+    <div class="skeleton-card">
+      <div class="skeleton-block img"></div>
+      <div class="skeleton-block line w60"></div>
+      <div class="skeleton-block line w90"></div>
+      <div class="skeleton-block line w60"></div>
+      <div class="skeleton-block btn"></div>
+    </div>`).join('');
+}
+
 function openMarketplace(serviceKey) {
   const products = (productCatalogI18n[currentLanguage] || productCatalogI18n.en)[serviceKey];
   if (!products) return;
@@ -1662,11 +1687,18 @@ function openMarketplace(serviceKey) {
   const titleKey = serviceTitleKeys[serviceKey];
   const serviceTitle = (titleKey && translations[currentLanguage][titleKey]) || serviceKey;
   document.getElementById('marketplaceTitle').textContent = serviceTitle;
-  document.getElementById('marketplaceGrid').innerHTML = products.map((p, i) => renderProductCard(serviceKey, p, i)).join('');
+
+  const grid = document.getElementById('marketplaceGrid');
+  grid.innerHTML = renderSkeletonCards(products.length);
 
   document.getElementById('orderModal').classList.remove('active');
   document.getElementById('marketplaceModal').classList.add('active');
+  document.getElementById('marketplaceModal').scrollTop = 0;
   document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    grid.innerHTML = products.map((p, i) => renderProductCard(serviceKey, p, i)).join('');
+  }, 250);
 }
 
 function closeMarketplace() {
@@ -1690,6 +1722,7 @@ function openOrderForm(serviceKey, productTitle) {
 
   document.getElementById('marketplaceModal').classList.remove('active');
   document.getElementById('orderModal').classList.add('active');
+  document.getElementById('orderModal').scrollTop = 0;
   document.body.style.overflow = 'hidden';
 
   const nameField = form.querySelector('[data-field="Full Name"]');
@@ -1737,13 +1770,18 @@ function collectOrderData(form) {
 function setOrderStatus(msg, type) {
   const status = document.getElementById('orderFormStatus');
   if (!status) return;
-  status.textContent = msg;
   status.className = 'form-status' + (type ? ' ' + type : '');
+  status.innerHTML = (type === 'success' && msg)
+    ? '<span class="status-check">✓</span> ' + msg
+    : msg;
 }
 
 function submitOrderViaEmail() {
   const form = document.getElementById('orderForm');
-  if (!form.reportValidity()) return;
+  if (!form.reportValidity()) {
+    setOrderStatus(translations[currentLanguage]['form-required-alert'] || 'Please fill in all required fields.', 'error');
+    return;
+  }
   if (isLikelyOrderSpam(form)) {
     setOrderStatus(translations[currentLanguage]['order-spam-warning'] || 'Please wait a moment and try again.', 'error');
     return;
@@ -1762,7 +1800,10 @@ function submitOrderViaEmail() {
 
 function submitOrderViaWhatsApp() {
   const form = document.getElementById('orderForm');
-  if (!form.reportValidity()) return;
+  if (!form.reportValidity()) {
+    setOrderStatus(translations[currentLanguage]['form-required-alert'] || 'Please fill in all required fields.', 'error');
+    return;
+  }
   if (isLikelyOrderSpam(form)) {
     setOrderStatus(translations[currentLanguage]['order-spam-warning'] || 'Please wait a moment and try again.', 'error');
     return;
