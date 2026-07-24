@@ -41,7 +41,9 @@ body {
 ::selection { background: var(--cyan-dim); color: var(--cyan); }
 body::before { content:""; position:fixed; inset:0; background-image: linear-gradient(rgba(0,240,255,0.04) 1px, transparent 1px), linear-gradient(90deg,rgba(0,240,255,0.04) 1px,transparent 1px); background-size: 44px 44px; z-index:-2; pointer-events:none; }
 body::after { content:""; position:fixed; inset:0; background: radial-gradient(ellipse at center, transparent 40%, rgba(14,1,5,0.7) 100%); z-index:-1; pointer-events:none; }
-#particleCanvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+/* Note: no #particleCanvas element exists — the grid/glow backdrop below
+   is pure CSS (no JS animation loop), which is already the cheapest
+   possible way to render the cyber-grid look. */
 
 .system-bar { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan), rgba(0,240,255,0.3), var(--cyan), transparent); z-index: 100; animation: barGlow 4s ease-in-out infinite; }
 @keyframes barGlow { 0%,100% { opacity: 0.6; } 50% { opacity: 1; box-shadow: 0 0 20px var(--cyan); } }
@@ -49,17 +51,17 @@ body::after { content:""; position:fixed; inset:0; background: radial-gradient(e
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 18px 44px; background: linear-gradient(180deg, rgba(14,1,5,0.95) 0%, transparent 100%); backdrop-filter: blur(8px); }
 .nav-logo { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; color: var(--cyan); letter-spacing: 0.28em; text-shadow: 0 0 20px rgba(0,240,255,0.5); text-decoration: none; }
 .nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.18em; color: rgba(0,240,255,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.16em; color: rgba(0,240,255,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
 .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 12px rgba(0,240,255,0.6); }
 .nav-lang { display: flex; gap: 6px; }
-.lang-btn { font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; border: 1px solid rgba(0,240,255,0.2); border-radius: 3px; color: rgba(0,240,255,0.5); background: transparent; padding: 4px 10px; cursor: pointer; transition: all 0.2s; }
+.lang-btn { font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.13em; border: 1px solid rgba(0,240,255,0.2); border-radius: 3px; color: rgba(0,240,255,0.5); background: transparent; padding: 6px 12px; cursor: pointer; transition: all 0.2s; min-height: 32px; }
 .lang-btn:hover, .lang-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
 .lang-btn.initial-active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,240,255,0.06); }
 .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
 .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--cyan); transition: all 0.3s; }
 
 /* ══ BACK BUTTONS ══ */
-.btn-back { display: inline-flex; align-items: center; gap: 8px; font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); background: rgba(0,240,255,0.05); border: 1px solid rgba(0,240,255,0.3); border-radius: 6px; padding: 10px 18px; cursor: pointer; transition: all 0.2s var(--ease); }
+.btn-back { display: inline-flex; align-items: center; gap: 8px; font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); background: rgba(0,240,255,0.05); border: 1px solid rgba(0,240,255,0.3); border-radius: 6px; padding: 12px 20px; cursor: pointer; transition: all 0.2s var(--ease); min-height: 44px; }
 .btn-back:hover { background: rgba(0,240,255,0.14); box-shadow: 0 0 22px rgba(0,240,255,0.2); transform: translateX(-2px); }
 [dir="rtl"] .btn-back:hover { transform: translateX(2px); }
 .btn-back svg { width: 13px; height: 13px; flex-shrink: 0; }
@@ -82,10 +84,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .lang-selector-header h1 { font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900; color: var(--cyan); letter-spacing: 0.08em; margin-bottom: 10px; text-shadow: 0 0 30px rgba(0,240,255,0.4); }
 .lang-selector-header p { font-size: 14px; color: var(--text-dim); letter-spacing: 0.04em; }
 .lang-options { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.lang-option { width: 220px; padding: 30px; border: 1px solid rgba(0,240,255,0.25); border-radius: 12px; background: rgba(0,240,255,0.03); cursor: pointer; text-align: center; transition: all 0.3s var(--ease); }
+.lang-option { width: 220px; padding: 30px; border: 1px solid rgba(0,240,255,0.25); border-radius: 12px; background: rgba(0,240,255,0.03); cursor: pointer; text-align: center; transition: all 0.3s var(--ease); position: relative; }
+.lang-option.lang-suggested { border-color: rgba(0,240,255,0.6); box-shadow: 0 0 30px rgba(0,240,255,0.18); }
+.lang-option.lang-suggested::before { content: '●'; position: absolute; top: 10px; right: 12px; font-size: 8px; color: var(--cyan); animation: pulseDot 1.8s ease-in-out infinite; }
+@keyframes pulseDot { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 .lang-option:hover { border-color: var(--cyan); background: rgba(0,240,255,0.08); box-shadow: 0 0 40px rgba(0,240,255,0.15); transform: translateY(-3px); }
 .lang-option span { display: block; font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: var(--cyan); }
-.lang-option p { margin-top: 8px; font-size: 12px; color: var(--text-dim); }
+.lang-option p { margin-top: 8px; font-size: 14px; color: var(--text-dim); }
 
 /* Path Selection Screen */
 #pathScreen .screen-overlay { flex-direction: column; gap: 50px; padding: 40px; }
@@ -108,7 +113,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .loading-spinner { width: 60px; height: 60px; border: 2px solid rgba(0,240,255,0.2); border-top: 2px solid var(--cyan); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-content h2 { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: 0.1em; text-transform: uppercase; }
-.loading-content p { font-size: 13px; color: var(--text-dim); margin-top: 8px; }
+.loading-content p { font-size: 14px; color: var(--text-dim); margin-top: 8px; }
 
 /* ══ MAIN CONTENT ══ */
 #mainContent { opacity: 0; transition: opacity 0.8s var(--ease); visibility: hidden; }
@@ -122,10 +127,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .logo-wrap { position: relative; margin-bottom: 30px; }
 .logo-glow-ring { position: absolute; inset: -24px; border: 1px solid rgba(0,240,255,0.18); border-radius: 50%; animation: ringRotate 12s linear infinite; }
 @keyframes ringRotate { to { transform: rotate(360deg); } }
-.logo-box { width: 140px; height: 140px; border-radius: 24px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; }
+.logo-box { width: 140px; height: 140px; border-radius: 24px; border: 1px solid rgba(0,240,255,0.35); background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(0,240,255,0.03)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); overflow: hidden; position: relative; animation: logoBreathe 3.6s ease-in-out infinite; }
+@keyframes logoBreathe { 0%, 100% { box-shadow: 0 0 50px rgba(0,240,255,0.16), inset 0 0 30px rgba(0,240,255,0.05); } 50% { box-shadow: 0 0 72px rgba(0,240,255,0.3), inset 0 0 34px rgba(0,240,255,0.09); } }
 .logo-box img { width: 108px; height: 108px; object-fit: contain; }
 .logo-box-fallback { font-family: 'Orbitron', sans-serif; font-size: 50px; font-weight: 900; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
-.hero-eyebrow { font-family:'Orbitron',sans-serif; font-size:9px; letter-spacing:.3em; color:rgba(0,240,255,.7); text-transform:uppercase; margin-bottom:18px; }
+.hero-eyebrow { font-family:'Orbitron',sans-serif; font-size:11px; letter-spacing:.28em; color:rgba(0,240,255,.7); text-transform:uppercase; margin-bottom:18px; }
 .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(30px, 6.4vw, 58px); font-weight: 900; color: #fff; letter-spacing: 0.01em; line-height: 1.2; text-shadow: 0 0 40px rgba(0,240,255,0.3); margin-bottom: 20px; max-width: 900px; animation: heroReveal 1s var(--ease) both; }
 .hero h1 .accent { color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,.5); }
 @keyframes heroReveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
@@ -133,7 +139,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
 .scroll-hint { margin-top: 56px; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.4; animation: fadeInUp 1s 1s both; }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 0.4; } }
-.scroll-hint span { font-family: 'Orbitron', sans-serif; font-size: 7px; letter-spacing: 0.25em; color: var(--cyan); }
+.scroll-hint span { font-family: 'Orbitron', sans-serif; font-size: 9.5px; letter-spacing: 0.22em; color: var(--cyan); }
 .scroll-arrow { width: 1px; height: 34px; background: linear-gradient(180deg, var(--cyan), transparent); animation: scrollArrow 1.5s ease-in-out infinite; }
 @keyframes scrollArrow { 0%,100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(0.6); opacity: 1; } }
 
@@ -147,11 +153,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .layer-inner-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(0,240,255,0.04) 0%, transparent 60%); pointer-events: none; }
 .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
 .section-header h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(18px, 3vw, 24px); font-weight: 700; color: var(--text); letter-spacing: 0.12em; text-transform: uppercase; }
-.section-tag { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.2em; color: var(--cyan); border: 1px solid rgba(0,240,255,0.25); padding: 3px 10px; border-radius: 2px; opacity: 0.75; white-space: nowrap; }
+.section-tag { font-family: 'Orbitron', sans-serif; font-size: 10.5px; letter-spacing: 0.18em; color: var(--cyan); border: 1px solid rgba(0,240,255,0.25); padding: 4px 11px; border-radius: 2px; opacity: 0.85; white-space: nowrap; }
 .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,240,255,0.25), transparent); }
 .section-sub { font-size: 14.5px; color: var(--text-dim); max-width: 620px; line-height: 1.75; margin: 0 0 40px; }
 
-.btn-primary, .btn-secondary { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; padding: 15px 32px; border-radius: 4px; cursor: pointer; transition: all 0.25s var(--ease); display: inline-flex; align-items:center; gap:8px; border: none; }
+.btn-primary, .btn-secondary { font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; padding: 17px 34px; border-radius: 4px; cursor: pointer; transition: all 0.25s var(--ease); display: inline-flex; align-items:center; justify-content:center; gap:8px; border: none; min-height: 50px; }
 .btn-primary { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border: 1px solid var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.15); }
 .btn-primary:hover { background: rgba(0,240,255,0.2); box-shadow: 0 0 40px rgba(0,240,255,0.35); transform: translateY(-2px); }
 .btn-secondary { border: 1px solid rgba(37,211,102,0.55); color: var(--wa); background: rgba(37,211,102,0.06); }
@@ -166,7 +172,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .video-sound-toggle { position: absolute; bottom: 14px; right: 14px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,240,255,0.4); background: rgba(14,1,5,0.6); backdrop-filter: blur(4px); color: var(--cyan); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
 .video-sound-toggle:hover { border-color: var(--cyan); background: rgba(0,240,255,0.12); }
 .video-sound-toggle svg { width: 15px; height: 15px; }
-.video-channel-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-family:'Orbitron',sans-serif; font-size: 9px; letter-spacing:.15em; text-transform:uppercase; color: rgba(0,240,255,.75); text-decoration:none; border-bottom: 1px solid rgba(0,240,255,.25); padding-bottom: 4px; transition: color .2s, border-color .2s; }
+.video-channel-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-family:'Orbitron',sans-serif; font-size: 11px; letter-spacing:.14em; text-transform:uppercase; color: rgba(0,240,255,.75); text-decoration:none; border-bottom: 1px solid rgba(0,240,255,.25); padding-bottom: 4px; transition: color .2s, border-color .2s; }
 .video-channel-link:hover { color: var(--cyan); border-color: var(--cyan); }
 
 /* ══ SERVICE GRID ══ */
@@ -174,8 +180,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .service-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease); padding: 30px; text-align: left; cursor: pointer; }
 .service-card:hover { border-color: var(--cyan); box-shadow: 0 0 34px rgba(0,240,255,0.16); transform: translateY(-4px); }
 .service-card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; margin-bottom: 18px; border: 1px solid rgba(0,240,255,0.15); background: rgba(0,240,255,0.04); }
-.service-card h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 12px; font-weight: 700; }
-.service-card p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
+.service-card h4 { font-family: 'Orbitron', sans-serif; font-size: 14.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; margin-bottom: 12px; font-weight: 700; }
+.service-card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
 .service-card .btn-primary { margin-top: auto; position: relative; z-index: 2; }
 
 /* Highlight pulse when a service jumps the visitor to its request form */
@@ -198,7 +204,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .form-field { display: flex; flex-direction: column; gap: 8px; }
 .form-field.full { grid-column: 1 / -1; }
-.form-label { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,240,255,0.75); }
+.form-label { font-family: 'Orbitron', sans-serif; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,240,255,0.75); }
 .form-label .req { color: rgba(255,120,140,0.8); margin-left: 3px; }
 .form-input, .form-select, .form-textarea { background: rgba(0,240,255,0.03); border: 1px solid rgba(0,240,255,0.18); border-radius: 6px; color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 500; padding: 13px 16px; outline: none; transition: border-color 0.2s, background 0.2s; width: 100%; }
 .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2300f0ff' fill-opacity='0.6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 36px; }
@@ -208,7 +214,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
 .form-field.error .form-input, .form-field.error .form-select, .form-field.error .form-textarea { border-color: rgba(255,90,110,0.75); }
 .form-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
-.btn-submit { flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: all 0.25s var(--ease); border: 1px solid; }
+.btn-submit { flex: 1; min-width: 220px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 20px; border-radius: 6px; font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: all 0.25s var(--ease); border: 1px solid; min-height: 50px; }
 .btn-submit svg { width: 15px; height: 15px; }
 .btn-submit.email { background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,240,255,0.08)); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,0.12); }
 .btn-submit.email:hover { background: rgba(0,240,255,0.22); box-shadow: 0 0 36px rgba(0,240,255,0.3); transform: translateY(-2px); }
@@ -229,7 +235,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .funnel-get-item svg { width: 14px; height: 14px; color: var(--cyan); flex-shrink:0; }
 .b2c-funnel .funnel-get-item svg { color: var(--wa); }
 .b2c-funnel .funnel-get-item { border-color: rgba(37,211,102,.22); background: rgba(37,211,102,.04); }
-.funnel-timeline { display: inline-flex; align-items:center; gap:10px; font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:.08em; color: rgba(0,240,255,.85); border:1px solid rgba(0,240,255,.25); padding:10px 18px; border-radius:6px; margin-bottom: 34px; background: rgba(0,240,255,.03); }
+.funnel-timeline { display: inline-flex; align-items:center; gap:10px; font-family:'Orbitron',sans-serif; font-size:12px; letter-spacing:.06em; color: rgba(0,240,255,.85); border:1px solid rgba(0,240,255,.25); padding:11px 18px; border-radius:6px; margin-bottom: 34px; background: rgba(0,240,255,.03); }
 .b2c-funnel .funnel-timeline { color: rgba(37,211,102,.9); border-color: rgba(37,211,102,.3); background: rgba(37,211,102,.04); }
 .funnel-timeline svg { width:15px; height:15px; }
 .funnel-divider { height: 1px; background: linear-gradient(90deg, rgba(0,240,255,.2), transparent); margin: 8px 0 34px; }
@@ -237,20 +243,38 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 /* Contact Section */
 .contact-section { text-align: center; }
 .contact-methods { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
-.contact-method { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); padding: 12px 18px; border: 1px solid rgba(0,240,255,.2); border-radius: 8px; transition: all 0.3s var(--ease); text-decoration: none; }
+.contact-method { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--text); padding: 14px 20px; border: 1px solid rgba(0,240,255,.2); border-radius: 8px; transition: all 0.3s var(--ease); text-decoration: none; }
 .contact-method:hover { border-color: var(--cyan); background: rgba(0,240,255,.08); }
 .contact-method svg { width: 16px; height: 16px; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  nav { padding: 14px 24px; }
+  nav { padding: 14px 20px; }
   .nav-links { gap: 16px; }
   .form-row { grid-template-columns: 1fr; }
   .service-grid { grid-template-columns: 1fr; }
   .path-options { grid-template-columns: 1fr; }
-  .hero { padding: 100px 16px 60px; }
+  .hero { padding: 96px 16px 60px; }
   .intro-tagline { font-size: 12.5px; padding: 0 30px; }
-  .hero-cta { width: 100%; max-width: 320px; }
+  .hero-cta { width: 100%; max-width: 340px; }
+
+  /* Bigger, more dominant logo on mobile hero (point 4: logo visibility) */
+  .hero .logo-box { width: 158px; height: 158px; }
+  .hero .logo-box img.logo-img { width: 108px; height: 108px; }
+
+  /* Prevent iOS Safari auto-zoom-on-focus by keeping form text >=16px on small screens */
+  .form-input, .form-select, .form-textarea { font-size: 16px; }
+
+  /* Bigger tap targets everywhere on touch screens */
+  .btn-primary, .btn-secondary, .btn-submit { min-height: 52px; padding-top: 16px; padding-bottom: 16px; }
+  .contact-method { min-height: 48px; }
+  .nav-back-btn, .modal-close { width: 40px; height: 40px; }
+  .lang-btn { min-height: 36px; padding: 8px 14px; }
+}
+
+@media (max-width: 480px) {
+  .hero .logo-box { width: 148px; height: 148px; }
+  .hero .logo-box img.logo-img { width: 100px; height: 100px; }
 }
 
 /* ══ INTRO SPLASH (first visit only) ══ */
@@ -265,7 +289,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .intro-splash.intro-fade-out { opacity: 0 !important; visibility: hidden !important; transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease); }
 @media (prefers-reduced-motion: reduce) {
   .intro-logo-wrap, .intro-brand-name, .intro-tagline, .logo-glow-ring { animation: none !important; opacity: 1 !important; }
+  .logo-box, .product-card-img.placeholder-img::before, .layer .service-card, .product-card,
+  .cta-fab, .cta-fab-wa { animation: none !important; opacity: 1 !important; }
 }
+
+/* Adaptive performance: on devices we detect as low-end (via JS below),
+   drop the decorative pulse/shimmer animations and the modal blur —
+   the site stays fully functional and readable, just calmer. */
+.reduced-fx .logo-box, .reduced-fx .product-card-img.placeholder-img::before,
+.reduced-fx .layer .service-card, .reduced-fx .product-card { animation: none !important; opacity: 1 !important; }
+.reduced-fx .modal-overlay { backdrop-filter: none; }
 
 /* ══ HERO CTA (added conversion button) ══ */
 .hero-cta { margin-top: 22px; animation: heroReveal 1s var(--ease) 0.3s both; }
@@ -289,7 +322,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 @keyframes cardReveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ══ TRUST LINE ══ */
-.trust-line { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,240,255,0.55); margin-top: 22px; }
+.trust-line { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(0,240,255,0.55); margin-top: 22px; }
 
 /* ══════════════════════════════════════════════════════
    SERVICE MARKETPLACE + ORDER FUNNEL (extends existing UI)
@@ -304,7 +337,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .modal-close { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,240,255,0.3); background: rgba(0,240,255,0.05); color: var(--cyan); cursor: pointer; font-size: 16px; line-height: 1; transition: all 0.2s var(--ease); }
 .modal-close:hover { background: rgba(0,240,255,0.14); box-shadow: 0 0 18px rgba(0,240,255,0.25); }
 .modal-close:active { transform: scale(0.92); }
-.modal-intro { font-size: 13.5px; color: var(--text-dim); line-height: 1.7; max-width: 680px; margin-bottom: 28px; }
+.modal-intro { font-size: 14.5px; color: var(--text-dim); line-height: 1.7; max-width: 680px; margin-bottom: 28px; }
 
 /* Product cards — mirror .service-card visual language */
 .product-card { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,240,255,0.03); transition: all 0.35s var(--ease), transform 0.2s var(--ease); padding: 26px; text-align: left; display: flex; flex-direction: column; opacity: 0; animation: cardReveal 0.5s var(--ease) forwards; }
@@ -314,12 +347,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .product-card-img.placeholder-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(0,240,255,0.12) 50%, transparent 70%); background-size: 200% 100%; animation: shimmer 2.6s ease-in-out infinite; }
 @keyframes shimmer { 0% { background-position: 160% 0; } 100% { background-position: -60% 0; } }
 .product-card-img svg { width: 32px; height: 32px; color: rgba(0,240,255,0.5); position: relative; z-index: 1; }
-.coming-soon-badge { position: absolute; top: 14px; right: 14px; font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,240,255,0.4); background: rgba(0,240,255,0.08); padding: 5px 10px; border-radius: 20px; z-index: 2; white-space: nowrap; }
+.coming-soon-badge { position: absolute; top: 14px; right: 14px; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(0,240,255,0.4); background: rgba(0,240,255,0.08); padding: 5px 11px; border-radius: 20px; z-index: 2; white-space: nowrap; }
 [dir="rtl"] .coming-soon-badge { right: auto; left: 14px; }
-.product-title { font-family: 'Orbitron', sans-serif; font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; margin-bottom: 10px; margin-right: 70px; font-weight: 700; line-height: 1.4; }
+.product-title { font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; margin-bottom: 10px; margin-right: 70px; font-weight: 700; line-height: 1.4; }
 [dir="rtl"] .product-title { margin-right: 0; margin-left: 70px; }
-.product-desc { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; margin-bottom: 14px; flex: 1; }
-.product-price { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.06em; color: rgba(0,240,255,0.75); margin-bottom: 16px; }
+.product-desc { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 14px; flex: 1; }
+.product-price { font-family: 'Orbitron', sans-serif; font-size: 12.5px; letter-spacing: 0.05em; color: rgba(0,240,255,0.75); margin-bottom: 16px; }
 .product-card .btn-primary { width: 100%; justify-content: center; }
 
 /* Honeypot — invisible to real visitors, catches basic bots */
@@ -330,6 +363,44 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
   .modal-overlay { padding: 84px 12px 40px; }
   .modal-panel { padding: 28px 20px 34px; }
   .modal-header { gap: 12px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   TRUST & PROOF SECTION (credibility block, universal)
+   ══════════════════════════════════════════════════════ */
+.client-logo-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px; }
+.client-logo-chip { flex: 1 1 140px; max-width: 180px; text-align: center; padding: 18px 12px; border: 1px solid var(--border); border-radius: 8px; background: rgba(0,240,255,0.02); color: rgba(255,242,246,0.35); font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s var(--ease); }
+.client-logo-chip:hover { border-color: rgba(0,240,255,0.3); color: rgba(255,242,246,0.6); }
+
+.before-after-row { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 14px; flex-wrap: wrap; }
+.ba-card { width: 220px; text-align: center; }
+.ba-card .product-card-img { margin-bottom: 10px; }
+.ba-label { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); }
+.ba-arrow { color: var(--cyan); font-size: 20px; opacity: 0.6; }
+.coming-soon-note { text-align: center; font-size: 13px; color: var(--text-dim); opacity: 0.7; margin-bottom: 40px; }
+
+.testimonial-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.testimonial-card { border: 1px solid var(--border); border-radius: 12px; background: rgba(0,240,255,0.03); padding: 24px; text-align: center; }
+.testimonial-stars { color: rgba(0,240,255,0.5); font-size: 15px; letter-spacing: 3px; margin-bottom: 12px; }
+.testimonial-card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; opacity: 0.75; font-style: italic; }
+@media (max-width: 768px) {
+  .testimonial-row { grid-template-columns: 1fr; }
+  .before-after-row { gap: 10px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   PERSISTENT FLOATING CTA + WHATSAPP (conversion #8)
+   ══════════════════════════════════════════════════════ */
+.cta-fab-group { position: fixed; right: 18px; bottom: 18px; z-index: 550; display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); }
+.cta-fab-group.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.cta-fab { display: inline-flex; align-items: center; gap: 8px; font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); background: rgba(10,0,4,0.92); border: 1px solid var(--cyan); border-radius: 30px; padding: 14px 20px; text-decoration: none; box-shadow: 0 0 26px rgba(0,240,255,0.22); white-space: nowrap; animation: logoBreathe 3.6s ease-in-out infinite; }
+.cta-fab-wa { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 50%; background: var(--wa); color: #06210f; box-shadow: 0 0 22px rgba(37,211,102,0.45); flex-shrink: 0; }
+.cta-fab-wa svg { width: 24px; height: 24px; }
+[dir="rtl"] .cta-fab-group { right: auto; left: 18px; }
+@media (max-width: 480px) {
+  .cta-fab-group { right: 12px; bottom: 12px; left: 12px; justify-content: flex-end; }
+  .cta-fab span.cta-fab-label { display: none; }
+  .cta-fab { padding: 14px; border-radius: 50%; width: 50px; height: 50px; justify-content: center; }
 }
 
 </style>
@@ -849,7 +920,63 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
     </div>
   </div>
 
+  <!-- Trust & Proof Section (universal — shown for every path) -->
+  <div class="layer" id="trustSection" style="animation-delay: 0.7s;">
+    <div class="layer-inner-glow"></div>
+    <div class="section-header">
+      <span class="section-tag" data-i18n="trust-tag">PROOF</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 style="font-family:'Orbitron',sans-serif; font-size:clamp(18px,3vw,24px); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text); margin-bottom:12px;" data-i18n="trust-heading">Trusted by Growing Businesses</h2>
+    <p class="section-sub" data-i18n="trust-sub">A look at real work in progress. Full case studies and client reviews are launching soon.</p>
+
+    <!-- Portfolio preview: real project photos, auto-scrolling -->
+    <div class="intro-gallery" style="margin-bottom: 36px;">
+      <div class="intro-gallery-track" id="trustGalleryTrack"></div>
+    </div>
+
+    <!-- Client logos (placeholders until real client branding is added) -->
+    <div class="client-logo-row">
+      <div class="client-logo-chip" data-i18n="client-logo-1">Client A</div>
+      <div class="client-logo-chip" data-i18n="client-logo-2">Client B</div>
+      <div class="client-logo-chip" data-i18n="client-logo-3">Client C</div>
+      <div class="client-logo-chip" data-i18n="client-logo-4">Client D</div>
+      <div class="client-logo-chip" data-i18n="client-logo-5">Client E</div>
+    </div>
+
+    <!-- Before / After (placeholder until real transformation photos are added) -->
+    <div class="before-after-row">
+      <div class="ba-card">
+        <div class="product-card-img placeholder-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;color:rgba(0,240,255,.5);"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <span class="ba-label" data-i18n="ba-before">Before</span>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-card">
+        <div class="product-card-img placeholder-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px;color:rgba(0,240,255,.5);"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <span class="ba-label" data-i18n="ba-after">After</span>
+      </div>
+    </div>
+    <p class="coming-soon-note" data-i18n="ba-note">Real before/after transformations coming soon.</p>
+
+    <!-- Testimonials (placeholder — never fabricated; will hold real reviews) -->
+    <div class="testimonial-row">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p data-i18n="testimonial-placeholder">Client testimonials will appear here soon.</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p data-i18n="testimonial-placeholder">Client testimonials will appear here soon.</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p data-i18n="testimonial-placeholder">Client testimonials will appear here soon.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Universal Contact Section -->
+
   <div class="layer" id="contactSection" style="animation-delay: 0.8s; margin-bottom: 60px;">
     <div class="layer-inner-glow"></div>
     <div class="contact-section">
@@ -877,6 +1004,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
     </div>
   </div>
 
+</div>
+
+<!-- ══ PERSISTENT FLOATING CTA (visible once scrolled past the hero) ══ -->
+<div class="cta-fab-group" id="ctaFabGroup">
+  <a href="#" class="cta-fab" onclick="scrollToActiveForm(event)">
+    <span class="cta-fab-label" data-i18n="fab-cta">Start Your Project</span>
+  </a>
+  <a href="https://wa.me/213776532042" target="_blank" class="cta-fab-wa" data-i18n-title="fab-wa" title="Order via WhatsApp" aria-label="Order via WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.39a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.17c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.26-.29.58-.36.77-.36.2 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.13-.28.28-.12.55.16.27.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.23 1.38.27.14.43.12.59-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.82.86.27.13.44.2.51.31.07.11.07.63-.17 1.31Z"/></svg>
+  </a>
 </div>
 
 <!-- ══ SERVICE MARKETPLACE MODAL ══ -->
@@ -958,6 +1095,23 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 </div>
 
 <script>
+/* ══ ADAPTIVE PERFORMANCE ══
+   Best-effort, non-blocking heuristic: on devices that look low-powered
+   (few CPU cores and/or little RAM reported) or that have asked for
+   reduced motion, drop the decorative pulse/shimmer/stagger animations
+   and the modal blur. Nothing else changes — the site stays fully
+   usable either way, just calmer and lighter to paint. */
+(function adaptivePerformance() {
+  const nav = window.navigator;
+  const fewCores = typeof nav.hardwareConcurrency === 'number' && nav.hardwareConcurrency <= 4;
+  const littleRam = typeof nav.deviceMemory === 'number' && nav.deviceMemory <= 4;
+  const wantsReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wantsReducedData = nav.connection && (nav.connection.saveData || /2g/.test(nav.connection.effectiveType || ''));
+  if ((fewCores && littleRam) || wantsReducedMotion || wantsReducedData) {
+    document.documentElement.classList.add('reduced-fx');
+  }
+})();
+
 // Internationalization data
 const translations = {
   en: {
@@ -1057,7 +1211,17 @@ const translations = {
     'form-attachment': 'Attach File',
     'form-details': 'Additional Details',
     'form-details-placeholder': 'Quantity, colors, sizes, deadline...',
-    'order-spam-warning': 'Please wait a moment and try again.'
+    'order-spam-warning': 'Please wait a moment and try again.',
+    'trust-tag': 'PROOF',
+    'trust-heading': 'Trusted by Growing Businesses',
+    'trust-sub': 'A look at real work in progress. Full case studies and client reviews are launching soon.',
+    'client-logo-1': 'Client A', 'client-logo-2': 'Client B', 'client-logo-3': 'Client C', 'client-logo-4': 'Client D', 'client-logo-5': 'Client E',
+    'ba-before': 'Before',
+    'ba-after': 'After',
+    'ba-note': 'Real before/after transformations coming soon.',
+    'testimonial-placeholder': 'Client testimonials will appear here soon.',
+    'fab-cta': 'Start Your Project',
+    'fab-wa': 'Order via WhatsApp'
   },
   fr: {
     'select-language': 'Sélectionnez Votre Langue',
@@ -1156,7 +1320,17 @@ const translations = {
     'form-attachment': 'Joindre un Fichier',
     'form-details': 'Détails Supplémentaires',
     'form-details-placeholder': 'Quantité, couleurs, tailles, délai...',
-    'order-spam-warning': 'Veuillez patienter un instant et réessayer.'
+    'order-spam-warning': 'Veuillez patienter un instant et réessayer.',
+    'trust-tag': 'PREUVE',
+    'trust-heading': 'Approuvé par des Entreprises en Croissance',
+    'trust-sub': 'Un aperçu de travaux réels en cours. Études de cas complètes et avis clients bientôt disponibles.',
+    'client-logo-1': 'Client A', 'client-logo-2': 'Client B', 'client-logo-3': 'Client C', 'client-logo-4': 'Client D', 'client-logo-5': 'Client E',
+    'ba-before': 'Avant',
+    'ba-after': 'Après',
+    'ba-note': 'Vraies transformations avant/après bientôt disponibles.',
+    'testimonial-placeholder': 'Les témoignages clients apparaîtront ici bientôt.',
+    'fab-cta': 'Démarrer Votre Projet',
+    'fab-wa': 'Commander via WhatsApp'
   },
   ar: {
     'select-language': 'اختر ل��تك',
@@ -1255,7 +1429,17 @@ const translations = {
     'form-attachment': 'إرفاق ملف',
     'form-details': 'تفاصيل إضافية',
     'form-details-placeholder': 'الكمية، الألوان، المقاسات، الموعد النهائي...',
-    'order-spam-warning': 'يرجى الانتظار قليلاً والمحاولة مرة أخرى.'
+    'order-spam-warning': 'يرجى الانتظار قليلاً والمحاولة مرة أخرى.',
+    'trust-tag': 'إثبات',
+    'trust-heading': 'موثوق به من قبل شركات نامية',
+    'trust-sub': 'نظرة على أعمال حقيقية قيد التنفيذ. دراسات الحالة الكاملة وآراء العملاء ستُطلق قريبًا.',
+    'client-logo-1': 'عميل أ', 'client-logo-2': 'عميل ب', 'client-logo-3': 'عميل ج', 'client-logo-4': 'عميل د', 'client-logo-5': 'عميل هـ',
+    'ba-before': 'قبل',
+    'ba-after': 'بعد',
+    'ba-note': 'تحويلات حقيقية قبل/بعد ستتوفر قريبًا.',
+    'testimonial-placeholder': 'ستظهر آراء العملاء هنا قريبًا.',
+    'fab-cta': 'ابدأ مشروعك',
+    'fab-wa': 'اطلب عبر واتس آب'
   }
 };
 
@@ -1627,7 +1811,15 @@ const introGalleryImages = [
 ];
 
 function buildIntroGallery() {
-  const track = document.getElementById('introGalleryTrack');
+  populateGalleryTrack('introGalleryTrack');
+}
+
+function buildTrustGallery() {
+  populateGalleryTrack('trustGalleryTrack');
+}
+
+function populateGalleryTrack(trackId) {
+  const track = document.getElementById(trackId);
   if (!track) return;
   // duplicated once for a seamless infinite scroll loop
   const doubled = introGalleryImages.concat(introGalleryImages);
@@ -1650,7 +1842,7 @@ function selectPath(path) {
   document.getElementById('pathScreen').classList.remove('active');
   document.getElementById('loadingScreen').classList.add('active');
 
-  // Simulate loading and transition
+  // Brief, non-blocking transition (kept short on purpose — see /critical_problems_to_fix #6)
   setTimeout(() => {
     document.getElementById('loadingScreen').classList.remove('active');
     document.getElementById('mainNav').style.display = 'flex';
@@ -1663,10 +1855,10 @@ function selectPath(path) {
     // Trigger animations
     setTimeout(() => {
       document.querySelectorAll('.layer').forEach((layer, i) => {
-        layer.style.animationDelay = `${i * 0.2}s`;
+        layer.style.animationDelay = `${i * 0.15}s`;
       });
-    }, 100);
-  }, 1500);
+    }, 80);
+  }, 700);
 }
 
 window.addEventListener('popstate', (e) => {
@@ -1676,6 +1868,8 @@ window.addEventListener('popstate', (e) => {
 // Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
   buildIntroGallery();
+  buildTrustGallery();
+  suggestBrowserLanguage();
 
   // Check for saved preferences
   const savedLanguage = localStorage.getItem('selectedLanguage');
@@ -1692,9 +1886,29 @@ window.addEventListener('DOMContentLoaded', () => {
     updateTranslations();
   }
 
-  // If path is saved, skip to path selection; else show language screen first.
-  // Establish this as the base history entry (replaceState, not pushState).
-  if (savedPath) {
+  /* ══ FUNNEL SIMPLIFICATION (max 2 taps, ever) ══
+     - Brand-new visitor: language screen → path screen → content (2 taps).
+     - Returning visitor who only picked a language: skip straight to the
+       path screen (1 tap left).
+     - Returning visitor who picked both: skip both screens entirely and
+       land directly on their content — zero taps, zero loading screen. */
+  if (savedLanguage && savedPath && document.getElementById(`${savedPath}-path`)) {
+    document.getElementById('languageScreen').classList.remove('active');
+    document.getElementById('pathScreen').classList.remove('active');
+    document.getElementById('mainNav').style.display = 'flex';
+    selectedPath = savedPath;
+    document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
+    document.getElementById(`${savedPath}-path`).style.display = 'block';
+    document.querySelectorAll('.layer').forEach(layer => layer.classList.add('show'));
+    requestAnimationFrame(() => document.getElementById('mainContent').classList.add('show'));
+
+    // Keep the back-button model intact: language → path → main, so the
+    // in-app Back button (and the device's own Back) still lands on the
+    // path screen instead of exiting the site.
+    history.replaceState({ screen: 'language' }, '', location.pathname);
+    history.pushState({ screen: 'path' }, '', '#path');
+    history.pushState({ screen: 'main', path: savedPath }, '', '#' + savedPath);
+  } else if (savedPath) {
     document.getElementById('languageScreen').classList.remove('active');
     document.getElementById('pathScreen').classList.add('active');
     history.replaceState({ screen: 'path' }, '', '#path');
@@ -1713,6 +1927,19 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Pre-highlight the language the visitor's browser is already set to, so a
+// first-time visitor usually just confirms a single suggestion rather than
+// reading three options from scratch. Never auto-advances on its own.
+function suggestBrowserLanguage() {
+  if (localStorage.getItem('selectedLanguage')) return;
+  const browserLang = (navigator.language || (navigator.languages && navigator.languages[0]) || 'en').toLowerCase();
+  const guess = browserLang.startsWith('ar') ? 'ar' : browserLang.startsWith('fr') ? 'fr' : 'en';
+  const match = Array.from(document.querySelectorAll('.lang-option')).find(
+    el => (el.getAttribute('onclick') || '').includes(`'${guess}'`)
+  );
+  if (match) match.classList.add('lang-suggested');
+}
 
 /* ══ FORMS: real submission via Email or WhatsApp ══
    There is no backend, so "sending" a request means handing the
@@ -1824,6 +2051,43 @@ function scrollToForm(formId) {
   const firstField = form.querySelector('input, textarea, select');
   setTimeout(() => { if (firstField) firstField.focus({ preventScroll: true }); }, 450);
 }
+
+/* ══ PERSISTENT FLOATING CTA ══
+   Jumps to whichever path's form is currently active (individual/company/client). */
+function scrollToActiveForm(e) {
+  if (e) e.preventDefault();
+  const formIds = { individual: 'individualForm', company: 'companyForm', client: 'clientForm' };
+  scrollToForm(formIds[selectedPath] || formIds.individual);
+}
+
+// Shows the floating CTA once the visitor has scrolled past whichever hero
+// is currently on screen, and only while they're actually inside the app
+// (not on the language/path screens). Two lightweight observers, no scroll
+// listener needed.
+(function setupFloatingCta() {
+  const fab = document.getElementById('ctaFabGroup');
+  const mainContentEl = document.getElementById('mainContent');
+  if (!fab || !mainContentEl) return;
+
+  const visibleHeroes = new Set();
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) visibleHeroes.add(entry.target);
+      else visibleHeroes.delete(entry.target);
+    });
+    const inMain = mainContentEl.classList.contains('show');
+    if (inMain && visibleHeroes.size === 0) fab.classList.add('visible');
+    else fab.classList.remove('visible');
+  }, { threshold: 0 });
+  document.querySelectorAll('.hero').forEach(h => heroObserver.observe(h));
+
+  // Re-evaluate whenever mainContent is shown/hidden (path switch, instant
+  // return-visitor load, screen navigation via Back/Forward).
+  const showObserver = new MutationObserver(() => {
+    if (!mainContentEl.classList.contains('show')) fab.classList.remove('visible');
+  });
+  showObserver.observe(mainContentEl, { attributes: true, attributeFilter: ['class'] });
+})();
 </script>
 
 </body>
