@@ -14,6 +14,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- EmailJS: lets the order form send a real email with the actual uploaded
+     file attached (not just its filename). See EMAILJS_CONFIG in the script
+     below for the one-time setup this needs. Site works without it too —
+     it just falls back to a text-only mailto/WhatsApp link. -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <style>
 :root {
   --cyan: #00f0ff;
@@ -303,6 +308,42 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .reduced-fx .layer .service-card, .reduced-fx .product-card { animation: none !important; opacity: 1 !important; }
 .reduced-fx .modal-overlay { backdrop-filter: none; }
 
+/* ══════════════════════════════════════════════════════
+   ENTRY EXPERIENCE — decorative "press to enter" ritual.
+   No validation happens here; it exists purely to make the
+   first moment on the site feel premium and intentional.
+   ══════════════════════════════════════════════════════ */
+.entry-screen { z-index: 900; }
+.entry-screen .screen-overlay { flex-direction: column; gap: 0; background: var(--bg-deep); overflow: hidden; }
+.entry-scanline { position: absolute; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.55), transparent); box-shadow: 0 0 24px rgba(0,240,255,0.4); animation: entryScan 3.4s ease-in-out infinite; pointer-events: none; }
+@keyframes entryScan { 0% { top: 8%; opacity: 0; } 8% { opacity: 1; } 50% { top: 92%; opacity: 1; } 58% { opacity: 0; } 100% { top: 92%; opacity: 0; } }
+.entry-content { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; }
+.entry-logo-wrap { margin-bottom: 20px; animation: introLogoIn 0.9s var(--ease) both; }
+.entry-title { font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 900; letter-spacing: 0.3em; color: var(--cyan); text-shadow: 0 0 30px rgba(0,240,255,0.5); margin-bottom: 10px; animation: fadeInUp 0.9s 0.15s both; opacity: 0; animation-fill-mode: forwards; }
+.entry-subtitle { font-size: 13.5px; color: var(--text-dim); letter-spacing: 0.03em; max-width: 320px; margin-bottom: 38px; animation: fadeInUp 0.9s 0.3s both; opacity: 0; animation-fill-mode: forwards; }
+.entry-enter-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0,240,255,0.05); border: 1px solid var(--cyan); color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 18px 36px; border-radius: 50px; cursor: pointer; overflow: visible; box-shadow: 0 0 26px rgba(0,240,255,0.18); transition: all 0.25s var(--ease), transform 0.15s var(--ease); animation: fadeInUp 0.9s 0.45s both, logoBreathe 3.6s 1.2s ease-in-out infinite; opacity: 0; animation-fill-mode: forwards; }
+.entry-enter-btn:hover { background: rgba(0,240,255,0.16); box-shadow: 0 0 46px rgba(0,240,255,0.35); transform: translateY(-2px); }
+.entry-enter-btn:active { transform: scale(0.96); }
+.entry-enter-label { display: inline-flex; align-items: center; gap: 10px; position: relative; z-index: 1; }
+.entry-enter-label svg { width: 15px; height: 15px; transition: transform 0.25s var(--ease); }
+.entry-enter-btn:hover .entry-enter-label svg { transform: translateX(3px); }
+.entry-enter-ring { position: absolute; inset: -8px; border: 1px solid rgba(0,240,255,0.3); border-radius: 50px; animation: entryRingPulse 2.4s ease-in-out infinite; pointer-events: none; }
+@keyframes entryRingPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.04); } }
+.entry-burst { position: absolute; inset: 0; pointer-events: none; }
+.entry-burst .spark { position: absolute; top: 50%; left: 50%; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); opacity: 0; }
+.entry-burst.fire .spark { animation: sparkFly 0.7s var(--ease) forwards; }
+@keyframes sparkFly {
+  0% { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.3); }
+}
+.entry-screen.entry-leaving { opacity: 0 !important; visibility: hidden !important; transition: opacity 0.55s var(--ease), visibility 0.55s var(--ease); }
+.entry-screen.entry-leaving .entry-content { animation: entryZoomOut 0.55s var(--ease) both; }
+@keyframes entryZoomOut { to { transform: scale(1.08); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .entry-scanline, .entry-enter-ring, .entry-enter-btn { animation: none !important; }
+  .entry-logo-wrap, .entry-title, .entry-subtitle, .entry-enter-btn { opacity: 1 !important; }
+}
+
 /* ══ HERO CTA (added conversion button) ══ */
 .hero-cta { margin-top: 22px; animation: heroReveal 1s var(--ease) 0.3s both; }
 
@@ -380,6 +421,36 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 }
 
 /* ══════════════════════════════════════════════════════
+   NOUVURA SHOP (featured product gallery + coming-soon grid)
+   ══════════════════════════════════════════════════════ */
+.shop-modal-panel { max-width: 1080px; }
+.shop-featured { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 36px; padding: 26px; margin-bottom: 40px; border: 1px solid var(--border); border-radius: 16px; background: rgba(0,240,255,0.03); }
+
+.shop-gallery-main { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,240,255,0.18); background: rgba(0,240,255,0.04); cursor: zoom-in; }
+.shop-gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s var(--ease), opacity 0.25s var(--ease); }
+.shop-gallery-main:hover img { transform: scale(1.05); }
+.shop-gallery-thumbs { display: flex; gap: 10px; margin-top: 12px; }
+.shop-gallery-thumb { width: 68px; height: 68px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(0,240,255,0.18); cursor: pointer; opacity: 0.55; transition: all 0.2s var(--ease); flex-shrink: 0; background: rgba(0,240,255,0.04); }
+.shop-gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shop-gallery-thumb:hover { opacity: 0.85; }
+.shop-gallery-thumb.active { opacity: 1; border-color: var(--cyan); box-shadow: 0 0 14px rgba(0,240,255,0.3); }
+
+.shop-product-info { display: flex; flex-direction: column; }
+.shop-product-badge { align-self: flex-start; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--wa); border: 1px solid rgba(37,211,102,0.4); background: rgba(37,211,102,0.06); padding: 5px 12px; border-radius: 20px; margin-bottom: 16px; }
+.shop-product-title { font-family: 'Orbitron', sans-serif; font-size: clamp(18px, 2.6vw, 24px); font-weight: 800; color: #fff; letter-spacing: 0.02em; line-height: 1.3; margin-bottom: 10px; }
+.shop-product-price { font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 700; color: var(--cyan); text-shadow: 0 0 18px rgba(0,240,255,0.35); margin-bottom: 18px; }
+.shop-product-desc { font-size: 14.5px; color: var(--text-dim); line-height: 1.75; margin-bottom: 24px; }
+.shop-product-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: auto; }
+.shop-product-actions .btn-primary, .shop-product-actions .btn-secondary { flex: 1; min-width: 180px; }
+
+.shop-section-divider { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+
+@media (max-width: 768px) {
+  .shop-featured { grid-template-columns: 1fr; gap: 20px; padding: 18px; }
+  .shop-gallery-thumb { width: 58px; height: 58px; }
+}
+
+/* ══════════════════════════════════════════════════════
    TRUST & PROOF SECTION (credibility block, universal)
    ══════════════════════════════════════════════════════ */
 .client-logo-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px; }
@@ -410,6 +481,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 .cta-fab { display: inline-flex; align-items: center; gap: 8px; font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); background: rgba(10,0,4,0.92); border: 1px solid var(--cyan); border-radius: 30px; padding: 14px 20px; text-decoration: none; box-shadow: 0 0 26px rgba(0,240,255,0.22); white-space: nowrap; animation: logoBreathe 3.6s ease-in-out infinite; }
 .cta-fab-wa { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 50%; background: var(--wa); color: #06210f; box-shadow: 0 0 22px rgba(37,211,102,0.45); flex-shrink: 0; }
 .cta-fab-wa svg { width: 24px; height: 24px; }
+.cta-fab-shop svg, .cta-fab > svg { width: 16px; height: 16px; flex-shrink: 0; }
 [dir="rtl"] .cta-fab-group { right: auto; left: 18px; }
 @media (max-width: 480px) {
   .cta-fab-group { right: 12px; bottom: 12px; left: 12px; justify-content: flex-end; }
@@ -429,7 +501,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
     <div class="intro-logo-wrap">
       <div class="logo-glow-ring"></div>
       <div class="logo-box">
-        <img class="logo-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+        <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
         <span class="logo-box-fallback" style="display:none;">N</span>
       </div>
     </div>
@@ -518,6 +590,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
     <a href="#" class="nav-logo">NOUVURA</a>
   </div>
   <ul class="nav-links">
+    <li><a href="#" onclick="openShop(); return false;" data-i18n="nav-shop">Shop</a></li>
     <li><a href="#services" data-i18n="nav-services">Services</a></li>
     <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
   </ul>
@@ -538,7 +611,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="logo-wrap">
         <div class="logo-glow-ring"></div>
         <div class="logo-box">
-          <img class="logo-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
           <span class="logo-box-fallback" style="display:none;">N</span>
         </div>
       </div>
@@ -561,7 +634,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- DTF Printing -->
         <div class="service-card" onclick="openMarketplace('dtf')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Impression%20DTF.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/impression-dtf.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-dtf-title">DTF Printing</h4>
           <p data-i18n="service-dtf-desc">Print your designs on premium garments with high precision and durability.</p>
           <button class="btn-primary" data-i18n="btn-order" onclick="openMarketplace('dtf')">Order Now</button>
@@ -569,7 +642,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Business Cards & Flyers -->
         <div class="service-card" onclick="openMarketplace('cards')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Cartes%20de%20Visite%20&%20Dépliants.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/cartes-visite.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-print-title">Business Cards & Flyers</h4>
           <p data-i18n="service-print-desc">Professional printing on multiple materials: 300g paper, premium matte & glossy, aluminum cards, NFC smart cards.</p>
           <button class="btn-primary" data-i18n="btn-request" onclick="openMarketplace('cards')">Request Now</button>
@@ -577,7 +650,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Posters -->
         <div class="service-card" onclick="openMarketplace('posters')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Affiches.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/affiches.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-posters-title">Posters</h4>
           <p data-i18n="service-posters-desc">High-quality large format prints: autocollant (adhesive), standard paper, premium finish.</p>
           <button class="btn-primary" data-i18n="btn-order-poster" onclick="openMarketplace('posters')">Order Poster</button>
@@ -585,7 +658,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Stickers -->
         <div class="service-card" onclick="openMarketplace('stickers')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Autocollants.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/autocollants.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-stickers-title">Stickers</h4>
           <p data-i18n="service-stickers-desc">Custom stickers you can place anywhere: phones, laptops, packaging, and more.</p>
           <button class="btn-primary" data-i18n="btn-order-stickers" onclick="openMarketplace('stickers')">Order Stickers</button>
@@ -669,7 +742,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="logo-wrap">
         <div class="logo-glow-ring"></div>
         <div class="logo-box">
-          <img class="logo-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
           <span class="logo-box-fallback" style="display:none;">N</span>
         </div>
       </div>
@@ -692,7 +765,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- CNC & Laser -->
         <div class="service-card" onclick="openMarketplace('cnc')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Découpe%20CNC%20&%20Laser.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/cnc-laser.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-cnc-title">CNC & Laser Cutting</h4>
           <p data-i18n="service-cnc-desc">Precision cutting and design using: Forex, Alucobond, Acrylic and more.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('cnc')">Inquire</button>
@@ -700,7 +773,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Signage -->
         <div class="service-card" onclick="openMarketplace('signage')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Signalétique%20&%20Panneaux%20Publicitaires.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/signaletique.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-signage-title">Signage & Advertising Boards</h4>
           <p data-i18n="service-signage-desc">All types of signage: illuminated signs, 3D lettering, autocollant signage.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('signage')">Inquire</button>
@@ -708,7 +781,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Vehicle Wrapping -->
         <div class="service-card" onclick="openMarketplace('wrapping')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Habillage%20Véhicules.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/habillage-vehicules.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-wrap-title">Vehicle Wrapping</h4>
           <p data-i18n="service-wrap-desc">Transform cars and trucks into moving advertisements.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('wrapping')">Inquire</button>
@@ -716,7 +789,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Branding -->
         <div class="service-card" onclick="openMarketplace('branding')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Branding%20&%20Impression.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/branding-impression.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-branding-title">Branding & Printing</h4>
           <p data-i18n="service-branding-desc">Business cards, clothing, large prints, and full brand identity.</p>
           <button class="btn-primary" data-i18n="btn-inquire" onclick="openMarketplace('branding')">Inquire</button>
@@ -810,7 +883,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="logo-wrap">
         <div class="logo-glow-ring"></div>
         <div class="logo-box">
-          <img class="logo-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+          <img class="logo-img" src="images/logo.png" alt="NOUVURA" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
           <span class="logo-box-fallback" style="display:none;">N</span>
         </div>
       </div>
@@ -833,7 +906,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       <div class="service-grid">
         <!-- Web Design -->
         <div class="service-card" onclick="openMarketplace('web')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Conception%20Web.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/conception-web.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-web-title">Website Design</h4>
           <p data-i18n="service-web-desc">Custom, high-performing websites that convert visitors into customers.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('web')">Get Started</button>
@@ -841,7 +914,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Social Media -->
         <div class="service-card" onclick="openMarketplace('social')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Création%20de%20contenu,.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/creation-contenu.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-social-title">Social Media Management</h4>
           <p data-i18n="service-social-desc">Content creation, strategy, and engagement across all major platforms.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('social')">Get Started</button>
@@ -849,7 +922,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- UI/UX -->
         <div class="service-card" onclick="openMarketplace('uiux')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Des%20interfaces%20belles.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/interfaces.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-uiux-title">UI/UX Design</h4>
           <p data-i18n="service-uiux-desc">Beautiful, intuitive interfaces that users love and brands trust.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('uiux')">Get Started</button>
@@ -857,7 +930,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
         <!-- Optimization -->
         <div class="service-card" onclick="openMarketplace('seo')">
-          <img class="service-card-img" src="https://raw.githubusercontent.com/nouvura/Nouvura/main/Optimisation%20Web.png" alt="" loading="lazy" onerror="this.remove();">
+          <img class="service-card-img" src="images/optimisation-web.png" alt="" loading="lazy" onerror="this.remove();">
           <h4 data-i18n="service-seo-title">Website Optimization</h4>
           <p data-i18n="service-seo-desc">Performance, SEO, and conversion rate optimization for maximum ROI.</p>
           <button class="btn-primary" data-i18n="btn-start" onclick="openMarketplace('seo')">Get Started</button>
@@ -1022,7 +1095,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 
 <!-- ══ PERSISTENT FLOATING CTA (visible once scrolled past the hero) ══ -->
 <div class="cta-fab-group" id="ctaFabGroup">
+  <a href="#" class="cta-fab cta-fab-shop" onclick="openShop(); return false;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span class="cta-fab-label" data-i18n="fab-shop">Nouvura Shop</span>
+  </a>
   <a href="#" class="cta-fab" onclick="scrollToActiveForm(event)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
     <span class="cta-fab-label" data-i18n="fab-cta">Start Your Project</span>
   </a>
   <a href="https://wa.me/213776532042" target="_blank" class="cta-fab-wa" data-i18n-title="fab-wa" title="Order via WhatsApp" aria-label="Order via WhatsApp">
@@ -1052,7 +1130,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 <div id="orderModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
   <div class="modal-panel">
     <div class="modal-header">
-      <button type="button" class="nav-back-btn" onclick="backToMarketplace()" data-i18n-title="btn-back" title="Back" aria-label="Back">
+      <button type="button" class="nav-back-btn" onclick="backFromOrder()" data-i18n-title="btn-back" title="Back" aria-label="Back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="modal-header-text">
@@ -1061,40 +1139,53 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
       </div>
       <button type="button" class="modal-close" onclick="closeOrderModal()" aria-label="Close">✕</button>
     </div>
-    <form class="nform" id="orderForm" novalidate>
+    <!-- enctype is set for semantic correctness when a file is attached;
+         EmailJS's sendForm() reads the file input directly regardless. -->
+    <form class="nform" id="orderForm" novalidate enctype="multipart/form-data">
       <!-- Honeypot: real visitors never see or fill this -->
       <div class="hp-field" aria-hidden="true">
         <label for="orderWebsiteField">Website</label>
-        <input type="text" id="orderWebsiteField" data-field="Website" tabindex="-1" autocomplete="off">
+        <input type="text" id="orderWebsiteField" name="website" data-field="Website" tabindex="-1" autocomplete="off">
       </div>
       <div class="form-field full">
         <label class="form-label" data-i18n="form-product">Product</label>
-        <input type="text" class="form-input" id="orderProductField" data-field="Product" readonly>
+        <input type="text" class="form-input" id="orderProductField" name="product" data-field="Product" readonly>
       </div>
       <div class="form-row">
         <div class="form-field">
           <label class="form-label" data-i18n="form-name">Full Name <span class="req">*</span></label>
-          <input type="text" class="form-input" data-field="Full Name" required maxlength="80" autocomplete="name">
+          <input type="text" class="form-input" name="full_name" data-field="Full Name" required maxlength="80" autocomplete="name">
         </div>
         <div class="form-field">
           <label class="form-label" data-i18n="form-phone">Phone <span class="req">*</span></label>
-          <input type="tel" class="form-input" data-field="Phone" required maxlength="30" autocomplete="tel">
+          <input type="tel" class="form-input" name="phone" data-field="Phone" required maxlength="30" autocomplete="tel">
         </div>
       </div>
       <div class="form-row">
         <div class="form-field">
           <label class="form-label" data-i18n="form-email">Email</label>
-          <input type="email" class="form-input" data-field="Email" maxlength="120" autocomplete="email">
+          <input type="email" class="form-input" name="email" data-field="Email" maxlength="120" autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label class="form-label" data-i18n="form-size">Size / Dimensions</label>
+          <input type="text" class="form-input" name="size" data-field="Size" maxlength="60" data-i18n-placeholder="form-size-placeholder" placeholder="e.g., A4, 30x40cm">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" data-i18n="form-material">Material Type</label>
+          <input type="text" class="form-input" name="material" data-field="Material" maxlength="60" data-i18n-placeholder="form-material-placeholder" placeholder="e.g., wood frame, acrylic, canvas">
         </div>
         <div class="form-field">
           <label class="form-label" data-i18n="form-attachment">Attach File</label>
-          <input type="file" class="form-input" data-field="Attachment" accept="image/*,.pdf">
+          <input type="file" class="form-input" id="orderAttachmentField" name="attachment" data-field="Attachment" accept="image/*,.pdf">
         </div>
       </div>
       <div class="form-field full">
         <label class="form-label" data-i18n="form-details">Additional Details</label>
-        <textarea class="form-textarea" data-field="Details" maxlength="600" data-i18n-placeholder="form-details-placeholder" placeholder="Quantity, colors, sizes, deadline..."></textarea>
+        <textarea class="form-textarea" name="details" data-field="Details" maxlength="600" data-i18n-placeholder="form-details-placeholder" placeholder="Quantity, colors, sizes, deadline..."></textarea>
       </div>
+      <p style="font-size:11.5px; color:rgba(255,242,246,0.45); margin-top:-8px; line-height:1.6;" id="orderAttachmentNote" data-i18n="order-attachment-note">Note: the actual file is sent by email when this form is connected to our mail service; the WhatsApp option can only send the file name — please attach the file yourself in the WhatsApp chat.</p>
       <div class="form-actions">
         <button type="button" class="btn-submit email" onclick="submitOrderViaEmail()">
           <span data-i18n="btn-send">Send Request</span>
@@ -1108,25 +1199,148 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
   </div>
 </div>
 
+<!-- ══ NOUVURA SHOP MODAL ══ -->
+<div id="shopModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="shopModalTitle">
+  <div class="modal-panel shop-modal-panel">
+    <div class="modal-header">
+      <button type="button" class="nav-back-btn" onclick="closeShop()" data-i18n-title="btn-back" title="Back" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="modal-header-text">
+        <span class="funnel-badge b2c" data-i18n="badge-shop">NOUVURA SHOP</span>
+        <h2 class="modal-title" id="shopModalTitle" data-i18n="shop-title">The Shop</h2>
+      </div>
+      <button type="button" class="modal-close" onclick="closeShop()" aria-label="Close">✕</button>
+    </div>
+    <p class="modal-intro" data-i18n="shop-intro">Ready-made wall art, drop-ship printables, and custom pieces made to order. Pick a piece below, or tell us what you have in mind.</p>
+
+    <!-- Featured product: rendered by JS from SHOP_PRODUCTS so the gallery,
+         price, and buttons all stay in sync with one source of truth. -->
+    <div id="shopFeaturedWrap"></div>
+
+    <div class="shop-section-divider">
+      <span class="section-tag" data-i18n="shop-more-tag">MORE DROPS</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="service-grid" id="shopComingSoonGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     ENTRY EXPERIENCE (PURELY DECORATIVE — NOT A GATE)
+     A premium "press to enter" ritual, matching the cyber/neon
+     identity. There is no code, no check, nothing to unlock —
+     one tap plays a scan/particle burst and reveals the site.
+     ══════════════════════════════════════════════════════ -->
+<div id="entryScreen" class="screen active entry-screen" style="z-index:900;">
+  <div class="screen-overlay">
+    <div class="entry-scanline"></div>
+    <div class="entry-content">
+      <div class="logo-wrap entry-logo-wrap">
+        <div class="logo-glow-ring"></div>
+        <div class="logo-box" style="width:104px;height:104px;">
+          <img class="logo-img" src="images/logo.png" alt="NOUVURA" style="width:76px;height:76px;" onerror="var p=this.parentNode; this.remove(); p.querySelector('.logo-box-fallback').style.display='flex';">
+          <span class="logo-box-fallback" style="display:none;font-size:34px;">N</span>
+        </div>
+      </div>
+      <h1 class="entry-title">NOUVURA</h1>
+      <p class="entry-subtitle">We don't just design. We build perception.</p>
+      <button type="button" class="entry-enter-btn" id="entryEnterBtn" aria-label="Enter Nouvura">
+        <span class="entry-enter-ring"></span>
+        <span class="entry-enter-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          ENTER EXPERIENCE
+        </span>
+      </button>
+      <div class="entry-burst" id="entryBurst" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ══ ADAPTIVE PERFORMANCE ══
-   Best-effort, non-blocking heuristic: on devices that look low-powered
-   (few CPU cores and/or little RAM reported) or that have asked for
-   reduced motion, drop the decorative pulse/shimmer/stagger animations
-   and the modal blur. Nothing else changes — the site stays fully
-   usable either way, just calmer and lighter to paint. */
-(function adaptivePerformance() {
-  const nav = window.navigator;
-  const fewCores = typeof nav.hardwareConcurrency === 'number' && nav.hardwareConcurrency <= 4;
-  const littleRam = typeof nav.deviceMemory === 'number' && nav.deviceMemory <= 4;
-  const wantsReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const wantsReducedData = nav.connection && (nav.connection.saveData || /2g/.test(nav.connection.effectiveType || ''));
-  if ((fewCores && littleRam) || wantsReducedMotion || wantsReducedData) {
-    document.documentElement.classList.add('reduced-fx');
+/*
+ * NOUVURA — single-file application script.
+ * Structure: (1) Entry Experience module [decorative only — no
+ * access control of any kind], (2) i18n translations, (3) screen/
+ * path/app logic, (4) marketplace & order funnel, (5) forms,
+ * (6) Shop module.
+ * dev: yacine iguenene
+ */
+
+/* ══════════════════════════════════════════════════════════
+   ENTRY EXPERIENCE MODULE (IIFE — no globals leak out)
+   ------------------------------------------------------------
+   Purely a first-impression ritual: a click plays a short
+   particle-burst animation and reveals the site. There is no
+   validation, no stored codes, nothing to unlock — this exists
+   only to make the first moment on the site feel intentional.
+   ══════════════════════════════════════════════════════════ */
+const NouvuraEntry = (function () {
+  const SESSION_KEY = 'nouvuraEntrySeen';
+
+  function elements() {
+    return {
+      screen: document.getElementById('entryScreen'),
+      btn: document.getElementById('entryEnterBtn'),
+      burst: document.getElementById('entryBurst')
+    };
   }
+
+  function fireBurst(burstEl) {
+    if (!burstEl) return;
+    burstEl.innerHTML = '';
+    const sparkCount = 18;
+    for (let i = 0; i < sparkCount; i++) {
+      const spark = document.createElement('span');
+      spark.className = 'spark';
+      const angle = (Math.PI * 2 * i) / sparkCount + Math.random() * 0.3;
+      const distance = 90 + Math.random() * 70;
+      spark.style.setProperty('--dx', (Math.cos(angle) * distance).toFixed(1) + 'px');
+      spark.style.setProperty('--dy', (Math.sin(angle) * distance).toFixed(1) + 'px');
+      spark.style.animationDelay = (Math.random() * 0.08).toFixed(2) + 's';
+      burstEl.appendChild(spark);
+    }
+    burstEl.classList.remove('fire');
+    void burstEl.offsetWidth;
+    burstEl.classList.add('fire');
+  }
+
+  function enter() {
+    const el = elements();
+    if (!el.screen) return;
+    fireBurst(el.burst);
+    if (el.btn) el.btn.disabled = true;
+    setTimeout(() => {
+      el.screen.classList.add('entry-leaving');
+      try { sessionStorage.setItem(SESSION_KEY, '1'); } catch (e) { /* storage unavailable — replay next time, harmless */ }
+      setTimeout(() => { el.screen.style.display = 'none'; }, 600);
+    }, 260);
+  }
+
+  function init() {
+    const el = elements();
+    if (!el.screen) return;
+
+    // Skip the ritual only within the same tab session, so it still
+    // greets people on a fresh visit without nagging on every click.
+    try {
+      if (sessionStorage.getItem(SESSION_KEY)) {
+        el.screen.style.display = 'none';
+        return;
+      }
+    } catch (e) { /* storage unavailable — just show the entry screen */ }
+
+    if (el.btn) el.btn.addEventListener('click', enter);
+  }
+
+  return { init: init };
 })();
 
-// Internationalization data
+document.addEventListener('DOMContentLoaded', function () { NouvuraEntry.init(); });
+
+/* ══════════════════════════════════════════════════════════
+   i18n TRANSLATIONS
+   ══════════════════════════════════════════════════════════ */
 const translations = {
   en: {
     'select-language': 'Select Your Language',
@@ -1235,14 +1449,36 @@ const translations = {
     'ba-note': 'Real before/after transformations coming soon.',
     'testimonial-placeholder': 'Client testimonials will appear here soon.',
     'fab-cta': 'Start Your Project',
-    'fab-wa': 'Order via WhatsApp'
+    'fab-wa': 'Order via WhatsApp',
+    'nav-shop': 'Shop',
+    'fab-shop': 'Nouvura Shop',
+    'badge-shop': 'NOUVURA SHOP',
+    'shop-title': 'The Shop',
+    'shop-intro': 'Ready-made wall art and custom pieces made to order. Pick a piece below, or tell us what you have in mind.',
+    'shop-more-tag': 'MORE DROPS',
+    'shop-featured-badge': 'FEATURED',
+    'shop-order-now': 'Order Now',
+    'shop-custom-order': 'Custom Order',
+    'shop-custom-order-label': 'Custom Order',
+    'shop-product-luffy-title': 'One Piece — Monkey D. Luffy Wall Frame',
+    'shop-product-luffy-desc': 'A premium printed wall frame, ready to hang. Vivid color, sturdy frame, fast local delivery.',
+    'shop-coming-soon': 'Coming Soon 🚀',
+    'shop-coming-soon-desc': 'New drops are on the way — check back soon.',
+    'form-size': 'Size / Dimensions',
+    'form-size-placeholder': 'e.g., A4, 30x40cm',
+    'form-material': 'Material Type',
+    'form-material-placeholder': 'e.g., wood frame, acrylic, canvas',
+    'order-attachment-note': "Note: the actual file is sent by email once this form is connected to our mail service; the WhatsApp option can only send the file's name — please attach the file yourself in the WhatsApp chat.",
+    'form-status-sending': 'Sending your request…',
+    'form-status-sent': "Request sent — we'll be in touch shortly.",
+    'form-status-send-error': 'Could not send automatically — please use WhatsApp instead.'
   },
   fr: {
     'select-language': 'Sélectionnez Votre Langue',
     'welcome': 'Bienvenue à',
     'who-are-you': 'Qui êtes-vous?',
     'path-individual': 'Je suis un Particulier',
-    'path-individual-desc': 'Besoins personnels d\'impression et de design',
+    'path-individual-desc': "Besoins personnels d'impression et de design",
     'path-company': 'Je suis une Entreprise',
     'path-company-desc': 'Grands projets & production',
     'path-client': 'Je suis un Client',
@@ -1263,7 +1499,7 @@ const translations = {
     'service-posters-title': 'Affiches',
     'service-posters-desc': 'Impressions grand format de haute qualité : autocollants, papier standard, finition premium.',
     'service-stickers-title': 'Autocollants',
-    'service-stickers-desc': 'Autocollants personnalisés que vous pouvez placer n\'importe où : téléphones, ordinateurs portables, emballage, etc.',
+    'service-stickers-desc': "Autocollants personnalisés que vous pouvez placer n'importe où : téléphones, ordinateurs portables, emballage, etc.",
     'btn-order': 'Commander Maintenant',
     'btn-request': 'Demander Maintenant',
     'btn-order-poster': 'Commander une Affiche',
@@ -1276,7 +1512,7 @@ const translations = {
     'form-budget': 'Budget',
     'btn-send': 'Envoyer la Demande',
     'company-title': 'Construisez Votre Marque Avec Précision',
-    'company-slogan': 'Du concept à l\'exécution — nous gérons tout',
+    'company-slogan': "Du concept à l'exécution — nous gérons tout",
     'company-services': 'Nos Services',
     'for-companies': 'POUR LES ENTREPRISES',
     'service-cnc-title': 'Découpe CNC & Laser',
@@ -1286,10 +1522,10 @@ const translations = {
     'service-wrap-title': 'Habillage Véhicules',
     'service-wrap-desc': 'Transformez les voitures et les camions en publicités ambulantes.',
     'service-branding-title': 'Branding & Impression',
-    'service-branding-desc': 'Cartes de visite, vêtements, grandes impressions, et identité de marque complète.',
-    'btn-inquire': 'S\'Informer',
+    'service-branding-desc': "Cartes de visite, vêtements, grandes impressions, et identité de marque complète.",
+    'btn-inquire': "S'Informer",
     'project-form': 'Demande de Projet',
-    'form-company-name': 'Nom de l\'Entreprise',
+    'form-company-name': "Nom de l'Entreprise",
     'form-contact': 'Personne de Contact',
     'form-project-type': 'Type de Projet',
     'form-deadline': 'Date limite du Projet',
@@ -1319,7 +1555,7 @@ const translations = {
     'contact-social': 'Nous Suivre',
     'btn-back': 'Retour',
     'btn-send-wa': 'Envoyer via WhatsApp',
-    'form-required-alert': 'Veuillez remplir tous les champs obligatoires avant d\'envoyer.',
+    'form-required-alert': "Veuillez remplir tous les champs obligatoires avant d'envoyer.",
     'form-status-email': 'Ouverture de votre application e-mail...',
     'form-status-whatsapp': 'Ouverture de WhatsApp...',
     'hero-cta-individual': 'Obtenir un Devis Gratuit',
@@ -1344,10 +1580,32 @@ const translations = {
     'ba-note': 'Vraies transformations avant/après bientôt disponibles.',
     'testimonial-placeholder': 'Les témoignages clients apparaîtront ici bientôt.',
     'fab-cta': 'Démarrer Votre Projet',
-    'fab-wa': 'Commander via WhatsApp'
+    'fab-wa': 'Commander via WhatsApp',
+    'nav-shop': 'Boutique',
+    'fab-shop': 'Boutique Nouvura',
+    'badge-shop': 'BOUTIQUE NOUVURA',
+    'shop-title': 'La Boutique',
+    'shop-intro': 'Œuvres murales prêtes à accrocher et pièces personnalisées sur commande. Choisissez une pièce ci-dessous, ou dites-nous ce que vous avez en tête.',
+    'shop-more-tag': 'PROCHAINES SORTIES',
+    'shop-featured-badge': 'EN VEDETTE',
+    'shop-order-now': 'Commander Maintenant',
+    'shop-custom-order': 'Commande Personnalisée',
+    'shop-custom-order-label': 'Commande Personnalisée',
+    'shop-product-luffy-title': 'One Piece — Cadre Mural Monkey D. Luffy',
+    'shop-product-luffy-desc': "Un cadre mural imprimé haut de gamme, prêt à accrocher. Couleurs vives, cadre robuste, livraison locale rapide.",
+    'shop-coming-soon': 'Bientôt Disponible 🚀',
+    'shop-coming-soon-desc': 'De nouvelles pièces arrivent bientôt — revenez vite.',
+    'form-size': 'Taille / Dimensions',
+    'form-size-placeholder': 'ex. A4, 30x40cm',
+    'form-material': 'Type de Matériau',
+    'form-material-placeholder': 'ex. cadre bois, acrylique, toile',
+    'order-attachment-note': "Remarque : le fichier réel est envoyé par email une fois ce formulaire connecté à notre service de messagerie ; l'option WhatsApp ne peut envoyer que le nom du fichier — merci de le joindre vous-même dans la discussion WhatsApp.",
+    'form-status-sending': 'Envoi de votre demande…',
+    'form-status-sent': 'Demande envoyée — nous vous recontacterons bientôt.',
+    'form-status-send-error': "Envoi automatique impossible — merci d'utiliser WhatsApp à la place."
   },
   ar: {
-    'select-language': 'اختر ل��تك',
+    'select-language': 'اختر لغتك',
     'welcome': 'أهلا بك في',
     'who-are-you': 'من أنت؟',
     'path-individual': 'أنا فرد',
@@ -1406,7 +1664,7 @@ const translations = {
     'client-title': 'النمو الرقمي والحضور',
     'client-slogan': 'بناء حضورك عبر الإنترنت باستخدام حلول رقمية متقدمة',
     'digital-services': 'الخدمات الرقمية',
-    'online': 'عبر ا��إنترنت',
+    'online': 'عبر الإنترنت',
     'service-web-title': 'تصميم المواقع',
     'service-web-desc': 'مواقع ويب مخصصة وعالية الأداء تحول الزوار إلى عملاء.',
     'service-social-title': 'إدارة وسائل التواصل الاجتماعي',
@@ -1453,7 +1711,29 @@ const translations = {
     'ba-note': 'تحويلات حقيقية قبل/بعد ستتوفر قريبًا.',
     'testimonial-placeholder': 'ستظهر آراء العملاء هنا قريبًا.',
     'fab-cta': 'ابدأ مشروعك',
-    'fab-wa': 'اطلب عبر واتس آب'
+    'fab-wa': 'اطلب عبر واتس آب',
+    'nav-shop': 'المتجر',
+    'fab-shop': 'متجر نوفورا',
+    'badge-shop': 'متجر نوفورا',
+    'shop-title': 'المتجر',
+    'shop-intro': 'لوحات جدارية جاهزة وقطع مخصصة حسب الطلب. اختر قطعة أدناه، أو أخبرنا بما تفكر فيه.',
+    'shop-more-tag': 'إصدارات قادمة',
+    'shop-featured-badge': 'مميز',
+    'shop-order-now': 'اطلب الآن',
+    'shop-custom-order': 'طلب مخصص',
+    'shop-custom-order-label': 'طلب مخصص',
+    'shop-product-luffy-title': 'ون بيس — إطار جداري مونكي دي لوفي',
+    'shop-product-luffy-desc': 'إطار جداري مطبوع فاخر، جاهز للتعليق. ألوان زاهية، إطار متين، توصيل محلي سريع.',
+    'shop-coming-soon': 'قريبًا 🚀',
+    'shop-coming-soon-desc': 'إصدارات جديدة في الطريق — تفقد الصفحة قريبًا.',
+    'form-size': 'الحجم / الأبعاد',
+    'form-size-placeholder': 'مثال: A4، 30x40 سم',
+    'form-material': 'نوع الخامة',
+    'form-material-placeholder': 'مثال: إطار خشبي، أكريليك، قماش كانفاس',
+    'order-attachment-note': 'ملاحظة: يتم إرسال الملف الفعلي عبر البريد الإلكتروني عند ربط هذا النموذج بخدمة البريد لدينا؛ يمكن لخيار واتس آب إرسال اسم الملف فقط — يرجى إرفاق الملف بنفسك في محادثة واتس آب.',
+    'form-status-sending': 'جارٍ إرسال طلبك…',
+    'form-status-sent': 'تم إرسال الطلب — سنتواصل معك قريبًا.',
+    'form-status-send-error': 'تعذر الإرسال التلقائي — يرجى استخدام واتس آب بدلاً من ذلك.'
   }
 };
 
@@ -1466,7 +1746,7 @@ function setLanguage(lang) {
   localStorage.setItem('selectedLanguage', lang);
   document.documentElement.lang = lang;
   updateTranslations();
-  
+
   if (lang === 'ar') {
     document.documentElement.dir = 'rtl';
     document.body.style.direction = 'rtl';
@@ -1474,21 +1754,22 @@ function setLanguage(lang) {
     document.documentElement.dir = 'ltr';
     document.body.style.direction = 'ltr';
   }
-  
-  // Update active language button
+
   document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active', 'initial-active'));
-  const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn => 
+  const langBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn =>
     btn.textContent.trim().toUpperCase() === lang.toUpperCase()
   );
   if (langBtn) langBtn.classList.add('initial-active');
 
-  // If the marketplace is open, re-render its products in the new language
   if (currentMarketplaceService && document.getElementById('marketplaceModal').classList.contains('active')) {
     openMarketplace(currentMarketplaceService);
   }
+  if (document.getElementById('shopModal').classList.contains('active')) {
+    renderShopFeatured();
+    renderShopComingSoon();
+  }
 }
 
-// Update all translations on page
 function updateTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -1510,14 +1791,6 @@ function updateTranslations() {
   });
 }
 
-/* ══ SCREEN / HISTORY NAVIGATION ══
-   Every screen change is recorded in the browser's history (pushState).
-   This means the device's native Back button and our in-app Back
-   buttons behave identically: they step back through the app's own
-   screens instead of leaving the page. The site only actually exits
-   the browser once the user goes back past the very first screen —
-   normal, expected browser behavior. */
-
 function hideAllScreens() {
   document.getElementById('languageScreen').classList.remove('active');
   document.getElementById('pathScreen').classList.remove('active');
@@ -1527,7 +1800,6 @@ function hideAllScreens() {
   document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
 }
 
-// Instantly render a given state (used for popstate / initial load — no loading animation)
 function applyScreenState(state, isInitial) {
   state = state || { screen: 'language' };
   hideAllScreens();
@@ -1548,16 +1820,10 @@ function applyScreenState(state, isInitial) {
   if (!isInitial) window.scrollTo(0, 0);
 }
 
-// In-app Back button: reuses the real browser history so behavior stays consistent
 function goBack() {
   history.back();
 }
 
-/* ══ SERVICE → FORM LINKING ══
-   Clicking "Order / Request / Inquire / Get Started" on a service card
-   now actually does something: it jumps to that path's request form,
-   pre-selects the matching service, highlights the form, and focuses
-   the first field so the visitor can immediately type and send. */
 function requestService(path, serviceValue) {
   const formIds = { individual: 'individualForm', company: 'companyForm', client: 'clientForm' };
   const form = document.getElementById(formIds[path]);
@@ -1569,7 +1835,6 @@ function requestService(path, serviceValue) {
   form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   form.classList.remove('highlight');
-  // restart the animation even if triggered twice in a row
   void form.offsetWidth;
   form.classList.add('highlight');
   setTimeout(() => form.classList.remove('highlight'), 1500);
@@ -1578,26 +1843,15 @@ function requestService(path, serviceValue) {
   setTimeout(() => { if (firstField) firstField.focus({ preventScroll: true }); }, 450);
 }
 
-/* ══════════════════════════════════════════════════════════
-   SERVICE MARKETPLACE + ORDER FUNNEL
-   Service card click → product marketplace → order form →
-   WhatsApp / Email. Placeholder data below; swap in real
-   products, prices, and images later without touching the
-   surrounding modal/form system.
-   ══════════════════════════════════════════════════════════ */
-
-// Which service (by key) is currently open in the marketplace modal, if any
+/* ══ SERVICE MARKETPLACE + ORDER FUNNEL ══ */
 let currentMarketplaceService = null;
 
-// Maps each service key to the existing i18n key already used for its card title,
-// so the modal heading always matches the service name shown on the card.
 const serviceTitleKeys = {
   dtf: 'service-dtf-title', cards: 'service-print-title', posters: 'service-posters-title', stickers: 'service-stickers-title',
   cnc: 'service-cnc-title', signage: 'service-signage-title', wrapping: 'service-wrap-title', branding: 'service-branding-title',
   web: 'service-web-title', social: 'service-social-title', uiux: 'service-uiux-title', seo: 'service-seo-title'
 };
 
-// Placeholder product names per service, per language (Phase 1 — replace with real catalog later)
 const productCatalogI18n = {
   en: {
     dtf: ['Custom T-Shirt Print', 'DTF Hoodie Print', 'DTF Cap Print'],
@@ -1643,7 +1897,6 @@ const productCatalogI18n = {
   }
 };
 
-// Shared placeholder copy shown on every product card until the real catalog ships
 const productPlaceholderText = {
   en: { desc: 'Full details, pricing, and options will be available soon.', price: 'Price: Coming Soon', badge: 'Coming Soon' },
   fr: { desc: 'Tous les détails, prix et options seront bientôt disponibles.', price: 'Prix : Bientôt disponible', badge: 'Bientôt Disponible' },
@@ -1656,7 +1909,6 @@ function productPlaceholderIcon() {
 
 function renderProductCard(serviceKey, title, idx) {
   const t = productPlaceholderText[currentLanguage] || productPlaceholderText.en;
-  // Escape single quotes so the title can safely sit inside the inline onclick string
   const safeTitle = title.replace(/'/g, "\\'");
   return `<div class="product-card" style="animation-delay:${(idx * 0.08).toFixed(2)}s">
     <div class="product-card-img placeholder-img">${productPlaceholderIcon()}</div>
@@ -1707,6 +1959,126 @@ function closeMarketplace() {
   currentMarketplaceService = null;
 }
 
+/* ══════════════════════════════════════════════════════════
+   NOUVURA SHOP
+   ------------------------------------------------------------
+   Single source of truth for shop products. To add a real
+   product later, push another object onto SHOP_PRODUCTS (or add
+   a "comingSoon" entry) — the gallery, price, and order button
+   all render from this data, nothing else needs to change.
+   ══════════════════════════════════════════════════════════ */
+const SHOP_PRODUCTS = [
+  {
+    id: 'luffy-wall-frame',
+    titleKey: 'shop-product-luffy-title',
+    title: 'One Piece — Monkey D. Luffy Wall Frame',
+    descKey: 'shop-product-luffy-desc',
+    desc: 'A premium printed wall frame, ready to hang. Vivid color, sturdy frame, fast local delivery.',
+    price: '3500 DZD',
+    images: ['images/caderonepiece.jpg', 'images/caderonepiece1.jpg', 'images/caderonepiece2.jpg']
+  }
+];
+
+let shopActiveImageIndex = 0;
+
+function renderShopFeatured() {
+  const wrap = document.getElementById('shopFeaturedWrap');
+  if (!wrap) return;
+  const product = SHOP_PRODUCTS[0];
+  if (!product) { wrap.innerHTML = ''; return; }
+
+  shopActiveImageIndex = 0;
+  const title = translations[currentLanguage][product.titleKey] || product.title;
+  const desc = translations[currentLanguage][product.descKey] || product.desc;
+  const badge = translations[currentLanguage]['shop-featured-badge'] || 'FEATURED';
+  const orderNowLabel = translations[currentLanguage]['shop-order-now'] || 'Order Now';
+  const customOrderLabel = translations[currentLanguage]['shop-custom-order'] || 'Custom Order';
+
+  const thumbs = product.images.map((src, i) => `
+    <div class="shop-gallery-thumb${i === 0 ? ' active' : ''}" data-idx="${i}" onclick="setShopGalleryImage(${i})">
+      <img src="${src}" alt="" loading="lazy" onerror="this.closest('.shop-gallery-thumb').remove();">
+    </div>`).join('');
+
+  wrap.innerHTML = `
+    <div class="shop-featured">
+      <div>
+        <div class="shop-gallery-main" id="shopGalleryMain" onclick="cycleShopGalleryImage()">
+          <img id="shopGalleryMainImg" src="${product.images[0]}" alt="${title}" onerror="this.style.display='none';">
+        </div>
+        <div class="shop-gallery-thumbs">${thumbs}</div>
+      </div>
+      <div class="shop-product-info">
+        <span class="shop-product-badge">${badge}</span>
+        <h3 class="shop-product-title">${title}</h3>
+        <div class="shop-product-price">${product.price}</div>
+        <p class="shop-product-desc">${desc}</p>
+        <div class="shop-product-actions">
+          <button type="button" class="btn-primary" onclick="openShopOrderForm('${title.replace(/'/g, "\\'")}')">${orderNowLabel}</button>
+          <button type="button" class="btn-secondary" onclick="openShopOrderForm()">${customOrderLabel}</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function setShopGalleryImage(idx) {
+  const product = SHOP_PRODUCTS[0];
+  if (!product || !product.images[idx]) return;
+  shopActiveImageIndex = idx;
+  const mainImg = document.getElementById('shopGalleryMainImg');
+  if (mainImg) {
+    mainImg.style.opacity = '0';
+    setTimeout(() => {
+      mainImg.src = product.images[idx];
+      mainImg.style.opacity = '1';
+    }, 120);
+  }
+  document.querySelectorAll('.shop-gallery-thumb').forEach(el => {
+    el.classList.toggle('active', Number(el.dataset.idx) === idx);
+  });
+}
+
+function cycleShopGalleryImage() {
+  const product = SHOP_PRODUCTS[0];
+  if (!product) return;
+  const next = (shopActiveImageIndex + 1) % product.images.length;
+  setShopGalleryImage(next);
+}
+
+function renderShopComingSoon() {
+  const grid = document.getElementById('shopComingSoonGrid');
+  if (!grid) return;
+  const label = translations[currentLanguage]['shop-coming-soon'] || 'Coming Soon 🚀';
+  const desc = translations[currentLanguage]['shop-coming-soon-desc'] || 'New drops are on the way — check back soon.';
+  const count = 3;
+  grid.innerHTML = Array.from({ length: count }).map((_, i) => `
+    <div class="service-card" style="cursor:default; text-align:center; animation-delay:${(i * 0.08).toFixed(2)}s;">
+      <div class="product-card-img placeholder-img" style="margin-bottom:16px;">
+        <span style="font-size:26px; position:relative; z-index:1;">🚀</span>
+      </div>
+      <h4>${label}</h4>
+      <p>${desc}</p>
+    </div>`).join('');
+}
+
+function openShop() {
+  renderShopFeatured();
+  renderShopComingSoon();
+  document.getElementById('orderModal').classList.remove('active');
+  document.getElementById('marketplaceModal').classList.remove('active');
+  document.getElementById('shopModal').classList.add('active');
+  document.getElementById('shopModal').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeShop() {
+  document.getElementById('shopModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Tracks which screen the order form was opened from, so the back
+// button can return to the right place ('marketplace' | 'shop' | null).
+let orderReturnTarget = null;
+
 function openOrderForm(serviceKey, productTitle) {
   const titleKey = serviceTitleKeys[serviceKey];
   const serviceTitle = (titleKey && translations[currentLanguage][titleKey]) || serviceKey;
@@ -1719,8 +2091,10 @@ function openOrderForm(serviceKey, productTitle) {
   document.getElementById('orderModalTitle').textContent = productTitle;
   document.getElementById('orderProductField').value = `${serviceTitle} — ${productTitle}`;
   currentMarketplaceService = serviceKey;
+  orderReturnTarget = 'marketplace';
 
   document.getElementById('marketplaceModal').classList.remove('active');
+  document.getElementById('shopModal').classList.remove('active');
   document.getElementById('orderModal').classList.add('active');
   document.getElementById('orderModal').scrollTop = 0;
   document.body.style.overflow = 'hidden';
@@ -1729,10 +2103,40 @@ function openOrderForm(serviceKey, productTitle) {
   setTimeout(() => { if (nameField) nameField.focus({ preventScroll: true }); }, 400);
 }
 
-function backToMarketplace() {
+/**
+ * Opens the same order form for a Shop item (or a fully custom order,
+ * when productLabel is omitted). Reuses all the validation, spam-guard,
+ * and EmailJS/WhatsApp submission logic already built for the service
+ * marketplace, instead of duplicating a second form.
+ */
+function openShopOrderForm(productLabel) {
+  const form = document.getElementById('orderForm');
+  form.reset();
+  form.dataset.openedAt = String(Date.now());
+  setOrderStatus('', '');
+
+  const label = productLabel || (translations[currentLanguage]['shop-custom-order-label'] || 'Custom Order');
+  document.getElementById('orderModalTitle').textContent = label;
+  document.getElementById('orderProductField').value = label;
+  currentMarketplaceService = null;
+  orderReturnTarget = 'shop';
+
+  document.getElementById('marketplaceModal').classList.remove('active');
+  document.getElementById('shopModal').classList.remove('active');
+  document.getElementById('orderModal').classList.add('active');
+  document.getElementById('orderModal').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+
+  const nameField = form.querySelector('[data-field="Full Name"]');
+  setTimeout(() => { if (nameField) nameField.focus({ preventScroll: true }); }, 400);
+}
+
+function backFromOrder() {
   document.getElementById('orderModal').classList.remove('active');
-  if (currentMarketplaceService) {
+  if (orderReturnTarget === 'marketplace' && currentMarketplaceService) {
     document.getElementById('marketplaceModal').classList.add('active');
+  } else if (orderReturnTarget === 'shop') {
+    document.getElementById('shopModal').classList.add('active');
   } else {
     document.body.style.overflow = '';
   }
@@ -1743,7 +2147,6 @@ function closeOrderModal() {
   document.body.style.overflow = '';
 }
 
-// ── Basic spam guard: honeypot field + minimum time-on-form check ──
 function isLikelyOrderSpam(form) {
   const honeypot = form.querySelector('[data-field="Website"]');
   if (honeypot && honeypot.value.trim() !== '') return true;
@@ -1752,16 +2155,18 @@ function isLikelyOrderSpam(form) {
   return false;
 }
 
-// Collects and trims/sanitizes every labeled field (excludes the honeypot)
 function collectOrderData(form) {
   return Array.from(form.querySelectorAll('[data-field]'))
     .filter(field => field.getAttribute('data-field') !== 'Website')
     .map(field => {
       const label = field.getAttribute('data-field');
       if (field.type === 'file') {
+        // Text-only channels (mailto:, wa.me) cannot carry binary data —
+        // that's a platform limitation, not something client JS can work
+        // around. The real file is sent separately via EmailJS; see
+        // submitOrderViaEmail() below.
         return { label, value: field.files && field.files[0] ? field.files[0].name : '' };
       }
-      // Strip angle brackets defensively and cap length (basic sanitization)
       const raw = (field.value || '').replace(/[<>]/g, '').trim();
       return { label, value: raw.slice(0, 600) };
     });
@@ -1776,6 +2181,42 @@ function setOrderStatus(msg, type) {
     : msg;
 }
 
+/* ══════════════════════════════════════════════════════════
+   EMAILJS — real email delivery with the actual uploaded file
+   attached (not just its filename).
+   ------------------------------------------------------------
+   One-time setup to activate this:
+   1. Create a free account at https://www.emailjs.com
+   2. Add an email service (Gmail, Outlook, etc.) → copy its Service ID
+   3. Create an email template with matching field names (full_name,
+      phone, email, product, size, material, details, attachment) →
+      copy its Template ID
+   4. Copy your Public Key from Account → General
+   5. Paste all three into EMAILJS_CONFIG below
+   Free-tier attachment size limits apply (check your EmailJS plan) —
+   very large uploads may still need to be shared another way.
+   Until configured, the form automatically falls back to the
+   text-only mailto/WhatsApp links (attachment sent as filename only).
+   ══════════════════════════════════════════════════════════ */
+const EMAILJS_CONFIG = {
+  publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
+  serviceId: 'YOUR_EMAILJS_SERVICE_ID',
+  templateId: 'YOUR_EMAILJS_TEMPLATE_ID'
+};
+
+function isEmailJsConfigured() {
+  return typeof emailjs !== 'undefined'
+    && !EMAILJS_CONFIG.publicKey.startsWith('YOUR_')
+    && !EMAILJS_CONFIG.serviceId.startsWith('YOUR_')
+    && !EMAILJS_CONFIG.templateId.startsWith('YOUR_');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (isEmailJsConfigured()) {
+    try { emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey }); } catch (e) { /* SDK not loaded — falls back automatically */ }
+  }
+});
+
 function submitOrderViaEmail() {
   const form = document.getElementById('orderForm');
   if (!form.reportValidity()) {
@@ -1786,11 +2227,32 @@ function submitOrderViaEmail() {
     setOrderStatus(translations[currentLanguage]['order-spam-warning'] || 'Please wait a moment and try again.', 'error');
     return;
   }
+
+  if (isEmailJsConfigured()) {
+    // Real path: emailjs.sendForm() reads the <form> directly, including
+    // the actual bytes of any selected file — the file itself is sent,
+    // not just its name.
+    setOrderStatus(translations[currentLanguage]['form-status-sending'] || 'Sending your request…', 'success');
+    emailjs.sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, form)
+      .then(() => {
+        setOrderStatus(translations[currentLanguage]['form-status-sent'] || 'Request sent — we\'ll be in touch shortly.', 'success');
+        form.reset();
+      })
+      .catch((err) => {
+        console.error('EmailJS send failed:', err);
+        setOrderStatus(translations[currentLanguage]['form-status-send-error'] || 'Could not send automatically — please use WhatsApp instead.', 'error');
+      });
+    return;
+  }
+
+  // Fallback path (no EmailJS configured yet): a text-only mailto link.
+  // This physically cannot attach the file — only its name — so we say
+  // so plainly rather than pretend otherwise.
   const data = collectOrderData(form);
   const lines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
   const fileField = form.querySelector('[data-field="Attachment"]');
   const fileNote = (fileField && fileField.files[0])
-    ? `\n\nNote: please attach "${fileField.files[0].name}" manually — email links can't auto-attach files.`
+    ? `\n\nNote: please attach "${fileField.files[0].name}" manually — this email link can't auto-attach files. (Connect EmailJS in the code to send the real file automatically.)`
     : '';
   const subject = 'New Order Request — NOUVURA';
   const mailtoUrl = `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines + fileNote)}`;
@@ -1808,6 +2270,9 @@ function submitOrderViaWhatsApp() {
     setOrderStatus(translations[currentLanguage]['order-spam-warning'] || 'Please wait a moment and try again.', 'error');
     return;
   }
+  // WhatsApp's click-to-chat links (wa.me) are text-only by design — there
+  // is no client-side way to attach a file through this channel, so the
+  // uploaded file's name is included as a reminder to attach it manually.
   const data = collectOrderData(form);
   const lines = data.map(d => `${d.label}: ${d.value || '-'}`).join('\n');
   const message = `New Order Request\n\n${lines}`;
@@ -1816,39 +2281,43 @@ function submitOrderViaWhatsApp() {
   window.open(waUrl, '_blank');
 }
 
-// Close the top-most modal on Escape, and on backdrop click
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
   const orderModal = document.getElementById('orderModal');
   const marketModal = document.getElementById('marketplaceModal');
-  if (orderModal.classList.contains('active')) backToMarketplace();
+  const shopModalEl = document.getElementById('shopModal');
+  if (orderModal.classList.contains('active')) backFromOrder();
   else if (marketModal.classList.contains('active')) closeMarketplace();
+  else if (shopModalEl.classList.contains('active')) closeShop();
 });
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('marketplaceModal').addEventListener('click', (e) => {
     if (e.target.id === 'marketplaceModal') closeMarketplace();
   });
   document.getElementById('orderModal').addEventListener('click', (e) => {
-    if (e.target.id === 'orderModal') backToMarketplace();
+    if (e.target.id === 'orderModal') backFromOrder();
+  });
+  document.getElementById('shopModal').addEventListener('click', (e) => {
+    if (e.target.id === 'shopModal') closeShop();
   });
 });
 
-/* ══ INTRO PORTFOLIO GALLERY ══
-   Populated from /images/ next to this HTML file. Any image that
-   fails to load quietly removes itself instead of showing a broken
-   icon, so the strip still looks clean even before all files are added. */
+/* ══ INTRO / TRUST PORTFOLIO GALLERY ══
+   Images now live locally under images/ (see file header for the
+   original-filename → local-filename mapping). Any image that fails
+   to load quietly removes itself instead of showing a broken icon. */
 const introGalleryImages = [
-  '3 --02.jpg',
-  '3 -_Plan de travail 1.jpg',
-  '555.jpg',
-  'CNAME cafai 01 .jpg',
+  'image1.jpg',
+  'plan-travail.jpg',
+  'image555.jpg',
+  'cafai01.jpg',
   'cap.png',
-  'captur .png',
-  'cart visite -02 copie.jpg',
-  'cart visite _Plan de travail 1 copie.jpg',
-  'carte visit 1.jpg',
-  'flayer.jpg',
-  'habillage .jpg'
+  'capture.png',
+  'carte-visite1.jpg',
+  'carte-visite2.jpg',
+  'carte-visite3.jpg',
+  'flyer.jpg',
+  'habillage.jpg'
 ];
 
 function buildIntroGallery() {
@@ -1862,38 +2331,32 @@ function buildTrustGallery() {
 function populateGalleryTrack(trackId) {
   const track = document.getElementById(trackId);
   if (!track) return;
-  // duplicated once for a seamless infinite scroll loop
   const doubled = introGalleryImages.concat(introGalleryImages);
   track.innerHTML = doubled.map(name => `
     <div class="intro-gallery-item">
-      <img src="https://raw.githubusercontent.com/nouvura/Nouvura/main/${encodeURIComponent(name)}" alt="" loading="lazy" onerror="this.parentElement.remove();">
+      <img src="images/${encodeURIComponent(name)}" alt="" loading="lazy" onerror="this.parentElement.remove();">
     </div>
   `).join('');
 }
 
-// Select path and transition (adds a new history entry)
 function selectPath(path) {
   selectedPath = path;
   localStorage.setItem('selectedPath', path);
 
   history.pushState({ screen: 'main', path: path }, '', '#' + path);
 
-  // Show loading screen
   document.getElementById('languageScreen').classList.remove('active');
   document.getElementById('pathScreen').classList.remove('active');
   document.getElementById('loadingScreen').classList.add('active');
 
-  // Brief, non-blocking transition (kept short on purpose — see /critical_problems_to_fix #6)
   setTimeout(() => {
     document.getElementById('loadingScreen').classList.remove('active');
     document.getElementById('mainNav').style.display = 'flex';
     document.getElementById('mainContent').classList.add('show');
 
-    // Show selected path
     document.querySelectorAll('[id$="-path"]').forEach(el => el.style.display = 'none');
     document.getElementById(`${path}-path`).style.display = 'block';
 
-    // Trigger animations
     setTimeout(() => {
       document.querySelectorAll('.layer').forEach((layer, i) => {
         layer.style.animationDelay = `${i * 0.15}s`;
@@ -1906,13 +2369,11 @@ window.addEventListener('popstate', (e) => {
   applyScreenState(e.state);
 });
 
-// Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
   buildIntroGallery();
   buildTrustGallery();
   suggestBrowserLanguage();
 
-  // Check for saved preferences
   const savedLanguage = localStorage.getItem('selectedLanguage');
   const savedPath = localStorage.getItem('selectedPath');
 
@@ -1927,12 +2388,6 @@ window.addEventListener('DOMContentLoaded', () => {
     updateTranslations();
   }
 
-  /* ══ FUNNEL SIMPLIFICATION (max 2 taps, ever) ══
-     - Brand-new visitor: language screen → path screen → content (2 taps).
-     - Returning visitor who only picked a language: skip straight to the
-       path screen (1 tap left).
-     - Returning visitor who picked both: skip both screens entirely and
-       land directly on their content — zero taps, zero loading screen. */
   if (savedLanguage && savedPath && document.getElementById(`${savedPath}-path`)) {
     document.getElementById('languageScreen').classList.remove('active');
     document.getElementById('pathScreen').classList.remove('active');
@@ -1943,9 +2398,6 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.layer').forEach(layer => layer.classList.add('show'));
     requestAnimationFrame(() => document.getElementById('mainContent').classList.add('show'));
 
-    // Keep the back-button model intact: language → path → main, so the
-    // in-app Back button (and the device's own Back) still lands on the
-    // path screen instead of exiting the site.
     history.replaceState({ screen: 'language' }, '', location.pathname);
     history.pushState({ screen: 'path' }, '', '#path');
     history.pushState({ screen: 'main', path: savedPath }, '', '#' + savedPath);
@@ -1957,7 +2409,6 @@ window.addEventListener('DOMContentLoaded', () => {
     history.replaceState({ screen: 'language' }, '', location.pathname);
   }
 
-  // Show path screen after language selection
   document.querySelectorAll('.lang-option').forEach(opt => {
     opt.addEventListener('click', () => {
       setTimeout(() => {
@@ -1969,9 +2420,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Pre-highlight the language the visitor's browser is already set to, so a
-// first-time visitor usually just confirms a single suggestion rather than
-// reading three options from scratch. Never auto-advances on its own.
 function suggestBrowserLanguage() {
   if (localStorage.getItem('selectedLanguage')) return;
   const browserLang = (navigator.language || (navigator.languages && navigator.languages[0]) || 'en').toLowerCase();
@@ -1982,12 +2430,7 @@ function suggestBrowserLanguage() {
   if (match) match.classList.add('lang-suggested');
 }
 
-/* ══ FORMS: real submission via Email or WhatsApp ══
-   There is no backend, so "sending" a request means handing the
-   visitor's data to their own email app (mailto:) or WhatsApp
-   (wa.me) with everything pre-filled — nothing is lost, nothing is
-   silently swallowed by a page reload like before. */
-
+/* ══ FORMS: real submission via Email or WhatsApp ══ */
 const BUSINESS_EMAIL = 'yacineiguenene@gmail.com';
 const BUSINESS_WHATSAPP = '213776532042';
 
@@ -2033,8 +2476,7 @@ function submitViaWhatsApp(formId, subjectPrefix) {
   window.open(waUrl, '_blank');
 }
 
-// Smooth scroll animations
-const observer = new IntersectionObserver((entries) => {
+const layerObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('show');
@@ -2044,14 +2486,11 @@ const observer = new IntersectionObserver((entries) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.layer').forEach(layer => {
-    observer.observe(layer);
+    layerObserver.observe(layer);
   });
 });
 
-/* ══ FIRST-VISIT INTRO SPLASH ══
-   Shows only once per browser (localStorage flag). Purely a first-paint
-   overlay — it does not participate in the screen/history state machine,
-   so it can never interfere with back-button navigation. */
+/* ══ FIRST-VISIT INTRO SPLASH ══ */
 (function initIntroSplash() {
   const introEl = document.getElementById('introSplash');
   if (!introEl) return;
@@ -2080,7 +2519,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 2600);
 })();
 
-/* ══ HERO CTA → jump to the relevant request form ══ */
 function scrollToForm(formId) {
   const form = document.getElementById(formId);
   if (!form) return;
@@ -2093,18 +2531,12 @@ function scrollToForm(formId) {
   setTimeout(() => { if (firstField) firstField.focus({ preventScroll: true }); }, 450);
 }
 
-/* ══ PERSISTENT FLOATING CTA ══
-   Jumps to whichever path's form is currently active (individual/company/client). */
 function scrollToActiveForm(e) {
   if (e) e.preventDefault();
   const formIds = { individual: 'individualForm', company: 'companyForm', client: 'clientForm' };
   scrollToForm(formIds[selectedPath] || formIds.individual);
 }
 
-// Shows the floating CTA once the visitor has scrolled past whichever hero
-// is currently on screen, and only while they're actually inside the app
-// (not on the language/path screens). Two lightweight observers, no scroll
-// listener needed.
 (function setupFloatingCta() {
   const fab = document.getElementById('ctaFabGroup');
   const mainContentEl = document.getElementById('mainContent');
@@ -2122,12 +2554,22 @@ function scrollToActiveForm(e) {
   }, { threshold: 0 });
   document.querySelectorAll('.hero').forEach(h => heroObserver.observe(h));
 
-  // Re-evaluate whenever mainContent is shown/hidden (path switch, instant
-  // return-visitor load, screen navigation via Back/Forward).
   const showObserver = new MutationObserver(() => {
     if (!mainContentEl.classList.contains('show')) fab.classList.remove('visible');
   });
   showObserver.observe(mainContentEl, { attributes: true, attributeFilter: ['class'] });
+})();
+
+/* ══ ADAPTIVE PERFORMANCE ══ */
+(function adaptivePerformance() {
+  const nav = window.navigator;
+  const fewCores = typeof nav.hardwareConcurrency === 'number' && nav.hardwareConcurrency <= 4;
+  const littleRam = typeof nav.deviceMemory === 'number' && nav.deviceMemory <= 4;
+  const wantsReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wantsReducedData = nav.connection && (nav.connection.saveData || /2g/.test(nav.connection.effectiveType || ''));
+  if ((fewCores && littleRam) || wantsReducedMotion || wantsReducedData) {
+    document.documentElement.classList.add('reduced-fx');
+  }
 })();
 </script>
 
