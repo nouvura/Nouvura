@@ -368,6 +368,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
 /* ══ TRUST LINE ══ */
 .trust-line { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(0,240,255,0.55); margin-top: 22px; }
 
+/* ══ VISITOR COUNTER BADGE ══ */
+.visitor-counter { display: inline-flex; align-items: center; gap: 8px; font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,240,255,0.85); border: 1px solid rgba(0,240,255,0.25); background: rgba(0,240,255,0.04); padding: 9px 16px; border-radius: 20px; margin-top: 18px; }
+.visitor-counter .visitor-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: pulseDot 1.8s ease-in-out infinite; flex-shrink: 0; }
+.visitor-counter #visitorCount { color: #fff; font-weight: 700; }
+
 /* ══════════════════════════════════════════════════════
    SERVICE MARKETPLACE + ORDER FUNNEL (extends existing UI)
    ══════════════════════════════════════════════════════ */
@@ -1088,6 +1093,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; a
         </a>
       </div>
       <p class="trust-line" data-i18n="trust-line">Trusted by growing businesses across Algeria.</p>
+
+      <!-- Real-time Firestore visitor counter -->
+      <div class="visitor-counter" aria-live="polite">
+        <span class="visitor-dot"></span>
+        <span data-i18n="visitor-label">Visitors:</span>
+        <span id="visitorCount">—</span>
+      </div>
     </div>
   </div>
 
@@ -1471,7 +1483,8 @@ const translations = {
     'order-attachment-note': "Note: the actual file is sent by email once this form is connected to our mail service; the WhatsApp option can only send the file's name — please attach the file yourself in the WhatsApp chat.",
     'form-status-sending': 'Sending your request…',
     'form-status-sent': "Request sent — we'll be in touch shortly.",
-    'form-status-send-error': 'Could not send automatically — please use WhatsApp instead.'
+    'form-status-send-error': 'Could not send automatically — please use WhatsApp instead.',
+    'visitor-label': 'Visitors:'
   },
   fr: {
     'select-language': 'Sélectionnez Votre Langue',
@@ -1602,7 +1615,8 @@ const translations = {
     'order-attachment-note': "Remarque : le fichier réel est envoyé par email une fois ce formulaire connecté à notre service de messagerie ; l'option WhatsApp ne peut envoyer que le nom du fichier — merci de le joindre vous-même dans la discussion WhatsApp.",
     'form-status-sending': 'Envoi de votre demande…',
     'form-status-sent': 'Demande envoyée — nous vous recontacterons bientôt.',
-    'form-status-send-error': "Envoi automatique impossible — merci d'utiliser WhatsApp à la place."
+    'form-status-send-error': "Envoi automatique impossible — merci d'utiliser WhatsApp à la place.",
+    'visitor-label': 'Visiteurs :'
   },
   ar: {
     'select-language': 'اختر لغتك',
@@ -1733,7 +1747,8 @@ const translations = {
     'order-attachment-note': 'ملاحظة: يتم إرسال الملف الفعلي عبر البريد الإلكتروني عند ربط هذا النموذج بخدمة البريد لدينا؛ يمكن لخيار واتس آب إرسال اسم الملف فقط — يرجى إرفاق الملف بنفسك في محادثة واتس آب.',
     'form-status-sending': 'جارٍ إرسال طلبك…',
     'form-status-sent': 'تم إرسال الطلب — سنتواصل معك قريبًا.',
-    'form-status-send-error': 'تعذر الإرسال التلقائي — يرجى استخدام واتس آب بدلاً من ذلك.'
+    'form-status-send-error': 'تعذر الإرسال التلقائي — يرجى استخدام واتس آب بدلاً من ذلك.',
+    'visitor-label': 'الزوار:'
   }
 };
 
@@ -2571,6 +2586,103 @@ function scrollToActiveForm(e) {
     document.documentElement.classList.add('reduced-fx');
   }
 })();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════
+     FIREBASE FIRESTORE — REAL-TIME VISITOR COUNTER
+     ------------------------------------------------------------
+     Firebase v10+ modular SDK loaded directly from Google's CDN
+     as ES modules. On every page load this:
+       1. Initializes Firebase with the project config below.
+       2. Reads stats/visitors from Firestore.
+       3. If the document does not exist yet, creates it with
+          count = 1 (safe first-time initialization, no crash).
+       4. If it exists, atomically increments count by 1 using
+          the increment() FieldValue (safe under concurrent
+          visitors — no race-condition overwrites).
+       5. Re-reads the updated value and renders it into
+          #visitorCount immediately.
+     Wrapped end-to-end in try/catch so a network hiccup or
+     blocked script never breaks the rest of the page.
+     ══════════════════════════════════════════════════════════ -->
+<script type="module">
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+    increment
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDQoZxLaAqLb6EG_Ossvp_gRQx3FiEYDjo",
+    authDomain: "nouvura.firebaseapp.com",
+    projectId: "nouvura",
+    storageBucket: "nouvura.firebasestorage.app",
+    messagingSenderId: "792152124967",
+    appId: "1:792152124967:web:1d1d3aa4950a0f34cda802",
+    measurementId: "G-C9EGVHFRKG"
+  };
+
+  // Initialize Firebase + Firestore
+  const firebaseApp = initializeApp(firebaseConfig);
+  const db = getFirestore(firebaseApp);
+
+  // Guard against this module ever running its increment logic
+  // more than once per real page load (e.g. hot-reload edge cases).
+  let visitorCounterHasRun = false;
+
+  async function renderVisitorCount(value) {
+    const counterEl = document.getElementById('visitorCount');
+    if (counterEl) {
+      counterEl.textContent = Number(value).toLocaleString();
+    }
+  }
+
+  async function incrementAndRenderVisitorCount() {
+    if (visitorCounterHasRun) return;
+    visitorCounterHasRun = true;
+
+    const counterEl = document.getElementById('visitorCount');
+
+    try {
+      const statsRef = doc(db, 'stats', 'visitors');
+      const snapshot = await getDoc(statsRef);
+
+      if (!snapshot.exists()) {
+        // First-time initialization: document doesn't exist yet.
+        await setDoc(statsRef, { count: 1 });
+        await renderVisitorCount(1);
+        return;
+      }
+
+      // Document exists: atomically increment by +1.
+      await updateDoc(statsRef, { count: increment(1) });
+
+      // Fetch the freshly updated value and render it immediately.
+      const updatedSnapshot = await getDoc(statsRef);
+      const updatedCount = updatedSnapshot.exists() && typeof updatedSnapshot.data().count === 'number'
+        ? updatedSnapshot.data().count
+        : 1;
+
+      await renderVisitorCount(updatedCount);
+    } catch (error) {
+      // Never let a Firestore/network error break the rest of the page.
+      console.error('Visitor counter error:', error);
+      if (counterEl) counterEl.textContent = '—';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', incrementAndRenderVisitorCount);
+  } else {
+    incrementAndRenderVisitorCount();
+  }
 </script>
 
 </body>
