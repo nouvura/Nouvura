@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffd400">
+<meta name="description" content="NOUVURA — Studio créatif en Algérie.">
+<title>NOUVURA — Studio créatif</title>
+<link rel="icon" href="logo.png"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="#top"><img src="logo.png" alt="NOUVURA"><b>NOUVURA</b></a>
+  <nav><a href="#works" data-i18n="nav0">Réalisations</a><a href="#services" data-i18n="nav1">Services</a><a href="#contact" data-i18n="nav2">Contact</a></nav>
+  <div class="lang"><button data-lang="fr" class="on">FR</button><button data-lang="en">EN</button><button data-lang="ar">AR</button></div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="copy">
+    <div class="lock"><img src="logo.png" alt=""><b>NOUVURA</b></div>
+    <div class="slogan">Tout a commencé par une idée</div>
+    <h1 data-i18n="h1">Vos idées prennent forme.</h1>
+    <p data-i18n="intro">Design, motion, web et production.</p>
+    <a class="btn" href="#works"><span data-i18n="cta">Voir nos réalisations</span><i>↗</i></a>
+  </div>
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="shadow"></div>
+    <div class="plate p3"><img src="creche-t.webp" alt=""></div>
+    <div class="plate p2"><img src="empire-gym-t.webp" alt=""></div>
+    <div class="plate p1"><img src="master-events-t.webp" alt=""></div>
+  </div>
+</section>
+
+<section class="feat" id="feat">
+  <div class="fgrid" id="fgrid"></div>
+</section>
+
+<section class="works" id="works">
+  <h2 data-i18n="wTitle">Nos réalisations</h2>
+  <div class="filters" id="filters"></div>
+  <div class="masonry" id="gal"></div>
+</section>
+
+<section class="game" id="game">
+  <h2 data-i18n="gT">Jeu de mémoire</h2>
+  <div class="gwrap">
+    <div class="gbar">
+      <div class="stat"><span><span data-i18n="mvT">Coups</span> <b id="mv">0</b></span><span><span data-i18n="prT">Paires</span> <b id="fd">0/6</b></span><span><span data-i18n="bsT">Meilleur</span> <b id="bst">–</b></span></div>
+      <button class="btn y" id="again"><span data-i18n="again">Rejouer</span><i>↻</i></button>
+    </div>
+    <div id="board"></div>
+    <div class="winb" id="win" hidden data-i18n="win">Bravo !</div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <h2 data-i18n="sTitle">Nos services</h2>
+  <div class="grid">
+    <article><div class="ico i-pen"><svg viewBox="0 0 48 48"><path class="d" d="M8 40l4-12L32 8l8 8-20 20z"/><path d="M28 12l8 8"/></svg></div><h3 data-i18n="s1">Design graphique</h3></article>
+    <article><div class="ico i-play"><svg viewBox="0 0 48 48"><circle class="spin" cx="24" cy="24" r="16"/><path class="pl" d="M20 17l12 7-12 7z"/></svg></div><h3 data-i18n="s2">Motion & vidéo</h3></article>
+    <article><div class="ico i-web"><svg viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="30" rx="4"/><path d="M6 17h36"/><path class="cur" d="M20 24l10 5-4 1-2 4z"/></svg></div><h3 data-i18n="s3">Web & UI/UX</h3></article>
+    <article><div class="ico i-soc"><svg viewBox="0 0 48 48"><circle class="pu" cx="24" cy="24" r="5"/><circle class="rg" cx="24" cy="24" r="11"/><circle class="rg r2" cx="24" cy="24" r="17"/></svg></div><h3 data-i18n="s4">Réseaux sociaux</h3></article>
+    <article><div class="ico i-prt"><svg viewBox="0 0 48 48"><path d="M14 18V8h20v10"/><rect x="6" y="18" width="36" height="16" rx="3"/><rect class="sheet" x="14" y="28" width="20" height="14"/></svg></div><h3 data-i18n="s5">Impression & publicité</h3></article>
+    <article><div class="ico i-las"><svg viewBox="0 0 48 48"><path d="M10 38h28"/><path class="bm" d="M24 8v24"/><circle class="sp" cx="24" cy="34" r="3"/></svg></div><h3 data-i18n="s6">CNC, laser & DTF</h3></article>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2 data-i18n="cTitle">Parlons de votre projet</h2>
+  <div class="cwrap">
+    <form id="f">
+      <input name="n" required data-ph="ph1" placeholder="Nom">
+      <textarea name="m" rows="3" required data-ph="ph2" placeholder="Votre besoin"></textarea>
+      <button class="btn y" type="submit"><span data-i18n="send">Envoyer sur WhatsApp</span><i>↗</i></button>
+    </form>
+    <div class="links">
+      <a href="https://wa.me/213564628260" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/></svg>056 462 82 60</a>
+      <a href="https://youtube.com/@nouvura" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg>YouTube</a>
+      <a href="https://www.facebook.com/profile.php?id=61594110335379" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg>Facebook</a>
+      <a href="mailto:whaletailcompany@gmail.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>E-mail</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer><img src="logo.png" alt=""><span>© <span id="y"></span> NOUVURA</span></footer>
+<div class="lb" id="lb" hidden><button class="x" aria-label="Close">×</button><button class="nv pv">‹</button><figure><img alt=""><figcaption></figcaption></figure><button class="nv nx">›</button></div>
+<div class="hud"><span><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.5 1.1.5 1.6h6c0-.5 0-1.2.5-1.6A6 6 0 0 0 12 3z"/></svg><b id="hb">0</b>/5</span><span><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><b id="hs">0</b>/<em id="ht" style="font-style:normal">27</em></span></div>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+<script>if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js"))</script>
+</body>
+</html>
